@@ -7,37 +7,105 @@
                     full-height
                 />
             </div>
-            <div class="page-login__form">
-                <el-form
-                    :model="form"
-                    label-width="120px"
-                    :rules="rules"
-                >
-                    <div class="page-login__row">
-                        <el-form-item
-                            prop="email"
-                            label="Email"
-                        >
-                            <el-input v-model="form.email" />
-                        </el-form-item>
-                    </div>
-                    <div class="page-login__row">
-                        <el-form-item
-                            label="Password"
-                            prop="password"
-                        >
-                            <el-input
-                                v-model="form.password"
-                                type="password"
-                            />
-                        </el-form-item>
-                    </div>
-                    <el-form-item>
-                        <el-button type="primary" :loading="isLoading" @click="submitForm(formRef)">
-                            Send
-                        </el-button>
-                    </el-form-item>
-                </el-form>
+            <div v-if="!$store.getters['auth/user']?.id" class="page-login__form">
+                <div v-if="isLogin" class="page-login__login">
+                    <el-form
+                        :model="formLogin"
+                        label-width="120px"
+                        :rules="rules"
+                    >
+                        <div class="page-login__row">
+                            <el-form-item
+                                prop="email"
+                                :label="$t('commons.email')"
+                            >
+                                <el-input v-model="formLogin.email" />
+                            </el-form-item>
+                        </div>
+                        <div class="page-login__row">
+                            <el-form-item
+                                :label="$t('commons.password.field')"
+                                prop="password"
+                            >
+                                <el-input
+                                    v-model="formLogin.password"
+                                    type="password"
+                                />
+                            </el-form-item>
+                        </div>
+                        <div class="page-login__buttons">
+                            <div class="page-login__buttons-submit">
+                                <el-button type="primary" :loading="isLoading" @click="submitLogin">
+                                    {{ $t('commons.login') }}
+                                </el-button>
+                            </div>
+                            <div class="page-login__buttons-change text">
+                                {{ $t('commons.noAccount') }}<span class=" link" @click="toggleLogin"> {{ $t('commons.register') }}
+                                </span>
+                            </div>
+                        </div>
+                    </el-form>
+                </div>
+                <div v-if="!isLogin" class="page-login__register">
+                    <el-form
+                        :model="formRegister"
+                        label-width="200px"
+                        :rules="registerRules"
+                    >
+                        <div class="page-login__row">
+                            <el-form-item
+                                prop="name"
+                                :label="$t('commons.name')"
+                            >
+                                <el-input v-model="formRegister.name" />
+                            </el-form-item>
+                        </div>
+                        <div class="page-login__row">
+                            <el-form-item
+                                prop="email"
+                                :label="$t('commons.email')"
+                            >
+                                <el-input v-model="formRegister.email" />
+                            </el-form-item>
+                        </div>
+                        <div class="page-login__row">
+                            <el-form-item
+                                :label="$t('commons.password.field')"
+                                prop="password"
+                            >
+                                <el-input
+                                    v-model="formRegister.password"
+                                    type="password"
+                                />
+                            </el-form-item>
+                        </div>
+                        <div class="page-login__row">
+                            <el-form-item
+                                :label="$t('commons.password.confirm')"
+                                prop="confirm"
+                            >
+                                <el-input
+                                    v-model="formRegister.confirm"
+                                    type="password"
+                                />
+                            </el-form-item>
+                        </div>
+                        <div class="page-login__buttons">
+                            <div class="page-login__buttons-submit">
+                                <el-button type="primary" :loading="loadingRegister" @click="submitRegister">
+                                    {{ $t('commons.register') }}
+                                </el-button>
+                            </div>
+                            <div class="page-login__buttons-change text">
+                                {{ $t('commons.haveAccount') }} <span class=" link" @click="toggleLogin"> {{ $t('commons.login') }}
+                                </span>
+                            </div>
+                        </div>
+                    </el-form>
+                </div>
+            </div>
+            <div class="page-login__logged text">
+                {{ $t('commons.logged', { name: $store.getters['auth/user']?.name}) }}
             </div>
         </div>
     </LayoutDefault>
@@ -48,7 +116,8 @@
     import VoPicture from '@/components/Base/Picture.vue'
     import { reactive, ref, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
-    import { useLogin } from '@/use/useApi'
+    import { useLogin, useRegister } from '@/use/useApi'
+    import { useRouter } from 'vue-router'
     export default {
         components: {
             LayoutDefault,
@@ -56,9 +125,61 @@
         },
         setup() {
             const { t } = useI18n()
-            const form = ref({})
-
+            const formLogin = ref({})
+            const formRegister = ref({})
+            const router = useRouter()
+            const isLogin = ref(true)
             const { data, fetchData: sendLogin, isLoading} = useLogin()
+            const { data: registered, fetchData: sendRegister, isLoading: loadingRegister} = useRegister()
+
+            const registerRules = reactive({
+                name: [
+                    {
+                        required: true,
+                        message: t('errors.form.required'),
+                        trigger: 'blur',
+                    }
+                ],
+                email: [
+                    {
+                        required: true,
+                        message: t('errors.form.required'),
+                        trigger: 'blur',
+                    },
+                    {
+                        type: 'email',
+                        message: t('errors.form.email'),
+                        trigger: 'blur',
+                    },
+                ],
+                password: [
+                    {
+                        required: true,
+                        message: t('errors.form.required'),
+                        trigger: 'blur',
+                    },
+                    {
+                        min: 8,
+                        message: t('errors.form.min', { length: 8 }),
+                        trigger: 'blur',
+                    },
+
+                ],
+                confirm: [
+                    {
+                        required: true,
+                        message: t('errors.form.required'),
+                        trigger: 'blur',
+                    },
+                    {
+                        min: 8,
+                        message: t('errors.form.min', { length: 8 }),
+                        trigger: 'blur',
+                    },
+
+                ]
+            })
+
             const rules = reactive({
                 email: [
                     {
@@ -83,25 +204,51 @@
                         message: t('errors.form.min', { length: 8 }),
                         trigger: 'blur',
                     },
+
                 ]
             })
 
-            const submitForm = () => {
+            const toggleLogin = () => {
+                isLogin.value = !isLogin.value
+            }
+
+            const submitLogin = () => {
                 sendLogin({
-                    email: form.value.email,
-                    password: form.value.password
+                    email: formLogin.value.email,
+                    password: formLogin.value.password
+                })
+            }
+
+            const submitRegister = () => {
+                sendRegister({
+                    name: formRegister.value.name,
+                    email: formRegister.value.email,
+                    password: formRegister.value.password
                 })
             }
 
             watch([data], () => {
                 console.log('logged', data)
+                router.push({ name: 'home' })
+            })
+
+            watch([registered], () => {
+                console.log('registered', registered)
+                router.push({ name: 'home' })
+
             })
 
             return {
+                registerRules,
                 rules,
-                form,
+                formLogin,
+                formRegister,
                 isLoading,
-                submitForm,
+                isLogin,
+                submitLogin,
+                submitRegister,
+                toggleLogin,
+                loadingRegister
             }
         }
 
@@ -117,7 +264,8 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: em(32px);
 
-    &__form {
+    &__form,
+    &__logged {
       display: grid;
       justify-content: center;
       align-items: center;
@@ -125,6 +273,22 @@
 
     &__row {
       display: grid;
+    }
+
+    &__buttons {
+      display: grid;
+      justify-content: end;
+      grid-gap: em(8px) 0;
+
+      &-submit {
+        display: grid;
+        justify-content: end;
+      }
+
+      &-change {
+        display: flex;
+        grid-gap: em(4px);
+      }
     }
   }
 </style>

@@ -37,8 +37,7 @@ export default () => {
             accessToken: data.access_token,
             refreshToken: data.refresh_token
         })
-        store.dispatch('auth/setUser', data?.user_info?.user)
-        store.dispatch('auth/setTribe', data?.user_info?.tribe)
+        store.dispatch('auth/setUser', data?.user)
     })
 
     return {

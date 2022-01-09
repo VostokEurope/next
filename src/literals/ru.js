@@ -1,5 +1,6 @@
 export default {
     header: {
+        account: 'account',
         contact: 'email',
         claim: {
             2: 'phone',
@@ -11,20 +12,22 @@ export default {
             watch: "Часы",
             watches: "Часы"
         },
+        logged: (ctx) => `Already logged as ${ctx.named('name')}`,
+        name: "Name",
         login: "Login",
         register: "Register",
         showall: "Показать все",
         noAccount: "Don't have an account?",
+        haveAccount: "Do you have an account?",
         or: "or",
         email: "Email",
-        passwordForget: "Do you forgot Password?",
         required: "Required field",
         acceptTerms: "Accept <a href=\"/legal/terminos-y-condiciones\">terms & conditions</a> Vostok Europe.",
         user: "User",
         password: {
             field: "Password",
-            forget: "",
-            repeat: "Repeat Password"
+            forget: "Do you forgot Password?",
+            confirm: "Repeat Password"
         },
         footer: {
             terms: "Правила пользования сайтом",

@@ -1,5 +1,4 @@
 import axios from '@/clients/axios'
-import { merge } from 'lodash'
 
 const state = () => ({
     user: {},
@@ -8,10 +7,10 @@ const state = () => ({
 })
 
 const getters = {
+    user: state => state.user,
     loggedIn: state => !!state.accessToken,
     accessToken: state => state.accessToken,
-    refreshToken: state => state.refreshToken,
-    user: state => state.user
+    refreshToken: state => state.refreshToken
 }
 
 const mutations = {
@@ -27,7 +26,7 @@ const mutations = {
         axios.defaults.headers.common.Authorization = null
     },
     SET_USER (state, payload) {
-        state.user = merge(state.user, payload)
+        state.user = payload
     }
 }
 
@@ -39,9 +38,8 @@ const actions = {
     logout ({ commit }) {
         commit('CLEAR_TOKENS')
     },
-
-    setUser ({ commit }, data) {
-        commit('SET_USER', data)
+    setUser ({ commit }, payload) {
+        commit('SET_USER', payload)
     }
 }
 
