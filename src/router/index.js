@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import  useTracking from '@/use/useTracking'
 import chasy from '@/router/chasy'
 import collekciya from '@/router/collekciya'
+import admin from '@/router/admin'
 
 const routes = [
     {
@@ -13,7 +14,8 @@ const routes = [
         component: () => import('@/views/Home.vue')
     },
     ...chasy,
-    ...collekciya
+    ...collekciya,
+    ...admin
 ]
 
 const router = createRouter({

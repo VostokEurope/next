@@ -58,7 +58,7 @@
     }
 
     &__brand {
-      height: em(52px);
+      height: 52px;
       display: grid;
       justify-content: center;
       align-items: center;

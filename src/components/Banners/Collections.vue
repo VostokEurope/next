@@ -3,27 +3,36 @@
         <LayoutScrollable not-scrollable>
             <div
                 v-for="(item, i) in items"
-                :id="`slider-${i}`"
+                :id="item.name"
                 :key="item.id"
                 class="banner-hero__entry"
             >
                 <img class="banner-hero__image" :src="item.image">
                 <div class="banner-hero__overlay">
-                    <div class="banner-hero__title">
+                    <div
+                        class="banner-hero__title"
+                        @click="$router.push({ name: 'collection', params: {
+                            id: item.slug
+                        }})"
+                    >
                         {{ item.name }}
                     </div>
                     <div class="banner-hero__arrows">
-                        <a :href="`#slider-${ i-1 < 0 ? items.length - 1 : i-1}`">
+                        <a :href="`#${items[i-1 < 0 ? items.length - 1 : i-1].name}`">
                             <span class="fa fa-angle-left"></span>
                         </a>
                         <div class="banner-hero__balls">
-                            <div v-for="ball in items.length" :key="ball">
-                                <a class="banner-hero__ball" :href="`#slider-${ball - 1}`" :class="{'banner-hero__ball--active': ball-1 === i}">
+                            <div v-for="(ball, j) in items.length" :key="ball">
+                                <a
+                                    class="banner-hero__ball"
+                                    :href="`#${items[j].name}`"
+                                    :class="{'banner-hero__ball--active': ball-1 === i}"
+                                >
                                     <span class="fa fa-circle" />
                                 </a>
                             </div>
                         </div>
-                        <a :href="`#slider-${ i+1 > items.length - 1 ? 0 : i+1}`">
+                        <a :href="`#${items[i+1 > items.length - 1 ? 0 : i+1]?.name}`">
                             <span class="fa fa-angle-right"></span>
                         </a>
                     </div>
@@ -86,9 +95,9 @@
       background:
         linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0) 0%,
-          rgba(0, 0, 0, 0.6) 50%,
-          rgba(0, 0, 0, 1) 100%
+          rgb(0 0 0 / 0%) 0%,
+          rgb(0 0 0 / 60%) 50%,
+          rgb(0 0 0 / 100%) 100%
         );
     }
 

@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="footer__copyright">
-                    Copyright © 2021
+                    Copyright © 2022
                 </div>
             </div>
         </div>

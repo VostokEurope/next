@@ -1,12 +1,12 @@
 <template>
     <LayoutDefault>
         <div class="page-collections">
-            <div class="container">
-                <div class="page-collection__heading">
+            <div class="page-collections__content container">
+                <div class="page-collections__heading">
                     <h1 class="title title--h1 text--bold">
                         {{ $t('collections.page.title') }}
                     </h1>
-                    <div class="page-collection__description text">
+                    <div class="page-collections__description text">
                         {{ $t('collections.page.description') }}
                     </div>
                     <div class="anchor-image">
@@ -19,7 +19,9 @@
                                 class="anchor-image__item"
                                 :href="`#collection-${collection?.id}`"
                             >
-                                <div class="anchor-image__title">
+                                <div
+                                    class="anchor-image__title"
+                                >
                                     {{ collection.name }}
                                 </div>
                             </a>
@@ -34,7 +36,14 @@
                         :anchor="`collection-${collection?.id}`"
                         :title="collection.name"
                         :items="collection.watches"
-                        path="/chasy/"
+                        :description="collection.description"
+                        :to-title="{
+                            name: 'collection',
+                            params: {
+                                id: collection.slug
+                            }
+                        }"
+                        path="watch"
                     />
                 </template>
             </div>
@@ -70,8 +79,12 @@
 
 <style lang="postcss">
   .page-collections {
-    padding-top: em(16px);
-    padding-bottom: em(16px);
+    padding: em(16px);
+
+    &__content {
+      display: grid;
+      grid-gap: em(16px);
+    }
   }
 
   .anchor-image {

@@ -1,6 +1,6 @@
 export default [
     {
-        path: '/collekciya/',
+        path: '/kollektsii/',
         name: 'collections',
         meta: {
             menu: true
@@ -8,7 +8,7 @@ export default [
         component: () => import('@/views/Collections.vue')
     },
     {
-        path: '/collekciya/:id/',
+        path: '/kollektsiya/:id/',
         name: 'collection',
         component: () => import('@/views/Collection.vue')
     }

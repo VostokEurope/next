@@ -2,14 +2,15 @@
     <div>
         <div v-if="!loading" class="showcase">
             <div class="showcase__heading">
-                <h2 class="title title--h2 text--bold">
+                <h2 class="title title--h2 text--bold" @click="goTo">
                     {{ title }}
                 </h2>
-                <div v-if="more" :to="more" class="showcase__more">
-                    {{ $t('commons.showall') }}
-                </div>
+
                 <div v-if="anchor" :id="anchor" class="showcase__anchor">
                 </div>
+            </div>
+            <div v-if="description" class="showcase__description text">
+                {{ description }}
             </div>
             <div class="showcase__items">
                 <CardBasic
@@ -17,9 +18,12 @@
                     :key="item.id"
                     :title="item.name"
                     :price="item.price"
-                    :to="path + item.slug"
+                    :to="{name: path, params: {id: item.slug} }"
                     :image="item.images && item.images.length ? item.images[0].src : ''"
                 />
+            </div>
+            <div v-if="more" :to="more" class="showcase__more">
+                ...{{ $t('commons.showall') }}
             </div>
         </div>
         <PlaceholderSection v-else />
@@ -29,6 +33,7 @@
 <script>
     import CardBasic from '@/components/Card/Basic.vue'
     import PlaceholderSection from '@/components/Placeholders/Section.vue'
+    import { useRouter } from 'vue-router'
 
     export default {
         components: {
@@ -41,6 +46,10 @@
                 default: ''
             },
             anchor: {
+                type: String,
+                default: ''
+            },
+            description: {
                 type: String,
                 default: ''
             },
@@ -59,6 +68,22 @@
             loading: {
                 type: Boolean,
                 default: false
+            },
+            toTitle: {
+                type: Object,
+                default: () => ({})
+            }
+        },
+        setup(props) {
+            const router = useRouter()
+            const goTo = () => {
+                if (props?.toTitle.name) {
+                    router.push(props.toTitle)
+                }
+            }
+
+            return {
+                goTo
             }
         }
 
@@ -81,15 +106,22 @@
     &__more {
       text-decoration: underline;
       cursor: pointer;
-      font-size: em(12px);
+      font-size: em(16px);
+      padding: em(8px) 0;
+    }
+
+    &__description {
+      cursor: pointer;
+      font-size: em(14px);
+      padding: em(8px) 0;
     }
 
     &__items {
       display: grid;
       justify-content: center;
       grid-template-columns: repeat(auto-fill, em(140px));
-      grid-gap: em(16px);
-      padding: em(8px) 0;
+      grid-gap: em(32px);
+      padding: em(16px) 0;
 
       @media (--bp-desktop) {
         justify-content: start;

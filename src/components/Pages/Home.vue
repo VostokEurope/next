@@ -6,18 +6,18 @@
                 <SectionShowcase
                     :title="$t('home.news')"
                     :items="news"
-                    more="hola"
-                    path="/chasy/"
+                    more="true"
+                    path="watch"
                 />
                 <SectionShowcase
                     :title="$t('home.highlighted')"
                     :items="news"
-                    path="/chasy/"
+                    path="watch"
                 />
                 <SectionShowcase
                     :title="$t('home.offers')"
                     :items="news"
-                    path="/chasy/"
+                    path="watch"
                 />
             </div>
         </div>
@@ -37,7 +37,11 @@
             SectionShowcase
         },
         setup() {
-            const { data: news, fetchData, isLoading: newsLoading } = useWatchNews()
+            const {
+                data: news,
+                fetchData,
+                isLoading: newsLoading
+            } = useWatchNews()
             fetchData()
 
             return {

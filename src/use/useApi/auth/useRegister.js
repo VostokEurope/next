@@ -1,6 +1,5 @@
 import axios from '@/clients/axios'
 import { useAxios } from '@/use/useAxios'
-import { Device } from '@capacitor/device'
 import { reactive, toRefs } from 'vue'
 
 export default () => {
@@ -13,7 +12,6 @@ export default () => {
     })
 
     const fetchData = async ({ data: formData } = {}) => {
-        const device = await Device.getInfo()
         const { response, data, error, isLoading, isFinished } = useAxios('/api/v2/app/register', {
             method: 'post',
             data: {
@@ -21,8 +19,7 @@ export default () => {
                 last_name: formData?.lastname,
                 email: formData?.email,
                 password: formData?.password,
-                password_confirmation: formData?.confirmPassword,
-                device
+                password_confirmation: formData?.confirmPassword
             }
         }, axios)
 

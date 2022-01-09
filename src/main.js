@@ -8,6 +8,8 @@ import router from '@/router'
 import store from '@/store'
 import { createI18n } from 'vue-i18n'
 import messages from '@/literals'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 
 const i18n = createI18n({
     locale: 'ru',
@@ -19,4 +21,5 @@ createApp(App)
     .use(store)
     .use(router)
     .use(i18n)
+    .use(ElementPlus)
     .mount('#app')

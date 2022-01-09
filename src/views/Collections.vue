@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import PageCollections from '@/components/Pages/Collections.vue'
+    import PageCollections from '@/components/Pages/PageCollections.vue'
 
     export default {
         components: {

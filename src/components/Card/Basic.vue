@@ -14,6 +14,7 @@
 
 <script>
     import useCurrency from '@/use/useCurrency'
+    import { useRouter } from 'vue-router'
 
     export default {
         components: {
@@ -29,7 +30,7 @@
                 default: 0
             },
             to: {
-                type: String,
+                type: [String, Object],
                 default: '/'
             },
             image: {
@@ -39,9 +40,11 @@
         },
 
         setup() {
+            const router = useRouter()
             const { get: getPrice } = useCurrency()
+
             const   goTo = () => {
-                this.$router.push(this.to)
+                router.push(this.to)
             }
 
             return {
@@ -59,7 +62,7 @@
     height: em(200px);
     width: em(140px);
     cursor: pointer;
-    box-shadow: 0 0 em(8px) em(5px) rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 em(8px) em(5px) rgb(0 0 0 / 10%);
     border-radius: em(5px);
 
     &__image,
@@ -85,7 +88,7 @@
 
     &__title {
       position: absolute;
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: rgb(255 255 255 / 50%);
       padding: em(8px);
       font-weight: bold;
       right: 0;

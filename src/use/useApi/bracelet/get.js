@@ -1,6 +1,6 @@
 import axios from '@/clients/axios'
 import { useAxios } from '@/use/useAxios'
-import { reactive, toRefs, watch } from 'vue'
+import { reactive, toRefs } from 'vue'
 
 export default () => {
     const state = reactive({
@@ -12,12 +12,8 @@ export default () => {
     })
 
     const fetchData = (params) => {
-        const { response, data, error, isLoading, isFinished } = useAxios('/collection', {
-            method: 'get',
-            params: {
-                page: params?.page || 1,
-                search: params?.search
-            }
+        const { response, data, error, isLoading, isFinished } = useAxios(`/bracelet/${params.id}`, {
+            method: 'get'
         }, axios)
 
         state.response = response

@@ -12,7 +12,7 @@ export default () => {
     })
 
     const fetchData = (params) => {
-        const { response, data, error, isLoading, isFinished } = useAxios('/collection', {
+        const { response, data, error, isLoading, isFinished } = useAxios('/bracelet', {
             method: 'get',
             params: {
                 page: params?.page || 1,

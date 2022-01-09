@@ -1,6 +1,6 @@
 import axios from '@/clients/axios'
 import { useAxios } from '@/use/useAxios'
-import { reactive, toRefs, watch } from 'vue'
+import { reactive, toRefs } from 'vue'
 
 export default () => {
     const state = reactive({
