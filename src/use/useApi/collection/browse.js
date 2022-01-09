@@ -15,6 +15,7 @@ export default () => {
         const { response, data, error, isLoading, isFinished } = useAxios('/collection', {
             method: 'get',
             params: {
+                limit: params?.limit,
                 page: params?.page || 1,
                 search: params?.search
             }

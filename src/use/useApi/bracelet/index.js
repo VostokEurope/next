@@ -1,2 +1,2 @@
-export { default as useBraceletBrowse } from '@/use/useApi/bracelet/browse'
-export { default as useBraceletGet} from '@/use/useApi/bracelet/get'
+export { default as useBraceletsBrowse } from '@/use/useApi/bracelet/browse'
+export { default as useBraceletsGet} from '@/use/useApi/bracelet/get'

@@ -107,7 +107,12 @@ export default {
         }
     },
     errors: {
-        contact: "Если проблема сохранится, <a href=\"mailto:info@vostokeurope.shop\">свяжитесь с нами</a>."
+        contact: "Если проблема сохранится, <a href=\"mailto:info@vostokeurope.shop\">свяжитесь с нами</a>.",
+        form: {
+            email: '- format: sample(at)sample(dot)ru',
+            required: 'Required field',
+            min: (ctx) => `- ${ctx.named('length')} characters or more`
+        }
     },
     collections: {
         page: {

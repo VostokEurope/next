@@ -2,7 +2,7 @@
     <div class="banner-hero">
         <LayoutScrollable not-scrollable>
             <div
-                v-for="(item, i) in items"
+                v-for="(item, i) in collections?.items"
                 :id="item.name"
                 :key="item.id"
                 class="banner-hero__entry"
@@ -18,21 +18,21 @@
                         {{ item.name }}
                     </div>
                     <div class="banner-hero__arrows">
-                        <a :href="`#${items[i-1 < 0 ? items.length - 1 : i-1].name}`">
+                        <a :href="`#${collections?.items[i-1 < 0 ? collections?.items.length - 1 : i-1].name}`">
                             <span class="fa fa-angle-left"></span>
                         </a>
                         <div class="banner-hero__balls">
-                            <div v-for="(ball, j) in items.length" :key="ball">
+                            <div v-for="(ball, j) in collections?.items.length" :key="ball">
                                 <a
                                     class="banner-hero__ball"
-                                    :href="`#${items[j].name}`"
+                                    :href="`#${collections?.items[j].name}`"
                                     :class="{'banner-hero__ball--active': ball-1 === i}"
                                 >
                                     <span class="fa fa-circle" />
                                 </a>
                             </div>
                         </div>
-                        <a :href="`#${items[i+1 > items.length - 1 ? 0 : i+1]?.name}`">
+                        <a :href="`#${collections?.items[i+1 > collections?.items.length - 1 ? 0 : i+1]?.name}`">
                             <span class="fa fa-angle-right"></span>
                         </a>
                     </div>
@@ -51,11 +51,13 @@
             LayoutScrollable
         },
         setup() {
-            const { data: items, fetchData } = useCollectionsBrowse()
-            fetchData()
+            const { data: collections, fetchData } = useCollectionsBrowse()
+            fetchData({
+                limit: 20
+            })
 
             return {
-                items
+                collections
             }
         }
     }

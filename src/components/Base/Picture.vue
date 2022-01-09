@@ -4,7 +4,8 @@
         :class="{
             'picture--has-overlay' : overlay,
             'picture--auto' : auto || fullWidth,
-            'picture--full-width' : fullWidth
+            'picture--full-width' : fullWidth,
+            'picture--full-height' : fullHeight
         }"
     >
         <img
@@ -40,6 +41,10 @@
                 type: Boolean,
                 default: false
             },
+            fullHeight: {
+                type: Boolean,
+                default: false
+            },
             loading: {
                 type: String,
                 default: 'lazy'
@@ -53,6 +58,14 @@
     position: relative;
     overflow: hidden;
     border-radius: em(8px);
+
+    &--full-height {
+      height: 100%;
+
+      .picture__img {
+        height: 100%;
+      }
+    }
 
     &:not(&--auto) {
       &::before {
