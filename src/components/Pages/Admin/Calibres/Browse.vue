@@ -1,9 +1,9 @@
 <template>
     <AdminLayout>
-        <div class="admin-page-bracelets container">
+        <div class="admin-page-calibres container">
             <el-card shadow="never">
                 <template #header>
-                    <div class="admin-page-bracelets__actions">
+                    <div class="admin-page-calibres__actions">
                         <el-input
                             v-model="search"
                             placeholder="Search"
@@ -16,12 +16,13 @@
                 </template>
                 <el-table
                     v-loading="isLoading"
-                    class="admin-page-bracelets__table"
+                    class="admin-page-calibres__table"
                     :data="data?.items"
                 >
                     <el-table-column label="id" prop="id" width="80" />
                     <el-table-column label="name" prop="name" width="200" />
-                    <el-table-column label="image" prop="image" />
+                    <el-table-column label="code" prop="code" width="200" />
+                    <el-table-column label="origin" prop="origin.name" />
                     <el-table-column fixed="right" label="Actions" width="120">
                         <template #default="scope">
                             <el-button
@@ -51,7 +52,7 @@
                         </template>
                     </el-table-column>
                 </el-table>
-                <div v-if="data?.pages > 1" class="admin-page-bracelets__pagination">
+                <div v-if="data?.pages > 1" class="admin-page-calibres__pagination">
                     <el-pagination
                         v-model:currentPage="currentPage"
                         layout="prev, pager, next"
@@ -67,9 +68,9 @@
 <script>
     import AdminLayout from '@/components/Layouts/Admin.vue'
     import { ref, watch } from 'vue-demi'
-    import { useBraceletsBrowse, useBraceletsDelete } from '@/use/useApi'
+    import { useCalibresBrowse, useCalibresDelete } from '@/use/useApi'
     import { useRouter } from 'vue-router'
-    const basePath = 'admin-bracelets'
+    const basePath = 'admin-calibres'
 
 
     export default {
@@ -82,8 +83,8 @@
             const router = useRouter()
 
 
-            const {data, fetchData: getItems, isLoading }  = useBraceletsBrowse()
-            const {data: deleted, fetchData: deleteItem, isLoading: loadingDelete } = useBraceletsDelete()
+            const {data, fetchData: getItems, isLoading }  = useCalibresBrowse()
+            const {data: deleted, fetchData: deleteItem, isLoading: loadingDelete } = useCalibresDelete()
 
             const editRow = (row) => {
                 router.push({
@@ -141,7 +142,7 @@
 </script>
 
 <style lang="postcss">
-  .admin-page-bracelets {
+  .admin-page-calibres {
     &__actions {
       display: grid;
       grid-template-columns: auto auto;

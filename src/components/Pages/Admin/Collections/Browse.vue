@@ -141,18 +141,6 @@
       justify-content: space-between;
     }
 
-    &__table {
-      .el-table__row {
-        cursor: pointer;
-      }
-    }
-
-    &__avatar {
-      aspect-ratio: 1/1;
-      width: 64px;
-      border-radius: var(--el-border-radius-base);
-    }
-
     &__pagination {
       display: flex;
       justify-content: flex-end;
