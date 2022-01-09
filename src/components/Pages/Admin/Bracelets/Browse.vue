@@ -10,7 +10,7 @@
                             clearable
                             @input="filterTable"
                         />
-                        <el-button type="primary" plain :loading="loadingCreate" @click="create">
+                        <el-button type="primary" plain @click="create">
                             New
                         </el-button>
                     </div>
@@ -22,7 +22,7 @@
                 >
                     <el-table-column label="id" prop="id" width="80" />
                     <el-table-column label="name" prop="name" width="200" />
-                    <el-table-column label="slug" prop="slug" />
+                    <el-table-column label="image" prop="image" />
                     <el-table-column fixed="right" label="Actions" width="120">
                         <template #default="scope">
                             <el-button
@@ -45,7 +45,7 @@
                                 confirm-button-text="Yes"
                                 cancel-button-text="No"
                                 icon-color="red"
-                                @confirm="unpublishRow(scope.row)"
+                                @confirm="removeEntry(scope.row)"
                             >
                                 <template #reference>
                                     <el-button
@@ -76,7 +76,9 @@
 <script>
     import AdminLayout from '@/components/Layouts/Admin.vue'
     import { ref, watch } from 'vue-demi'
-    import { useBraceletsBrowse } from '@/use/useApi'
+    import { useBraceletsBrowse, useBraceletsDelete } from '@/use/useApi'
+    import { useRouter } from 'vue-router'
+    const basePath = 'admin-bracelets'
 
 
     export default {
@@ -86,17 +88,31 @@
         setup () {
             const search = ref('')
             const currentPage = ref(1)
+            const router = useRouter()
 
 
             const {data, fetchData: getItems, isLoading }  = useBraceletsBrowse()
-            const {fetchData: createCollection, loadingCreate }  = useBraceletsBrowse()
-            const {fetchData: deleteCollection, isLoading: loadingDelete }  = useBraceletsBrowse()
-            const {fetchData: cloneCollection, isLoading: loadingClone }  = useBraceletsBrowse()
+            const {data: deleted, fetchData: deleteItem, isLoading: loadingDelete } = useBraceletsDelete()
+            const {fetchData: cloneItem, isLoading: loadingClone }  = useBraceletsBrowse()
 
-            const editRow = () => {}
+            const editRow = (row) => {
+                router.push({
+                    name:`${basePath}-edit`,
+                    params: {
+                        id: row.id
+                    }
+                })
+            }
             const copyRow = () => {}
-            const unpublishRow = () => {}
-            const create = () => {}
+            const removeEntry = (row) => {
+                deleteItem({
+                    id: row.id
+                })
+            }
+
+            const create = () => {
+                router.push({name:`${basePath}-new`,})
+            }
             const filterTable = () => {}
 
             const onSearch = () => {
@@ -112,6 +128,10 @@
                 onSearch()
             })
 
+            watch(deleted, () => {
+                router.go()
+            })
+
             console.log(data)
 
             return {
@@ -121,10 +141,9 @@
                 currentPage,
                 editRow,
                 copyRow,
-                unpublishRow,
+                removeEntry,
                 create,
                 filterTable,
-                loadingCreate,
                 loadingClone,
                 loadingDelete
             }

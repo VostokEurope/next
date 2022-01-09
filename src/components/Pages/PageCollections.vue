@@ -9,9 +9,10 @@
                     <div class="page-collections__description text">
                         {{ $t('collections.page.description') }}
                     </div>
+                    Privet
                     <div class="anchor-image">
                         <template
-                            v-for="collection in collections"
+                            v-for="collection in collections?.items"
                             :key="collection?.id"
                         >
                             <a
@@ -28,7 +29,7 @@
                         </template>
                     </div>
                 </div>
-                <template v-for="collection in collections">
+                <template v-for="collection in collections?.items">
                     <SectionShowcase
                         v-if="collection?.watches?.length"
                         :key="collection.id"

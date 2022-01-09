@@ -17,5 +17,13 @@ export default [
         meta: {
             title: `${entry} Edit`
         },
+    },
+    {
+        path: `${entry}/new`,
+        name: `${base}-${entry}-new`,
+        component: () => import('@/views/Admin/Bracelets/Edit.vue'),
+        meta: {
+            title: `${entry} New`
+        },
     }
 ]
