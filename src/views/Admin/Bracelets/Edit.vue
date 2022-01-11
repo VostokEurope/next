@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import PageAdminEdit from '@/components/Pages/Admin/Bracelets/Edit.vue'
+    import PageAdminEdit from '@/components/Pages/Admin/Bracelets/EditBracelets.vue'
 
     export default {
         components: {

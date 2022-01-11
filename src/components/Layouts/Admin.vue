@@ -3,15 +3,19 @@
         <div class="layout-admin__nav">
             <div class="layout-admin__wrapper">
                 <div
-                    v-for="(option, i) in options"
+                    v-for="(option, i) in routes"
                     :key="option.to"
                     class="layout-admin__element"
                 >
-                    <div class="layout-admin__item" :class="{'layout-admin__item--active': $route.name === option.to}" @click="$router.push({name: option.to})">
-                        <span :class="`fal fa-${option.icon}`" />
+                    <div
+                        class="layout-admin__item"
+                        :class="{'layout-admin__item--active': $route.name === option.name}"
+                        @click="$router.push({name: option.name})"
+                    >
+                        <span :class="`fal fa-${option.meta.icon}`" />
                     </div>
                     <div class="layout-admin__item-label">
-                        {{ option.name }}
+                        {{ option.meta.title }}
                     </div>
                 </div>
             </div>
@@ -28,6 +32,7 @@
 </template>
 
 <script>
+    import useCustomRouter from '@/use/useCustomRouter'
 
 
     export default {
@@ -36,67 +41,11 @@
 
         },
         setup() {
-            const options = [
-                {
-                    name: "Home",
-                    icon: 'home',
-                    to: 'admin',
-                },
-                {
-                    name: "Collections",
-                    icon: 'border-all',
-                    to: 'admin-collections',
-                },
-                {
-                    name: "Watches",
-                    icon: 'watch',
-                    to: 'admin-watches'
-                },
-                {
-                    name: "Bracelets",
-                    icon: 'moon',
-                    to: 'admin-bracelets'
-                },
-                {
-                    name: "Calibres",
-                    icon: 'cogs',
-                    to: 'admin-calibres'
-                },
-                {
-                    name: "Cases",
-                    icon: 'copyright',
-                    to: 'admin-cases'
-                },
-                {
-                    name: "Coatings",
-                    icon: 'adjust',
-                    to: 'admin-coatings'
-                },
-                {
-                    name: "Glasses",
-                    icon: 'lightbulb',
-                    to: 'admin-glasses'
-                },
-                {
-                    name: "Mechanisms",
-                    icon: 'cog',
-                    to: 'admin-mechanisms'
-                },
-                {
-                    name: "Origins",
-                    icon: 'flag',
-                    to: 'admin-origins'
-                },
-                {
-                    name: "Resistances",
-                    icon: 'gem',
-                    to: 'admin-resistances'
-                }
-            ]
-
+            const { getAdminNav } = useCustomRouter()
+            const routes = getAdminNav()
 
             return {
-                options
+                routes
             }
         }
     }
@@ -160,6 +109,7 @@
         padding: em(8px) 0;
         text-align: center;
         color: black;
+        text-transform: capitalize;
       }
     }
 

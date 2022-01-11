@@ -1,13 +1,14 @@
 <template>
     <AdminLayout>
-        <div class="admin-page-bracelets-edit container">
+        <div class="admin-page-calibres-edit container">
             <el-form
-                class="admin-page-bracelets-edit__form"
+                ref="formRef"
+                class="admin-page-calibres-edit__form"
                 :model="form"
                 label-width="120px"
                 :rules="rules"
             >
-                <div class="admin-page-bracelets-edit__row">
+                <div class="admin-page-calibres-edit__row">
                     <el-form-item
                         prop="id"
                         label="id"
@@ -15,7 +16,7 @@
                         <el-input v-model="form.id" disabled />
                     </el-form-item>
                 </div>
-                <div class="admin-page-bracelets-edit__row">
+                <div class="admin-page-calibres-edit__row">
                     <el-form-item
                         label="name"
                         prop="name"
@@ -26,19 +27,24 @@
                         />
                     </el-form-item>
                 </div>
-                <div class="admin-page-bracelets-edit__row">
+                <div class="admin-page-calibres-edit__row">
                     <el-form-item
-                        label="image"
-                        prop="image"
+                        label="Origin"
+                        prop="originId"
                     >
-                        <el-input
-                            v-model="form.image"
-                            type="text"
-                        />
+                        <el-select v-model="form.originId" filterable placeholder="Select">
+                            <el-option
+                                v-for="item in origins"
+                                :key="item.id"
+                                :loading="loadingOrigins"
+                                :label="item.name"
+                                :value="item.id"
+                            />
+                        </el-select>
                     </el-form-item>
                 </div>
-                <div class="admin-page-bracelets-edit__buttons">
-                    <div class="admin-page-bracelets-edit__buttons-submit">
+                <div class="admin-page-calibres-edit__buttons">
+                    <div class="admin-page-calibres-edit__buttons-submit">
                         <el-button type="primary" :loading="isSaving || isCreating" @click="submit">
                             {{ $t('commons.save') }}
                         </el-button>
@@ -51,9 +57,9 @@
 
 <script>
     import AdminLayout from '@/components/Layouts/Admin.vue'
-    import { useBraceletsCreate, useBraceletsEdit, useBraceletsGet } from '@/use/useApi'
+    import { useCalibresCreate, useCalibresEdit, useCalibresGet, useOriginsBrowse } from '@/use/useApi'
     import { useRoute, useRouter } from 'vue-router'
-    import { reactive, watch } from 'vue-demi'
+    import { reactive, ref, watch } from 'vue-demi'
     import { useI18n } from 'vue-i18n'
 
     export default {
@@ -63,6 +69,7 @@
         setup () {
             const { t } = useI18n()
             const router = useRouter()
+            const formRef = ref()
             const rules = reactive({
                 name: [
                     {
@@ -76,12 +83,14 @@
             const form = reactive({
                 id: undefined,
                 name: undefined,
-                image: undefined
+                originId: undefined
 
             })
-            const { data: bracelet, fetchData: get } = useBraceletsGet()
-            const { data: saved, fetchData: edit, isLoading: isSaving } = useBraceletsEdit()
-            const { data: created, fetchData: create, isLoading: isCreating } = useBraceletsCreate()
+            const { data: calibre, fetchData: get } = useCalibresGet()
+            const { data: saved, fetchData: edit, isLoading: isSaving } = useCalibresEdit()
+            const { data: created, fetchData: create, isLoading: isCreating } = useCalibresCreate()
+            const { data: origins, fetchData: getOrigins, isLoading: loadingOrigins } = useOriginsBrowse()
+
             if (route.params.id) {
                 get({
                     id: route.params.id
@@ -90,32 +99,41 @@
 
 
             const submit = () => {
+                formRef.value.validate().then(afterValidation)
+            }
+
+            const afterValidation = () => {
                 if (route.params.id) {
                     edit(form)
                 } else {
                     create(form)
                 }
-
             }
 
-            watch(bracelet, () => {
-                console.log(bracelet.value)
-                form.id = bracelet.value.id
-                form.name = bracelet.value.name
-                form.image = bracelet.value.image
+            watch(calibre, () => {
+                form.id = calibre.value.id
+                form.name = calibre.value.name
+                form.originId = calibre.value.originId
             })
 
             watch([saved, created], () => {
-                router.push({name: 'admin-bracelets'})
+                router.push({name: 'admin-calibres'})
             })
+
+            getOrigins()
+
+            console.log(origins)
 
             return {
                 form,
-                bracelet,
+                calibre,
                 submit,
                 isSaving,
                 isCreating,
-                rules
+                rules,
+                origins,
+                loadingOrigins,
+                formRef
             }
 
         },
@@ -123,7 +141,7 @@
 </script>
 
 <style lang="postcss">
-  .admin-page-bracelets-edit {
+  .admin-page-calibres-edit {
     display: grid;
     justify-content: center;
 

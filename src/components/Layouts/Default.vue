@@ -5,18 +5,21 @@
             <slot />
         </div>
         <DefaultFooter />
+        <DebugTools />
     </div>
 </template>
 
 <script>
     import DefaultFooter from '@/components/Base/Footer.vue'
     import DefaultHeader from '@/components/Base/Header.vue'
+    import DebugTools from '@/components/Base/DebugTools.vue'
 
     export default {
         name: 'Default',
         components: {
             DefaultFooter,
-            DefaultHeader
+            DefaultHeader,
+            DebugTools
         }
     }
 </script>

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import PageAdminCollectionEdit from '@/components/Pages/Admin/Collections/Edit.vue'
+    import PageAdminCollectionEdit from '@/components/Pages/Admin/Collections/EditCollections.vue'
 
     export default {
         components: {

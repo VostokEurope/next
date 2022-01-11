@@ -12,11 +12,10 @@ export default () => {
     })
 
     const fetchData = (params) => {
-        const { response, data, error, isLoading, isFinished } = useAxios(`/bracelet/${params?.id}`, {
+        const { response, data, error, isLoading, isFinished } = useAxios(`/case/${params?.id}`, {
             method: 'patch',
             data: {
-                name: params?.name,
-                image: params?.image
+                name: params?.name
             }
         }, axios)
 

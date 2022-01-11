@@ -6,7 +6,10 @@ export default [
         path: `${entry}`,
         name: `${base}-${entry}`,
         meta: {
-            title: `${entry}`
+            title: `${entry}`,
+            icon: 'fal fa-watch',
+            shortcut: true,
+            admin: true
         },
         component: () => import('@/views/Admin/AdminHome.vue'),
     },

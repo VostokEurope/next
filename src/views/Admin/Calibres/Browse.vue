@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import PageAdminCalibresBrowse from '@/components/Pages/Admin/Calibres/Browse.vue'
+    import PageAdminCalibresBrowse from '@/components/Pages/Admin/Calibres/BrowseCalibres.vue'
 
     export default {
         components: {

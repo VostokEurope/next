@@ -1,6 +1,6 @@
 import axios from '@/clients/axios'
 import { useAxios } from '@/use/useAxios'
-import { reactive, toRefs, watch } from 'vue'
+import { reactive, toRefs } from 'vue'
 
 export default () => {
     const state = reactive({
@@ -16,7 +16,7 @@ export default () => {
             method: 'post',
             data: {
                 name: params?.name,
-                image: params?.image
+                originId: params?.originId
             }
         }, axios)
 

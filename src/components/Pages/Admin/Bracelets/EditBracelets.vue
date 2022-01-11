@@ -2,6 +2,7 @@
     <AdminLayout>
         <div class="admin-page-bracelets-edit container">
             <el-form
+                ref="formRef"
                 class="admin-page-bracelets-edit__form"
                 :model="form"
                 label-width="120px"
@@ -53,7 +54,7 @@
     import AdminLayout from '@/components/Layouts/Admin.vue'
     import { useBraceletsCreate, useBraceletsEdit, useBraceletsGet } from '@/use/useApi'
     import { useRoute, useRouter } from 'vue-router'
-    import { reactive, watch } from 'vue-demi'
+    import { reactive, ref, watch } from 'vue-demi'
     import { useI18n } from 'vue-i18n'
 
     export default {
@@ -63,6 +64,7 @@
         setup () {
             const { t } = useI18n()
             const router = useRouter()
+            const formRef = ref(null)
             const rules = reactive({
                 name: [
                     {
@@ -88,14 +90,16 @@
                 })
             }
 
-
             const submit = () => {
+                formRef.value.validate().then(afterValidation)
+            }
+
+            const afterValidation = () => {
                 if (route.params.id) {
                     edit(form)
                 } else {
                     create(form)
                 }
-
             }
 
             watch(bracelet, () => {
@@ -115,6 +119,7 @@
                 submit,
                 isSaving,
                 isCreating,
+                formRef,
                 rules
             }
 

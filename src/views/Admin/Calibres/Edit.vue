@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import PageAdminCalibresEdit from '@/components/Pages/Admin/Calibres/Edit.vue'
+    import PageAdminCalibresEdit from '@/components/Pages/Admin/Calibres/EditCalibres.vue'
 
     export default {
         components: {

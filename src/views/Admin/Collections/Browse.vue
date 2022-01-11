@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import PageAdminCollectionBrowse from '@/components/Pages/Admin/Collections/Browse.vue'
+    import PageAdminCollectionBrowse from '@/components/Pages/Admin/Collections/BrowseCollections.vue'
 
     export default {
         components: {

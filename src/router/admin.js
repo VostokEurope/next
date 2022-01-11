@@ -19,7 +19,10 @@ export default [
                 path: '',
                 name: 'admin',
                 meta: {
-                    title: 'Home'
+                    title: `Home`,
+                    icon: 'fal fa-home',
+                    shortcut: true,
+                    admin: true
                 },
                 component: () => import('@/views/Admin/AdminHome.vue'),
             },
