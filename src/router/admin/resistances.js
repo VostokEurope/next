@@ -11,14 +11,22 @@ export default [
             shortcut: false,
             admin: true
         },
-        component: () => import('@/views/Admin/AdminHome.vue'),
+        component: () => import('@/views/Admin/Resistances/Browse.vue'),
     },
     {
         path: `${entry}/:id`,
         name: `${base}-${entry}-edit`,
-        component: () => import('@/views/Admin/AdminHome.vue'),
+        component: () => import('@/views/Admin/Resistances/Edit.vue'),
         meta: {
             title: `${entry} Edit`
+        },
+    },
+    {
+        path: `${entry}/new`,
+        name: `${base}-${entry}-new`,
+        component: () => import('@/views/Admin/Resistances/Edit.vue'),
+        meta: {
+            title: `${entry} New`
         },
     }
 ]

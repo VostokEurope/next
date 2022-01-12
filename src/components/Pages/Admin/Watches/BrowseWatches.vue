@@ -1,9 +1,9 @@
 <template>
     <AdminLayout>
-        <div class="admin-page-collections ">
+        <div class="admin-page-watches ">
             <el-card shadow="never">
                 <template #header>
-                    <div class="admin-page-collections__actions">
+                    <div class="admin-page-watches__actions">
                         <el-input
                             v-model="search"
                             placeholder="Search"
@@ -16,12 +16,12 @@
                 </template>
                 <el-table
                     v-loading="isLoading"
-                    class="admin-page-collections__table"
+                    class="admin-page-watches__table"
                     :data="data?.items"
                 >
                     <el-table-column label="id" prop="id" />
                     <el-table-column label="name" prop="name" />
-                    <el-table-column label="slug" prop="slug" />
+                    <el-table-column label="model" prop="model" />
                     <el-table-column fixed="right" label="Actions">
                         <template #default="scope">
                             <el-button
@@ -30,13 +30,6 @@
                                 @click="editRow(scope.row)"
                             >
                                 <span class="fal fa-pencil"></span>
-                            </el-button>
-                            <el-button
-                                type="text"
-                                size="small"
-                                @click="cloneRow(scope.row)"
-                            >
-                                <span class="fal fa-copy"></span>
                             </el-button>
                             <el-popconfirm
                                 title="Are you sure to delete this?"
@@ -58,7 +51,7 @@
                         </template>
                     </el-table-column>
                 </el-table>
-                <div v-if="data?.pages > 1" class="admin-page-collections__pagination">
+                <div v-if="data?.pages > 1" class="admin-page-watches__pagination">
                     <el-pagination
                         v-model:currentPage="currentPage"
                         layout="prev, pager, next"
@@ -74,9 +67,9 @@
 <script>
     import AdminLayout from '@/components/Layouts/Admin.vue'
     import { ref, watch } from 'vue-demi'
-    import { useCollectionsBrowse, useCollectionsDelete } from '@/use/useApi'
+    import { useWatchesBrowse, useWatchesDelete } from '@/use/useApi'
     import { useRouter } from 'vue-router'
-    const basePath = 'admin-collections'
+    const basePath = 'admin-watches'
 
 
     export default {
@@ -89,8 +82,8 @@
             const router = useRouter()
 
 
-            const {data, fetchData: getItems, isLoading }  = useCollectionsBrowse()
-            const {data: deleted, fetchData: deleteItem, isLoading: loadingDelete } = useCollectionsDelete()
+            const {data, fetchData: getItems, isLoading }  = useWatchesBrowse()
+            const {data: deleted, fetchData: deleteItem, isLoading: loadingDelete } = useWatchesDelete()
 
             const editRow = (row) => {
                 router.push({
@@ -100,10 +93,6 @@
                     }
                 })
             }
-
-            const cloneRow = (row) => {
-
-            }
             const removeEntry = (row) => {
                 deleteItem({
                     id: row.id
@@ -112,6 +101,9 @@
 
             const create = () => {
                 router.push({name:`${basePath}-new`,})
+            }
+            const filterTable = () => {
+
             }
 
             const onSearch = () => {
@@ -141,15 +133,15 @@
                 editRow,
                 removeEntry,
                 create,
-                loadingDelete,
-                cloneRow
+                filterTable,
+                loadingDelete
             }
         },
     }
 </script>
 
 <style lang="postcss">
-  .admin-page-collections {
+  .admin-page-watches {
     &__actions {
       display: grid;
       grid-template-columns: auto auto;

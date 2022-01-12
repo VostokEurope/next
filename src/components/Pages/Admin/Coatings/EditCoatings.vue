@@ -77,7 +77,6 @@
             const form = reactive({
                 id: undefined,
                 name: undefined,
-                originId: undefined
 
             })
             const { data: coating, fetchData: get } = useCoatingsGet()

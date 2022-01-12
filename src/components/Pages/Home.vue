@@ -29,7 +29,7 @@
     import BannerCollections from '@/components/Banners/Collections.vue'
     import SectionShowcase from '@/components/Section/Showcase.vue'
 
-    import { useWatchNews } from '@/use/useApi'
+    import { useWatchesNews } from '@/use/useApi'
     export default {
         components: {
             LayoutDefault,
@@ -41,7 +41,7 @@
                 data: news,
                 fetchData,
                 isLoading: newsLoading
-            } = useWatchNews()
+            } = useWatchesNews()
             fetchData()
 
             return {

@@ -1,13 +1,14 @@
 <template>
     <AdminLayout>
-        <div class="admin-page-cases-edit ">
+        <div class="admin-page-watches-edit ">
             <el-form
                 ref="formRef"
-                class="admin-page-cases-edit__form"
+                class="admin-page-watches-edit__form"
                 :model="form"
                 :rules="rules"
             >
-                <div class="admin-page-cases-edit__row">
+                {{ item }}
+                <div class="admin-page-watches-edit__row">
                     <el-form-item
                         prop="id"
                         label="id"
@@ -15,7 +16,7 @@
                         <el-input v-model="form.id" disabled />
                     </el-form-item>
                 </div>
-                <div class="admin-page-cases-edit__row">
+                <div class="admin-page-watches-edit__row">
                     <el-form-item
                         label="name"
                         prop="name"
@@ -26,8 +27,9 @@
                         />
                     </el-form-item>
                 </div>
-                <div class="admin-page-cases-edit__buttons">
-                    <div class="admin-page-cases-edit__buttons-submit">
+
+                <div class="admin-page-watches-edit__buttons">
+                    <div class="admin-page-watches-edit__buttons-submit">
                         <el-button type="primary" :loading="isSaving || isCreating" @click="submit">
                             {{ $t('commons.save') }}
                         </el-button>
@@ -40,7 +42,7 @@
 
 <script>
     import AdminLayout from '@/components/Layouts/Admin.vue'
-    import { useCasesCreate, useCasesEdit, useCasesGet } from '@/use/useApi'
+    import { useWatchesCreate, useWatchesEdit, useWatchesGet } from '@/use/useApi'
     import { useRoute, useRouter } from 'vue-router'
     import { reactive, ref, watch } from 'vue-demi'
     import { useI18n } from 'vue-i18n'
@@ -68,9 +70,9 @@
                 name: undefined,
 
             })
-            const { data: calibre, fetchData: get } = useCasesGet()
-            const { data: saved, fetchData: edit, isLoading: isSaving } = useCasesEdit()
-            const { data: created, fetchData: create, isLoading: isCreating } = useCasesCreate()
+            const { data: item, fetchData: get } = useWatchesGet()
+            const { data: saved, fetchData: edit, isLoading: isSaving } = useWatchesEdit()
+            const { data: created, fetchData: create, isLoading: isCreating } = useWatchesCreate()
 
             if (route.params.id) {
                 get({
@@ -91,21 +93,20 @@
                 }
             }
 
-            watch(calibre, () => {
-                form.id = calibre.value.id
-                form.name = calibre.value.name
+            watch(item, () => {
+                form.id = item.value.id
+                form.name = item.value.name
             })
 
             watch([saved, created], () => {
-                router.push({name: 'admin-cases'})
+                router.push({name: 'admin-watches'})
             })
 
-
-            console.log(calibre)
+            console.log(item)
 
             return {
                 form,
-                calibre,
+                item,
                 submit,
                 isSaving,
                 isCreating,
@@ -118,7 +119,7 @@
 </script>
 
 <style lang="postcss">
-  .admin-page-cases-edit {
+  .admin-page-watches-edit {
     display: grid;
     justify-content: center;
 

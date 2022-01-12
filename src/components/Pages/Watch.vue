@@ -10,7 +10,7 @@
 
 <script>
     import LayoutDefault from '@/components/Layouts/Default.vue'
-    import { useWatchGet } from '@/use/useApi'
+    import { useWatchesGet } from '@/use/useApi'
     import { useRoute } from 'vue-router'
 
     export default {
@@ -19,7 +19,7 @@
         },
         setup() {
             const route = useRoute()
-            const { data: watch, fetchData: getWatch, isLoading } = useWatchGet()
+            const { data: watch, fetchData: getWatch, isLoading } = useWatchesGet()
 
             getWatch({
                 id: route.params.id

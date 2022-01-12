@@ -66,7 +66,6 @@
             const form = reactive({
                 id: undefined,
                 name: undefined,
-                originId: undefined
 
             })
             const { data: glass, fetchData: get } = useGlassesGet()

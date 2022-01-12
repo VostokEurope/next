@@ -8,4 +8,6 @@ export * from '@/use/useApi/origin'
 export * from '@/use/useApi/coating'
 export * from '@/use/useApi/glass'
 export * from '@/use/useApi/mechanism'
+export * from '@/use/useApi/resistance'
+
 

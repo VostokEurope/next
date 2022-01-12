@@ -12,8 +12,15 @@ export default () => {
     })
 
     const fetchData = (params) => {
-        const { response, data, error, isLoading, isFinished } = useAxios(`/watch/${params?.id}`, {
-            method: 'get'
+        const { response, data, error, isLoading, isFinished } = useAxios(`/collection/`, {
+            method: 'post',
+            data: {
+                name: params?.name,
+                description:  params?.description,
+                image: params?.image,
+                relevance: params?.relevance,
+                banDiscount: params?.banDiscount,
+            }
         }, axios)
 
         state.response = response

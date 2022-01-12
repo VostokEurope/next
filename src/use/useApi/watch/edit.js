@@ -13,7 +13,10 @@ export default () => {
 
     const fetchData = (params) => {
         const { response, data, error, isLoading, isFinished } = useAxios(`/watch/${params?.id}`, {
-            method: 'get'
+            method: 'patch',
+            data: {
+                name: params?.name
+            }
         }, axios)
 
         state.response = response
