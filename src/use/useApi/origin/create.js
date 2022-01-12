@@ -16,7 +16,8 @@ export default () => {
             method: 'post',
             data: {
                 name: params?.name,
-                image: params?.image
+                code: params?.code,
+                hide: params?.hide,
             }
         }, axios)
 
