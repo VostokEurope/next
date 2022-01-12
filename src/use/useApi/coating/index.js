@@ -1,0 +1,5 @@
+export { default as useCoatingsBrowse } from '@/use/useApi/coating/browse'
+export { default as useCoatingsGet } from '@/use/useApi/coating/get'
+export { default as useCoatingsEdit } from '@/use/useApi/coating/edit'
+export { default as useCoatingsCreate } from '@/use/useApi/coating/create'
+export { default as useCoatingsDelete } from '@/use/useApi/coating/delete'
