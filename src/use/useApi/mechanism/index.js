@@ -1,0 +1,5 @@
+export { default as useMechanismsBrowse } from '@/use/useApi/mechanism/browse'
+export { default as useMechanismsGet } from '@/use/useApi/mechanism/get'
+export { default as useMechanismsEdit } from '@/use/useApi/mechanism/edit'
+export { default as useMechanismsCreate } from '@/use/useApi/mechanism/create'
+export { default as useMechanismsDelete } from '@/use/useApi/mechanism/delete'
