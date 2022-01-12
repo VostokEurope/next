@@ -1,6 +1,6 @@
 <template>
     <AdminLayout>
-        <div class="admin-page-cases container">
+        <div class="admin-page-cases ">
             <el-card shadow="never">
                 <template #header>
                     <div class="admin-page-cases__actions">
@@ -19,11 +19,11 @@
                     class="admin-page-cases__table"
                     :data="data?.items"
                 >
-                    <el-table-column label="id" prop="id" width="80" />
-                    <el-table-column label="name" prop="name" width="250" />
-                    <el-table-column label="code" prop="code" width="200" />
+                    <el-table-column label="id" prop="id" />
+                    <el-table-column label="name" prop="name" />
+                    <el-table-column label="code" prop="code" />
                     <el-table-column />
-                    <el-table-column fixed="right" label="Actions" width="120">
+                    <el-table-column fixed="right" label="Actions">
                         <template #default="scope">
                             <el-button
                                 type="text"

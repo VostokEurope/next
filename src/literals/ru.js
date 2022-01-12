@@ -3,8 +3,14 @@ export default {
         account: 'account',
         contact: 'email',
         claim: {
-            2: 'phone',
-            3: 'wats'
+            2:{
+                label: '+7 (495) 517 43 45',
+                value: 'tel:+74955174345',
+            },
+            1:{
+                label: () => 'info@vostok.ru',
+                value: () => 'mailto:info@vostok.ru',
+            },
         }
     },
     commons: {
@@ -12,6 +18,7 @@ export default {
             watch: "Часы",
             watches: "Часы"
         },
+        logout: 'logout',
         logged: (ctx) => `Already logged as ${ctx.named('name')}`,
         name: "Name",
         login: "Login",

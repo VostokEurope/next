@@ -1,31 +1,42 @@
 <template>
     <div class="layout-admin">
-        <div class="layout-admin__nav">
-            <div class="layout-admin__wrapper">
-                <div
-                    v-for="(option, i) in routes"
-                    :key="option.to"
-                    class="layout-admin__element"
-                >
+        <DefaultHeader clear />
+        <div class="layout-admin__heading title--h2">
+            {{ $route.meta.title }}
+        </div>
+        <div class="layout-admin__icon" @click="toggleMenu">
+            <div v-if="!active">
+                <span class="fa fa-bars"></span>
+            </div>
+            <div v-if="active">
+                <span class="fa fa-times"></span>
+            </div>
+        </div>
+        <div class="layout-admin__default" :class="{'layout-admin--active' : active}">
+            <div class="layout-admin__nav">
+                <div class="layout-admin__wrapper">
                     <div
-                        class="layout-admin__item"
-                        :class="{'layout-admin__item--active': $route.name === option.name}"
-                        @click="$router.push({name: option.name})"
+                        v-for="(option, i) in routes"
+                        :key="option.to"
+                        class="layout-admin__element"
                     >
-                        <span :class="`fal fa-${option.meta.icon}`" />
-                    </div>
-                    <div class="layout-admin__item-label">
-                        {{ option.meta.title }}
+                        <div
+                            class="layout-admin__item"
+                            :class="{'layout-admin__item--active': $route.name === option.name}"
+                            @click="$router.push({name: option.name})"
+                        >
+                            <span :class="`fal fa-${option.meta.icon}`" />
+                        </div>
+                        <div class="layout-admin__item-label">
+                            {{ option.meta.title }}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="layout-admin__content">
-            <div class="layout-admin__heading title--h1">
-                {{ $route.meta.title }}
-            </div>
-            <div class="layout-admin__body">
-                <slot />
+            <div class="layout-admin__content">
+                <div class="layout-admin__body">
+                    <slot />
+                </div>
             </div>
         </div>
     </div>
@@ -33,19 +44,27 @@
 
 <script>
     import useCustomRouter from '@/use/useCustomRouter'
+    import DefaultHeader from '@/components/Base/Header.vue'
+    import { ref } from 'vue-demi'
 
 
     export default {
         name: 'LayoutAdmin',
         components: {
+            DefaultHeader,
 
         },
         setup() {
+            const active = ref(false)
             const { getAdminNav } = useCustomRouter()
             const routes = getAdminNav()
-
+            const toggleMenu = () => {
+                active.value = !active.value
+            }
             return {
-                routes
+                routes,
+                active,
+                toggleMenu
             }
         }
     }
@@ -53,17 +72,44 @@
 
 <style lang="postcss">
   .layout-admin {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: em(80px) 1fr;
+    &__icon {
+      position: fixed;
+      margin: em(32px);
+      top: 0;
 
-    @media (--bp-desktop) {
-      grid-template-columns: auto 1fr;
+      @media (--bp-desktop) {
+        display: none;
+      }
+    }
+
+    &__default {
+      padding: em(16px) 0;
+      min-height: 100vh;
+      display: grid;
+
+      @media (--bp-desktop) {
+        grid-template-columns: auto 1fr;
+      }
+    }
+
+    &--active {
+      &.layout-admin__default {
+        grid-template-columns: em(64px) 1fr;
+      }
+
+      .layout-admin__nav {
+        display: block;
+      }
     }
 
     &__nav {
-      border-right: 1px solid black;
-      padding: em(16px) em(8px);
+      display: none;
+      padding: em(4px);
+
+      @media (--bp-desktop) {
+        display: block;
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     &__wrapper {
@@ -78,12 +124,15 @@
     }
 
     &__heading {
-      padding: em(8px) 0;
-      text-transform: uppercase;
+      padding-top: em(16px);
+      text-transform: capitalize;
+      text-align: center;
     }
 
     &__body {
-      padding: em(16px) 0;
+      background: linear-gradient(90deg, rgb(255 255 255 / 0%) 0%, rgb(0 0 0/ 5%) 50%, rgb(255 255 255 / 0%) 100%);
+      border-radius: em(5px);
+      height: 100%;
     }
 
     &__item {
@@ -92,13 +141,13 @@
       display: grid;
       justify-content: center;
       align-items: center;
-      background-color: black;
-      color: white;
+      color: var(--color-white);
       border-radius: em(4px);
       padding: em(8px);
       height: em(40px);
       width: em(40px);
       opacity: 0.7;
+      background-color: var(--color-primary);
 
       &--active {
         opacity: 1;
@@ -122,10 +171,6 @@
       &:hover {
         opacity: 1;
       }
-    }
-
-    &__content {
-      padding: em(16px);
     }
   }
 </style>

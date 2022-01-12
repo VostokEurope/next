@@ -1,11 +1,10 @@
 <template>
     <AdminLayout>
-        <div class="admin-page-calibres-edit container">
+        <div class="admin-page-calibres-edit ">
             <el-form
                 ref="formRef"
                 class="admin-page-calibres-edit__form"
                 :model="form"
-                label-width="120px"
                 :rules="rules"
             >
                 <div class="admin-page-calibres-edit__row">
@@ -150,7 +149,7 @@
     }
 
     &__buttons {
-      margin: 0 auto;
+      margin: em(16px) auto;
     }
   }
 </style>

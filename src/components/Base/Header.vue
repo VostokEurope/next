@@ -1,14 +1,18 @@
 <template>
     <div class="header">
-        <div class="header__promo">
+        <div v-show="!clear" class="header__promo">
             <div class="header__wrapper">
-                <div class="header__claim">
-                    {{ $t('header.contact') }}
+                <div class="header__wrapper-email">
+                    <a :href="$t('header.claim.1.value')">
+                        {{ $t('header.claim.1.label') }}
+                    </a>
                 </div>
-                <div class="header__claim">
-                    {{ $t('header.claim.2') }}
+                <div class="header__wrapper-phone link">
+                    <a :href="$t('header.claim.2.value')">
+                        {{ $t('header.claim.2.label') }}
+                    </a>
                 </div>
-                <div class="header__user">
+                <div class="header__wrapper-user">
                     <div v-if="$store.getters['auth/user']?.id" class="">
                         {{ $store.getters['auth/user']?.name }}, <span class="text link" @click="logout">
                             {{ $t('commons.logout') }}
@@ -25,7 +29,7 @@
                 <img src="https://hoprojection.com/wp-content/uploads/2018/05/Vostok_Europe_Hoprojection_Hopro_Hologram-1288x724.png">
             </div>
         </div>
-        <div class="header__tool">
+        <div v-show="!clear" class="header__tool">
             <HeaderMenu />
             <div class="header__search">
                 <div>Input</div>
@@ -42,6 +46,12 @@
     export default {
         components: {
             HeaderMenu
+        },
+        props: {
+            clear: {
+                type: Boolean,
+                default: false
+            },
         },
         setup() {
             const store = useStore()
@@ -82,10 +92,36 @@
     }
 
     &__wrapper {
+      padding: 0 em(16px);
+      width: 100vw;
       display: grid;
-      justify-content: center;
+      justify-content: start;
+      align-items: center;
+      font-size: 12px;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-gap: 30vw;
+      text-align: right;
+
+      &-user,
+      &-phone,
+      &-email {
+        cursor: pointer;
+      }
+
+      &-phone {
+        text-align: center;
+      }
+
+      &-user {
+        text-align: right;
+      }
+
+      &-email {
+        text-align: left;
+      }
+    }
+
+    &__contact {
+      text-align: left;
     }
 
     &__brand {
@@ -104,10 +140,6 @@
         height: em(52px);
         object-fit: cover;
       }
-    }
-
-    &__user {
-      cursor: pointer;
     }
 
     &__tool {

@@ -45,7 +45,7 @@
   --line-height-900: 1.9;
 
   /* Typhography */
-  --font-family: 'Muli', sans-serif;
+  --font-family: "Muli", sans-serif;
   --font-size: em(16px);
   --font-weight: var(--font-weight-regular);
   --line-height: var(--line-height-400);
@@ -56,7 +56,7 @@
 
   /* Color Palette */
   --color-black: #070705;
-  --color-white: rgb(248, 248, 248);
+  --color-white: rgb(248 248 248);
   --color-error: #a1210f;
   --color-error-light: #f9caca;
   --color-success: #0e9a3e;
@@ -70,6 +70,7 @@
   --color-bg-body: var(--color-white);
   --color-text: var(--color-black);
   --color-primary: #bd0c15;
+  --color-primary-dark: #7e060c;
   --color-primary-inside: var(--color-white);
 
   /* Revisar más adelante esta variable */
@@ -81,9 +82,9 @@
   --radius-300: em(8px);
 
   /* Shadows */
-  --shadow: em(4px) em(4px) em(16px) rgba(110, 121, 140, 0.16);
-  --shadow-100: 0 em(2px) em(5px) rgba(0, 0, 0, 0.05);
-  --shadow-200: 0 0 em(5px) rgba(0, 0, 0, 0.05), 0 em(25px) em(35px) rgba(0, 0, 0, 0.03);
+  --shadow: em(4px) em(4px) em(16px) rgb(110 121 140 / 16%);
+  --shadow-100: 0 em(2px) em(5px) rgb(0 0 0 / 5%);
+  --shadow-200: 0 0 em(5px) rgb(0 0 0 / 5%), 0 em(25px) em(35px) rgb(0 0 0 / 3%);
 
   /* Containers */
   --container-100: em(304px);

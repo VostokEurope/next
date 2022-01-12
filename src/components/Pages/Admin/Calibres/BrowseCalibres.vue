@@ -1,6 +1,6 @@
 <template>
     <AdminLayout>
-        <div class="admin-page-calibres container">
+        <div class="admin-page-calibres ">
             <el-card shadow="never">
                 <template #header>
                     <div class="admin-page-calibres__actions">
@@ -19,11 +19,11 @@
                     class="admin-page-calibres__table"
                     :data="data?.items"
                 >
-                    <el-table-column label="id" prop="id" width="80" />
-                    <el-table-column label="name" prop="name" width="200" />
-                    <el-table-column label="code" prop="code" width="200" />
+                    <el-table-column label="id" prop="id" />
+                    <el-table-column label="name" prop="name" />
+                    <el-table-column label="code" prop="code" />
                     <el-table-column label="origin" prop="origin.name" />
-                    <el-table-column fixed="right" label="Actions" width="120">
+                    <el-table-column fixed="right" label="Actions">
                         <template #default="scope">
                             <el-button
                                 type="text"

@@ -1,6 +1,6 @@
 <template>
     <AdminLayout>
-        <div class="admin-page-collections container">
+        <div class="admin-page-collections ">
             <el-card shadow="never">
                 <template #header>
                     <div class="admin-page-collections__actions">
@@ -19,11 +19,12 @@
                     v-loading="isLoading"
                     class="admin-page-collections__table"
                     :data="collections?.items"
+                    s
                 >
-                    <el-table-column label="id" prop="id" width="80" />
-                    <el-table-column label="name" prop="name" width="200" />
+                    <el-table-column label="id" prop="id" />
+                    <el-table-column label="name" prop="name" />
                     <el-table-column label="slug" prop="slug" />
-                    <el-table-column fixed="right" label="Actions" width="120">
+                    <el-table-column fixed="right" label="Actions">
                         <template #default="scope">
                             <el-button
                                 type="text"

@@ -1,6 +1,6 @@
 <template>
     <AdminLayout>
-        <div class="admin-page-bracelets-edit container">
+        <div class="admin-page-bracelets-edit ">
             <el-form
                 ref="formRef"
                 class="admin-page-bracelets-edit__form"
@@ -137,7 +137,7 @@
     }
 
     &__buttons {
-      margin: 0 auto;
+      margin: em(16px) auto;
     }
   }
 </style>

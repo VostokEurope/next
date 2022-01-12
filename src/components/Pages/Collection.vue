@@ -1,7 +1,7 @@
 <template>
     <LayoutDefault>
         <div class="page-collection">
-            <div v-if="!isLoading" class="page-collection__content container">
+            <div v-if="!isLoading" class="page-collection__content ">
                 <h1 class="title title--h1 text--bold">
                     {{ collection.name }}
                 </h1>

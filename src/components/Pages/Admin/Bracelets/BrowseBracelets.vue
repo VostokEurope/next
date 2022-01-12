@@ -1,6 +1,6 @@
 <template>
     <AdminLayout>
-        <div class="admin-page-bracelets container">
+        <div class="admin-page-bracelets ">
             <el-card shadow="never">
                 <template #header>
                     <div class="admin-page-bracelets__actions">
@@ -18,11 +18,12 @@
                     v-loading="isLoading"
                     class="admin-page-bracelets__table"
                     :data="data?.items"
+                    resizable
                 >
-                    <el-table-column label="id" prop="id" width="80" />
-                    <el-table-column label="name" prop="name" width="200" />
+                    <el-table-column resizable label="id" prop="id" with="20" />
+                    <el-table-column label="name" prop="name" />
                     <el-table-column label="image" prop="image" />
-                    <el-table-column fixed="right" label="Actions" width="120">
+                    <el-table-column fixed="right" label="Actions">
                         <template #default="scope">
                             <el-button
                                 type="text"
@@ -142,6 +143,10 @@
 
 <style lang="postcss">
   .admin-page-bracelets {
+    @media (--bp-desktop) {
+      font-size: 16px;
+    }
+
     &__actions {
       display: grid;
       grid-template-columns: auto auto;
@@ -153,6 +158,14 @@
       display: flex;
       justify-content: flex-end;
       margin-top: 24px;
+    }
+
+    &__table {
+      font-size: 10px;
+
+      @media (--bp-desktop) {
+        font-size: 16px;
+      }
     }
   }
 </style>

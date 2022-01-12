@@ -9,7 +9,9 @@ import store from '@/store'
 import { createI18n } from 'vue-i18n'
 import messages from '@/literals'
 import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
+import '@/assets/css/vendors.css'
+
+
 
 const i18n = createI18n({
     locale: 'ru',

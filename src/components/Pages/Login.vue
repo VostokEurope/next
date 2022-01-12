@@ -11,27 +11,23 @@
                 <div v-if="isLogin" class="page-login__login">
                     <el-form
                         :model="formLogin"
-                        label-width="120px"
                         :rules="rules"
                     >
                         <div class="page-login__row">
-                            <el-form-item
-                                prop="email"
-                                :label="$t('commons.email')"
-                            >
-                                <el-input v-model="formLogin.email" />
-                            </el-form-item>
+                            <div class="page-login__label text">
+                                {{ $t('commons.email') }}
+                            </div>
+                            <el-input v-model="formLogin.email" :label="$t('commons.email')" />
                         </div>
                         <div class="page-login__row">
-                            <el-form-item
+                            <div class="page-login__label text">
+                                {{ $t('commons.password.field') }}
+                            </div>
+                            <el-input
+                                v-model="formLogin.password"
                                 :label="$t('commons.password.field')"
-                                prop="password"
-                            >
-                                <el-input
-                                    v-model="formLogin.password"
-                                    type="password"
-                                />
-                            </el-form-item>
+                                type="password"
+                            />
                         </div>
                         <div class="page-login__buttons">
                             <div class="page-login__buttons-submit">
@@ -40,7 +36,7 @@
                                 </el-button>
                             </div>
                             <div class="page-login__buttons-change text">
-                                {{ $t('commons.noAccount') }}<span class=" link" @click="toggleLogin"> {{ $t('commons.register') }}
+                                {{ $t('commons.noAccount') }} <span class=" link" @click="toggleLogin"> {{ $t('commons.register') }}
                                 </span>
                             </div>
                         </div>
@@ -96,7 +92,7 @@
                                     {{ $t('commons.register') }}
                                 </el-button>
                             </div>
-                            <div class="page-login__buttons-change text">
+                            <div class="page-login__buttons-change">
                                 {{ $t('commons.haveAccount') }} <span class=" link" @click="toggleLogin"> {{ $t('commons.login') }}
                                 </span>
                             </div>
@@ -104,7 +100,7 @@
                     </el-form>
                 </div>
             </div>
-            <div class="page-login__logged text">
+            <div v-else class="page-login__logged text">
                 {{ $t('commons.logged', { name: $store.getters['auth/user']?.name}) }}
             </div>
         </div>
@@ -261,8 +257,11 @@
     padding: em(32px);
     min-height: 80vh;
     display: grid;
-    grid-template-columns: 1fr 1fr;
     grid-gap: em(32px);
+
+    @media (--bp-desktop) {
+      grid-template-columns: 1fr 1fr;
+    }
 
     &__form,
     &__logged {
@@ -271,14 +270,36 @@
       align-items: center;
     }
 
+    &__image {
+      order: 2;
+    }
+
+    @media (--bp-desktop) {
+      &__image {
+        order: 0;
+      }
+    }
+
     &__row {
+      padding-top: em(8px);
+      font-size: em(12px);
       display: grid;
+
+      .el-form-item__label {
+        --el-form-label-font-size: 12px;
+
+        height: em(32px);
+      }
     }
 
     &__buttons {
+      margin-top: em(16px);
       display: grid;
       justify-content: end;
-      grid-gap: em(8px) 0;
+      grid-gap: em(16px);
+      grid-template-columns: auto em(120px);
+      line-height: 0.8;
+      align-items: center;
 
       &-submit {
         display: grid;
@@ -286,8 +307,8 @@
       }
 
       &-change {
-        display: flex;
-        grid-gap: em(4px);
+        font-size: 12px;
+        line-height: 1;
       }
     }
   }

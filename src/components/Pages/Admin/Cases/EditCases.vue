@@ -1,11 +1,10 @@
 <template>
     <AdminLayout>
-        <div class="admin-page-cases-edit container">
+        <div class="admin-page-cases-edit ">
             <el-form
                 ref="formRef"
                 class="admin-page-cases-edit__form"
                 :model="form"
-                label-width="120px"
                 :rules="rules"
             >
                 <div class="admin-page-cases-edit__row">
@@ -130,7 +129,7 @@
     }
 
     &__buttons {
-      margin: 0 auto;
+      margin: em(16px) auto;
     }
   }
 </style>

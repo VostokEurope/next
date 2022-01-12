@@ -1,7 +1,7 @@
 <template>
     <LayoutDefault>
         <div class="page-collections">
-            <div class="page-collections__content container">
+            <div class="page-collections__content">
                 <div class="page-collections__heading">
                     <h1 class="title title--h1 text--bold">
                         {{ $t('collections.page.title') }}

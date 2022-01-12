@@ -1,0 +1,50 @@
+body {
+  --el-color-primary: var(--color-primary);
+  --el-button-bg-color: var(--color-primary);
+  --el-button-border-color: var(--color-primary-dark);
+  --el-button-hover-bg-color: var(--color-primary);
+  --el-button-hover-border-color: var(--color-primary-dark);
+  --el-button-active-bg-color: var(--color-primary);
+  --el-button-active-border-color: var(--color-primary-dark);
+}
+
+.el-form-item--default {
+  display: grid !important;
+  margin: 0 !important;
+}
+
+.el-form-item__label {
+  text-align: left !important;
+  padding: 0 4px !important;
+  height: 28px;
+}
+
+.el-form-item__error {
+  padding: 4px;
+  background: var(--color-white);
+  opacity: 0.7;
+  right: 0;
+  left: inherit !important;
+  border-radius: 5px;
+}
+
+.el-button--primary {
+  background-color: var(--color-primary) !important;
+  color: var(--color-primary-inside) !important;
+  border-color: var(--color-primary-dark) !important;
+}
+
+.el-button {
+  --el-color-primary: var(--color-primary);
+  --el-button-bg-color: var(--color-primary);
+  --el-button-border-color: var(--color-primary-dark);
+  --el-button-hover-bg-color: var(--color-primary);
+  --el-button-hover-border-color: var(--color-primary-dark);
+  --el-button-active-bg-color: var(--color-primary);
+  --el-button-active-border-color: var(--color-primary-dark);
+}
+
+.el-table .cell {
+  line-height: 1 !important;
+  font-size: 12px !important;
+}
