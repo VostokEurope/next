@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import { useCollectionGet } from '@/use/useApi'
+    import { useCollectionsGet } from '@/use/useApi'
     import { useRoute } from 'vue-router'
     import LayoutDefault from '@/components/Layouts/Default.vue'
     import SectionShowcase from '@/components/Section/Showcase.vue'
@@ -40,7 +40,7 @@
         },
         setup() {
             const route = useRoute()
-            const { data: collection, fetchData, isLoading }  = useCollectionGet()
+            const { data: collection, fetchData, isLoading }  = useCollectionsGet()
 
             fetchData({
                 id: route.params.id

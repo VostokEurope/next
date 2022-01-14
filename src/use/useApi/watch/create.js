@@ -15,7 +15,29 @@ export default () => {
         const { response, data, error, isLoading, isFinished } = useAxios(`/watch/`, {
             method: 'post',
             data: {
-                name: params?.name
+                calibresIds: params.calibres,
+                caseId: params.caseId,
+                collectionId: params.collectionId,
+                description: params.description,
+                coatingId: params.coatingId,
+                resistanceId: params.resistanceId,
+                discount: params.discount,
+                genderId: params.genderId,
+                glassId: params.glassId,
+                height: params.height,
+                mechanismId: params.mechanismId,
+                model: params.model,
+                name: params.name,
+                price: params.price,
+                properties: params.properties
+                    .filter((entry) => entry.avaiable)
+                    .map(entry => ({
+                        id: entry.id,
+                        value: entry.value
+                    })),
+                stock: params.stock,
+                thickness: params.thickness,
+                width: params.width
             }
         }, axios)
 

@@ -61,6 +61,20 @@
                                 />
                             </el-form-item>
                             <el-form-item
+                                label="collection"
+                                prop="collectionId"
+                            >
+                                <el-select v-model="form.collectionId" filterable placeholder="Select">
+                                    <el-option
+                                        v-for="entry in collections?.items"
+                                        :key="entry.id"
+                                        :loading="loadingCollections"
+                                        :label="entry.name"
+                                        :value="entry.id"
+                                    />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item
                                 label="description"
                                 prop="description"
                             >
@@ -300,6 +314,7 @@
         useCalibresBrowse,
         useCasesBrowse,
         useCoatingsBrowse,
+        useCollectionsBrowse,
         useGendersBrowse,
         useGlassesBrowse,
         useMechanismsBrowse,
@@ -330,6 +345,13 @@
                         message: t('errors.form.required'),
                         trigger: 'blur',
                     }
+                ],
+                mechanismId: [
+                    {
+                        required: true,
+                        message: t('errors.form.required'),
+                        trigger: 'blur',
+                    }
                 ]
             })
             const route = useRoute()
@@ -349,6 +371,7 @@
             const { data: calibres, fetchData: getCalibres, isLoading: loadingCalibres } = useCalibresBrowse()
             const { data: avaiableProperties, fetchData: getProperties, isLoading: loadingProperties } = usePropertiesBrowse()
             const { data: genders, fetchData: getGenders, isLoading: loadingGenders } = useGendersBrowse()
+            const { data: collections, fetchData: getCollections, isLoading: loadingCollections } = useCollectionsBrowse()
 
 
 
@@ -414,21 +437,21 @@
             })
 
             watch([saved, created], () => {
-                //router.push({name: 'admin-watches'})
+                router.push({name: 'admin-watches'})
             })
 
             watch([avaiableProperties, item], () => {
                 const props =  avaiableProperties.value
-                const settedProps = item.value.properties
+                const settedProps = item?.value?.properties
                 console.log('intento')
                 console.log({
                     props,
                     settedProps
                 })
-                if(avaiableProperties?.value?.length && item.value?.id) {
+                if(avaiableProperties?.value?.length && (item.value?.id || !route.params.id)) {
                     console.log('hola')
                     form.properties = props.map((entry) => {
-                        const match =  settedProps.find(prop => entry.id === prop.id)
+                        const match =  (settedProps || []).find(prop => entry.id === prop.id)
                         return {
                             ...entry,
                             avaiable: !!match?.id,
@@ -448,11 +471,13 @@
             getCalibres()
             getProperties()
             getGenders()
+            getCollections()
 
 
             console.log('gender ->',genders)
 
             return {
+                collections,
                 form,
                 item,
                 submit,
@@ -474,7 +499,8 @@
                 loadingResistances,
                 loadingCalibres,
                 loadingProperties,
-                loadingGenders
+                loadingGenders,
+                loadingCollections
             }
 
         },
