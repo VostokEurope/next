@@ -67,7 +67,7 @@
 
 <script>
     import AdminLayout from '@/components/Layouts/Admin.vue'
-    import { ref, watch } from 'vue-demi'
+    import { ref, watch } from 'vue'
     import { useCalibresBrowse, useCalibresDelete } from '@/use/useApi'
     import { useRouter } from 'vue-router'
     const basePath = 'admin-calibres'
@@ -123,8 +123,6 @@
             watch([deleted], () => {
                 router.go()
             })
-
-            console.log(data)
 
             return {
                 isLoading,

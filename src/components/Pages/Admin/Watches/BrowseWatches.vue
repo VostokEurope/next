@@ -66,7 +66,7 @@
 
 <script>
     import AdminLayout from '@/components/Layouts/Admin.vue'
-    import { ref, watch } from 'vue-demi'
+    import { ref, watch } from 'vue'
     import { useWatchesBrowse, useWatchesDelete } from '@/use/useApi'
     import { useRouter } from 'vue-router'
     const basePath = 'admin-watches'
@@ -122,8 +122,6 @@
             watch([deleted], () => {
                 router.go()
             })
-
-            console.log(data)
 
             return {
                 isLoading,

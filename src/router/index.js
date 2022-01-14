@@ -18,6 +18,11 @@ const routes = [
         name: 'login',
         component: () => import('@/views/Login.vue')
     },
+    {
+        path: '/search',
+        name: 'search',
+        component: () => import('@/views/Search.vue')
+    },
     ...chasy,
     ...collekciya,
     ...admin

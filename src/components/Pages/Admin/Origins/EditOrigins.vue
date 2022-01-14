@@ -57,7 +57,7 @@
     import AdminLayout from '@/components/Layouts/Admin.vue'
     import { useOriginsCreate, useOriginsEdit, useOriginsGet } from '@/use/useApi'
     import { useRoute, useRouter } from 'vue-router'
-    import { reactive, ref, watch } from 'vue-demi'
+    import { reactive, ref, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
 
     export default {
@@ -108,14 +108,12 @@
             }
 
             const afterValidation = () => {
-                console.log(form)
                 if (route.params.id) {
                     edit(form)
                 } else {
                     create(form)
                 }
             }
-            console.log('hola')
 
             watch(origin, () => {
                 form.id = origin.value.id

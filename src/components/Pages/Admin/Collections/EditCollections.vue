@@ -73,7 +73,9 @@
                 </div>
                 <div class="admin-page-collections-edit__image">
                     <div class="admin-page-collections-edit__image-edit">
-                        <EditImage :src="form.image" />
+                        <EditImage
+                            :src="form.image"
+                        />
                     </div>
                     <el-form-item
                         label="image"
@@ -103,7 +105,7 @@
 
     import { useCollectionsCreate, useCollectionsEdit, useCollectionsGet } from '@/use/useApi'
     import { useRoute, useRouter } from 'vue-router'
-    import { reactive, ref, watch } from 'vue-demi'
+    import { reactive, ref, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
 
     export default {

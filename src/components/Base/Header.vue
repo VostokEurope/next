@@ -31,9 +31,9 @@
         </div>
         <div v-show="!clear" class="header__tool">
             <HeaderMenu />
-            <div class="header__search">
+            <div v-if="!hideSearch" class="header__search">
                 <el-input v-model="search" />
-                <div class="header__search-button">
+                <div class="header__search-button" @click="sendSearch">
                     <span class="fa fa-search"></span>
                 </div>
             </div>
@@ -45,13 +45,17 @@
     import HeaderMenu from '@/components/Base/Header/Menu.vue'
     import { useStore } from 'vuex'
     import { useRouter } from 'vue-router'
-    import { ref } from 'vue-demi'
+    import { ref } from 'vue'
     export default {
         components: {
             HeaderMenu
         },
         props: {
             clear: {
+                type: Boolean,
+                default: false
+            },
+            hideSearch: {
                 type: Boolean,
                 default: false
             },
@@ -62,12 +66,16 @@
             const search = ref('')
             const logout = () => {
                 store.dispatch('auth/logout')
-                router.go()
+            }
+
+            const sendSearch = () => {
+                router.push({name:'search', query: {search: search.value}})
             }
 
             return {
                 logout,
-                search
+                search,
+                sendSearch
             }
 
 

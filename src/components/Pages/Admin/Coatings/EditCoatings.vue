@@ -54,7 +54,7 @@
     import AdminLayout from '@/components/Layouts/Admin.vue'
     import { useCoatingsCreate, useCoatingsEdit, useCoatingsGet } from '@/use/useApi'
     import { useRoute, useRouter } from 'vue-router'
-    import { reactive, ref, watch } from 'vue-demi'
+    import { reactive, ref, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
 
     export default {

@@ -15,8 +15,7 @@ export default () => {
     })
 
     const fetchData = (params  = {}) => {
-        console.log(params)
-        console.log('padentro')
+
         const { response, data, error, isLoading, isFinished } = useAxios('/auth/login', {
             method: 'post',
             data: {

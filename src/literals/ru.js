@@ -1,4 +1,7 @@
 export default {
+    search: {
+        result: (ctx) => `Search: '${ctx.named('search')}' shown ${ctx.named('results')} results`,
+    },
     header: {
         account: 'account',
         contact: 'email',

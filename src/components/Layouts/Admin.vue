@@ -45,7 +45,7 @@
 <script>
     import useCustomRouter from '@/use/useCustomRouter'
     import DefaultHeader from '@/components/Base/Header.vue'
-    import { ref } from 'vue-demi'
+    import { ref } from 'vue'
 
 
     export default {

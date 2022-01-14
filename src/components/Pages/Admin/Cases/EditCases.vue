@@ -43,7 +43,7 @@
     import AdminLayout from '@/components/Layouts/Admin.vue'
     import { useCasesCreate, useCasesEdit, useCasesGet } from '@/use/useApi'
     import { useRoute, useRouter } from 'vue-router'
-    import { reactive, ref, watch } from 'vue-demi'
+    import { reactive, ref, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
 
     export default {
@@ -100,9 +100,6 @@
             watch([saved, created], () => {
                 router.push({name: 'admin-cases'})
             })
-
-
-            console.log(calibre)
 
             return {
                 form,

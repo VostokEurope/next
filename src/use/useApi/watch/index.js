@@ -5,4 +5,4 @@ export { default as useWatchesEdit } from '@/use/useApi/watch/edit'
 export { default as useWatchesCreate } from '@/use/useApi/watch/create'
 export { default as useWatchesDelete } from '@/use/useApi/watch/delete'
 export { default as useWatchesGetComplete } from '@/use/useApi/watch/getComplete'
-
+export { default as useWatchesFilter } from '@/use/useApi/watch/filter'

@@ -227,12 +227,10 @@
             }
 
             watch([data], () => {
-                console.log('logged', data)
                 router.push({ name: 'home' })
             })
 
             watch([registered], () => {
-                console.log('registered', registered)
                 router.push({ name: 'home' })
 
             })

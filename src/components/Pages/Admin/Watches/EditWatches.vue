@@ -10,10 +10,20 @@
                 <div class="admin-page-watches-edit__form-content">
                     <LayoutScrollable class="admin-page-watches-edit__media">
                         <div v-for="image in form.images" :key="image.id" class="admin-page-watches-edit__media-item">
-                            <EditImage :src="image.src" />
+                            <EditImage
+                                :image-id="image.id"
+                                :watch-id="form.id"
+                                :src="resolveImage(image?.src)"
+                                @remove="removeImage"
+                                @add="addImage"
+                            />
                         </div>
                         <div class="admin-page-watches-edit__media-item">
-                            <EditImage />
+                            <EditImage
+                                :key="form?.images?.length"
+                                :watch-id="form.id"
+                                @add="addImage"
+                            />
                         </div>
                     </LayoutScrollable>
                     <div class="admin-page-watches-edit__wrapper">
@@ -309,7 +319,6 @@
     import AdminLayout from '@/components/Layouts/Admin.vue'
     import EditImage from '@/components/Base/Admin/EditImage.vue'
     import LayoutScrollable from '@/components/Layouts/Scrollable.vue'
-
     import {
         useCalibresBrowse,
         useCasesBrowse,
@@ -324,8 +333,9 @@
         useWatchesEdit,
         useWatchesGetComplete
     } from '@/use/useApi'
+    import useImage from '@/use/useImage'
     import { useRoute, useRouter } from 'vue-router'
-    import { reactive, ref, watch } from 'vue-demi'
+    import { reactive, ref, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
 
     export default {
@@ -338,6 +348,8 @@
             const { t } = useI18n()
             const router = useRouter()
             const formRef = ref()
+            const imageUrl = ref()
+            const { resolveImage } = useImage()
             const rules = reactive({
                 name: [
                     {
@@ -373,6 +385,14 @@
             const { data: genders, fetchData: getGenders, isLoading: loadingGenders } = useGendersBrowse()
             const { data: collections, fetchData: getCollections, isLoading: loadingCollections } = useCollectionsBrowse()
 
+            const handleImageSuccess = (res, file) => {
+                imageUrl.value = URL.createObjectURL(file.raw)
+            }
+            const beforeImageUpload = (file) => {
+                const isJPG = file.type === 'image/jpeg'
+                const isLt2M = file.size / 1024 / 1024 < 2
+                return isJPG && isLt2M
+            }
 
 
 
@@ -397,10 +417,21 @@
                 }
             }
 
+            const addImage = (newImage) => {
+                form.images.push(newImage)
+            }
+
+            const removeImage = (id) => {
+                form.images = form.images.filter(image => image.id !== id)
+            }
+
+            const changeImage = (newImage) => {
+                form.images = form.images.map(image => image.id === newImage.id ? newImage : image)
+            }
+
 
 
             watch(item, () => {
-                console.log(item.value)
                 const data = item.value
                 // base
                 form.id = data.id
@@ -443,13 +474,8 @@
             watch([avaiableProperties, item], () => {
                 const props =  avaiableProperties.value
                 const settedProps = item?.value?.properties
-                console.log('intento')
-                console.log({
-                    props,
-                    settedProps
-                })
+
                 if(avaiableProperties?.value?.length && (item.value?.id || !route.params.id)) {
-                    console.log('hola')
                     form.properties = props.map((entry) => {
                         const match =  (settedProps || []).find(prop => entry.id === prop.id)
                         return {
@@ -474,12 +500,12 @@
             getCollections()
 
 
-            console.log('gender ->',genders)
 
             return {
                 collections,
                 form,
                 item,
+                imageUrl,
                 submit,
                 isSaving,
                 isCreating,
@@ -500,7 +526,13 @@
                 loadingCalibres,
                 loadingProperties,
                 loadingGenders,
-                loadingCollections
+                loadingCollections,
+                handleImageSuccess,
+                beforeImageUpload,
+                resolveImage,
+                addImage,
+                removeImage,
+                changeImage
             }
 
         },

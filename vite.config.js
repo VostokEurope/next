@@ -31,7 +31,6 @@ module.exports = {
                 target: 'http://localhost:3027/api',
                 changeOrigin: true,
                 rewrite: (path) => {
-                    console.log(path)
                     return  path.replace(/^\/api/, '')
                 }
             },

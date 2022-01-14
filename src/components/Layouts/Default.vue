@@ -1,6 +1,6 @@
 <template>
     <div class="layout-default">
-        <DefaultHeader />
+        <DefaultHeader :hide-search="hideSearch" />
         <div class="layout-default__content">
             <slot />
         </div>
@@ -20,6 +20,12 @@
             DefaultFooter,
             DefaultHeader,
             DebugTools
+        },
+        props: {
+            hideSearch: {
+                type: Boolean,
+                default: false
+            },
         }
     }
 </script>
