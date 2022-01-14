@@ -19,7 +19,7 @@
                     class="admin-page-collections__table"
                     :data="data?.items"
                 >
-                    <el-table-column label="id" prop="id" />
+                    <el-table-column label="id" prop="id" width="40" />
                     <el-table-column label="name" prop="name" />
                     <el-table-column label="slug" prop="slug" />
                     <el-table-column fixed="right" label="Actions">

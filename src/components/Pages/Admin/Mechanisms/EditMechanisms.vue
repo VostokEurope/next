@@ -11,6 +11,7 @@
                     <el-form-item
                         prop="id"
                         label="id"
+                        width="40"
                     >
                         <el-input v-model="form.id" disabled />
                     </el-form-item>

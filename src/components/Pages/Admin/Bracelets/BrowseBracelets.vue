@@ -20,7 +20,7 @@
                     :data="data?.items"
                     resizable
                 >
-                    <el-table-column resizable label="id" prop="id" with="20" />
+                    <el-table-column label="id" prop="id" width="40" />
                     <el-table-column label="name" prop="name" />
                     <el-table-column label="image" prop="image" />
                     <el-table-column fixed="right" label="Actions">

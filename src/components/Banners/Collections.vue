@@ -69,11 +69,15 @@
     color: var(--color-white);
 
     &__entry {
-      height: 80vh;
+      height: 50vh;
       width: calc(100vw - em(32px));
       position: relative;
       border-radius: em(5px);
       overflow: hidden;
+
+      @media (--bp-desktop) {
+        height: 60vh;
+      }
     }
 
     &__image {

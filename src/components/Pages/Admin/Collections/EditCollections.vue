@@ -15,6 +15,7 @@
                         <el-form-item
                             prop="id"
                             label="id"
+                            width="40"
                         >
                             <el-input v-model="form.id" disabled />
                         </el-form-item>
@@ -71,7 +72,9 @@
                     </div>
                 </div>
                 <div class="admin-page-collections-edit__image">
-                    <EditImage :src="form.image" />
+                    <div class="admin-page-collections-edit__image-edit">
+                        <EditImage :src="form.image" />
+                    </div>
                     <el-form-item
                         label="image"
                         prop="image"
@@ -202,6 +205,15 @@
 
     &__form {
       display: grid;
+    }
+
+    &__image {
+      &-edit {
+        overflow: hidden;
+        width: 100%;
+        height: em(340px);
+        border-radius: 5px;
+      }
     }
 
     &__buttons {

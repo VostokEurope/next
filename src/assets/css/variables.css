@@ -69,6 +69,7 @@
   /* Colors App */
   --color-bg-body: var(--color-white);
   --color-text: var(--color-black);
+  --color-primary-light: #fee9e5;
   --color-primary: #bd0c15;
   --color-primary-dark: #7e060c;
   --color-primary-inside: var(--color-white);

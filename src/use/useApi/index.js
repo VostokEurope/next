@@ -9,5 +9,6 @@ export * from '@/use/useApi/coating'
 export * from '@/use/useApi/glass'
 export * from '@/use/useApi/mechanism'
 export * from '@/use/useApi/resistance'
-
-
+export * from '@/use/useApi/gender'
+export * from '@/use/useApi/property'
+export * from '@/use/useApi/gender'

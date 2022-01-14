@@ -37,13 +37,14 @@
     &__item {
       cursor: pointer;
       font-size: var(--font-size-h3);
-      opacity: 0.9;
+      opacity: 1;
+      font-weight: 300;
 
       &--active {
-        font-weight: bold;
+        font-weight: 600;
         position: relative;
         opacity: 1;
-        color: var(--color-secondary-lighter);
+        border-bottom: 2px solid var(--color-primary);
       }
     }
 

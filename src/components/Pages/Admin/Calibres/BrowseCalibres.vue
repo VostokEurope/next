@@ -19,7 +19,7 @@
                     class="admin-page-calibres__table"
                     :data="data?.items"
                 >
-                    <el-table-column label="id" prop="id" />
+                    <el-table-column label="id" prop="id" width="40" />
                     <el-table-column label="name" prop="name" />
                     <el-table-column label="code" prop="code" />
                     <el-table-column label="origin" prop="origin.name" />

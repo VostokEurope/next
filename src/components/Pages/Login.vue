@@ -11,11 +11,11 @@
                 <div v-if="isLogin" class="page-login__login">
                     <el-form
                         :model="formLogin"
-                        :rules="rules"
+                        :rules="rulesLogin"
                     >
                         <div class="page-login__row">
                             <div class="page-login__label text">
-                                {{ $t('commons.email') }}
+                                {{ `${$t('commons.email')} or ${$t('commons.phone')}` }}
                             </div>
                             <el-input v-model="formLogin.email" :label="$t('commons.email')" />
                         </div>
@@ -62,6 +62,14 @@
                                 :label="$t('commons.email')"
                             >
                                 <el-input v-model="formRegister.email" />
+                            </el-form-item>
+                        </div>
+                        <div class="page-login__row">
+                            <el-form-item
+                                prop="phone"
+                                :label="$t('commons.phone')"
+                            >
+                                <el-input v-model="formRegister.phone" />
                             </el-form-item>
                         </div>
                         <div class="page-login__row">
@@ -138,11 +146,6 @@
                 ],
                 email: [
                     {
-                        required: true,
-                        message: t('errors.form.required'),
-                        trigger: 'blur',
-                    },
-                    {
                         type: 'email',
                         message: t('errors.form.email'),
                         trigger: 'blur',
@@ -176,7 +179,7 @@
                 ]
             })
 
-            const rules = reactive({
+            const rulesLogin = reactive({
                 email: [
                     {
                         required: true,
@@ -236,7 +239,7 @@
 
             return {
                 registerRules,
-                rules,
+                rulesLogin,
                 formLogin,
                 formRegister,
                 isLoading,

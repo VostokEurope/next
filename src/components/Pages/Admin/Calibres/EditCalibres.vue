@@ -11,6 +11,7 @@
                     <el-form-item
                         prop="id"
                         label="id"
+                        width="40"
                     >
                         <el-input v-model="form.id" disabled />
                     </el-form-item>
@@ -33,7 +34,7 @@
                     >
                         <el-select v-model="form.originId" filterable placeholder="Select">
                             <el-option
-                                v-for="item in origins"
+                                v-for="item in origins?.items"
                                 :key="item.id"
                                 :loading="loadingOrigins"
                                 :label="item.name"

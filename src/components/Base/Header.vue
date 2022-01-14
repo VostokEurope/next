@@ -32,8 +32,10 @@
         <div v-show="!clear" class="header__tool">
             <HeaderMenu />
             <div class="header__search">
-                <div>Input</div>
-                <div><span class="fa fa-edit"></span></div>
+                <el-input v-model="search" />
+                <div class="header__search-button">
+                    <span class="fa fa-search"></span>
+                </div>
             </div>
         </div>
     </div>
@@ -43,6 +45,7 @@
     import HeaderMenu from '@/components/Base/Header/Menu.vue'
     import { useStore } from 'vuex'
     import { useRouter } from 'vue-router'
+    import { ref } from 'vue-demi'
     export default {
         components: {
             HeaderMenu
@@ -56,13 +59,15 @@
         setup() {
             const store = useStore()
             const router = useRouter()
+            const search = ref('')
             const logout = () => {
                 store.dispatch('auth/logout')
                 router.go()
             }
 
             return {
-                logout
+                logout,
+                search
             }
 
 
@@ -82,12 +87,22 @@
     }
 
     &__search {
-      border: 1px solid red;
       display: grid;
+      justify-content: center;
+      align-items: center;
       grid-template-columns: 1fr auto;
+      padding: em(8px);
 
-      & > * {
-        border: 1px solid black;
+      &-button {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        color: var(--color-white);
+        background-color: black;
+        width: 100%;
+        height: 100%;
+        padding: em(8px);
+        border-radius: 0 5px 5px 0;
       }
     }
 
@@ -145,7 +160,12 @@
     &__tool {
       padding: em(8px) em(16px);
       display: grid;
-      grid-template-columns: 3fr 1fr;
+      grid-gap: em(16px);
+      align-items: center;
+
+      @media (--bp-desktop) {
+        grid-template-columns: 3fr 1fr;
+      }
     }
   }
 </style>

@@ -31,6 +31,7 @@ export default {
         required: "Required field",
         acceptTerms: "Accept <a href=\"/legal/terminos-y-condiciones\">terms & conditions</a> Vostok Europe.",
         user: "User",
+        phone: "Phone: +7 (000) 000 00 00",
         password: {
             field: "Password",
             forget: "Do you forgot Password?",

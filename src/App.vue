@@ -69,13 +69,12 @@
 
 <style lang="postcss">
   .vostok-app {
-    --el-button-bg-color: var(--color-primary);
-    --el-button-bg-color: var(--color-primary);
+    --el-button-bg-color: var(--color-primary-light);
     --el-button-border-color: var(--color-primary);
     --el-button-hover-bg-color: var(--color-primary);
     --el-button-hover-border-color: var(--color-primary);
     --el-button-active-bg-color: var(--color-primary);
-    --el-button-active-border-color: var(--color-primary);
+    --el-button-active-border-color: var(--color-primary-dark);
   }
 </style>
 
