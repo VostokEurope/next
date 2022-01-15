@@ -6,7 +6,6 @@
                 <SectionShowcase
                     :title="$t('home.news')"
                     :items="news"
-                    more="true"
                     path="watch"
                 />
                 <SectionShowcase

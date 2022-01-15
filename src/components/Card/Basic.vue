@@ -1,12 +1,15 @@
 <template>
-    <div class="card-basic" @click="$router.push(to)">
-        <img class="card-basic__image" :src="image">
+    <div
+        class="card-basic"
+        @click="$router.push({name: 'watch', params: {id: item.slug}})"
+    >
+        <img class="card-basic__image" :src="resolveImage(item?.images[0]?.src)">
         <div class="card-basic__overlay">
             <div class="card-basic__price">
-                {{ getPrice(price) }}
+                {{ getPrice(item.price) }}
             </div>
             <div class="card-basic__title">
-                {{ title }}
+                {{ item.name }}
             </div>
         </div>
     </div>
@@ -15,39 +18,30 @@
 <script>
     import useCurrency from '@/use/useCurrency'
     import { useRouter } from 'vue-router'
+    import useImage from '@/use/useImage'
 
     export default {
         components: {
 
         },
         props: {
-            title: {
-                type: String,
-                default: ''
+            item: {
+                type: Object,
+                default: () => {}
             },
-            price: {
-                type: Number,
-                default: 0
-            },
-            to: {
-                type: [String, Object],
-                default: '/'
-            },
-            image: {
-                type: String,
-                default: ''
-            }
         },
 
         setup() {
             const router = useRouter()
             const { get: getPrice } = useCurrency()
+            const { resolveImage } = useImage()
 
-            const   goTo = () => {
+            const goTo = () => {
                 router.push(this.to)
             }
 
             return {
+                resolveImage,
                 getPrice,
                 goTo
             }
@@ -62,7 +56,6 @@
     height: em(200px);
     width: em(140px);
     cursor: pointer;
-    box-shadow: 0 0 em(8px) em(5px) rgb(0 0 0 / 10%);
     border-radius: em(5px);
 
     &__image,

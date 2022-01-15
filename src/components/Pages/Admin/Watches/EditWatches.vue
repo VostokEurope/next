@@ -62,15 +62,6 @@
                                 />
                             </el-form-item>
                             <el-form-item
-                                label="model"
-                                prop="model"
-                            >
-                                <el-input
-                                    v-model="form.model"
-                                    type="text"
-                                />
-                            </el-form-item>
-                            <el-form-item
                                 label="collection"
                                 prop="collectionId"
                             >
@@ -200,6 +191,19 @@
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item
+                                    label="calibre"
+                                >
+                                    <el-select v-model="form.calibres" multiple filterable placeholder="Select">
+                                        <el-option
+                                            v-for="entry in calibres?.items"
+                                            :key="entry.id"
+                                            :loading="loadingCalibres"
+                                            :label="entry.name"
+                                            :value="entry.id"
+                                        />
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item
                                     label="case"
                                     prop="caseId"
                                 >
@@ -256,24 +260,6 @@
                                     </el-select>
                                 </el-form-item>
                             </div>
-                            <div class="admin-page-watches-edit__row">
-                                <div class="title title--h3">
-                                    Multi
-                                </div>
-                                <el-form-item
-                                    label="calibre"
-                                >
-                                    <el-select v-model="form.calibres" multiple filterable placeholder="Select">
-                                        <el-option
-                                            v-for="entry in calibres?.items"
-                                            :key="entry.id"
-                                            :loading="loadingCalibres"
-                                            :label="entry.name"
-                                            :value="entry.id"
-                                        />
-                                    </el-select>
-                                </el-form-item>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -301,11 +287,22 @@
                                 </el-form-item>
                             </template>
                         </el-table-column>
+                        <el-table-column label="unity" prop="unity">
+                            <template #default="scope">
+                                <el-form-item>
+                                    <el-input v-model="scope.row.unity" placeholder="unity" :disabled="!scope.row.avaiable" />
+                                </el-form-item>
+                            </template>
+                        </el-table-column>
                     </el-table>
                 </div>
                 <div class="admin-page-watches-edit__buttons">
                     <div class="admin-page-watches-edit__buttons-submit">
-                        <el-button type="primary" :loading="isSaving || isCreating" @click="submit">
+                        <el-button
+                            type="primary"
+                            :loading="isSaving || isCreating"
+                            @click="submit"
+                        >
                             {{ $t('commons.save') }}
                         </el-button>
                     </div>
@@ -350,6 +347,7 @@
             const formRef = ref()
             const imageUrl = ref()
             const { resolveImage } = useImage()
+
             const rules = reactive({
                 name: [
                     {
@@ -394,10 +392,6 @@
                 return isJPG && isLt2M
             }
 
-
-
-
-
             if (route.params.id) {
                 get({
                     id: route.params.id
@@ -411,6 +405,7 @@
 
             const afterValidation = () => {
                 if (route.params.id) {
+                    console.log(form)
                     edit(form)
                 } else {
                     create(form)
@@ -437,7 +432,6 @@
                 form.id = data.id
                 form.name = data.name
                 form.slug = data.slug
-                form.model = data.model
                 form.description = data.description
                 form.genderId = data.genderId
                 form.collectionId = data.collectionId
@@ -467,8 +461,12 @@
                 form.calibres = data.calibres.map(entry => entry.id)
             })
 
-            watch([saved, created], () => {
-                router.push({name: 'admin-watches'})
+            watch([created], () => {
+                router.push({
+                    name: 'admin-watches-edit',
+                    params: {
+                        id: created.value.slug
+                    }})
             })
 
             watch([avaiableProperties, item], () => {
@@ -478,9 +476,11 @@
                 if(avaiableProperties?.value?.length && (item.value?.id || !route.params.id)) {
                     form.properties = props.map((entry) => {
                         const match =  (settedProps || []).find(prop => entry.id === prop.id)
+                        console.log(entry)
                         return {
                             ...entry,
                             avaiable: !!match?.id,
+                            unity: match?.params?.unity,
                             value: match?.params?.value
                         }
                     })

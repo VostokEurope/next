@@ -34,8 +34,12 @@
                     </div>
                 </div>
                 <div class="page-search__results">
-                    <div v-for="watch in watches?.items" :key="watch.id">
-                        {{ watch.name }}
+                    <div class="page-search__results-wrapper">
+                        <CardBasic
+                            v-for="item in watches?.items"
+                            :key="item.id"
+                            :item="item"
+                        />
                     </div>
                 </div>
             </div>
@@ -48,10 +52,12 @@
     import { useRoute } from 'vue-router'
     import { reactive, ref, watch } from 'vue'
     import { useWatchesFilter } from '@/use/useApi'
+    import CardBasic from '@/components/Card/Elegant.vue'
 
     export default {
         components: {
-            LayoutDefault
+            LayoutDefault,
+            CardBasic
         },
         setup() {
             const route = useRoute()
@@ -102,7 +108,6 @@
 <style lang="postcss">
   .page-search {
     padding: em(16px);
-    min-height: 60vh;
 
     &__content {
       display: grid;
@@ -135,6 +140,19 @@
           border: none;
         }
       }
+    }
+
+    &__results-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, em(140px));
+
+      @media (--bp-desktop) {
+        justify-content: start;
+        grid-template-columns: repeat(auto-fill, em(200px));
+      }
+
+      grid-gap: em(24px);
+      padding: em(16px);
     }
   }
 

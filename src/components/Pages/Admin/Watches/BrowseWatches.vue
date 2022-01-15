@@ -21,7 +21,6 @@
                 >
                     <el-table-column label="id" prop="id" width="40" />
                     <el-table-column label="name" prop="name" />
-                    <el-table-column label="model" prop="model" />
                     <el-table-column fixed="right" label="Actions">
                         <template #default="scope">
                             <el-button

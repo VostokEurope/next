@@ -34,6 +34,13 @@ module.exports = {
                     return  path.replace(/^\/api/, '')
                 }
             },
+            '/images': {
+                target: 'http://localhost:3027/images',
+                changeOrigin: true,
+                rewrite: (path) => {
+                    return  path.replace(/^\/api/, '')
+                }
+            },
         }
     }
 }

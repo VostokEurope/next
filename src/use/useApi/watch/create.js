@@ -33,7 +33,8 @@ export default () => {
                     .filter((entry) => entry.avaiable)
                     .map(entry => ({
                         id: entry.id,
-                        value: entry.value
+                        value: entry.value,
+                        unity: entry.unity
                     })),
                 stock: params.stock,
                 thickness: params.thickness,

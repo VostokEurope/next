@@ -13,13 +13,10 @@
                 {{ description }}
             </div>
             <div class="showcase__items">
-                <CardBasic
+                <CardElegant
                     v-for="item in items"
                     :key="item.id"
-                    :title="item.name"
-                    :price="item.price"
-                    :to="{name: path, params: {id: item.slug} }"
-                    :image="item.images && item.images.length ? item.images[0].src : ''"
+                    :item="item"
                 />
             </div>
             <div v-if="more" :to="more" class="showcase__more">
@@ -31,13 +28,13 @@
 </template>
 
 <script>
-    import CardBasic from '@/components/Card/Basic.vue'
+    import CardElegant from '@/components/Card/Elegant.vue'
     import PlaceholderSection from '@/components/Placeholders/Section.vue'
     import { useRouter } from 'vue-router'
 
     export default {
         components: {
-            CardBasic,
+            CardElegant,
             PlaceholderSection
         },
         props: {
@@ -119,12 +116,13 @@
     &__items {
       display: grid;
       justify-content: center;
-      grid-template-columns: repeat(auto-fill, em(140px));
       grid-gap: em(32px);
       padding: em(16px) 0;
+      grid-template-columns: repeat(auto-fill, em(140px));
 
       @media (--bp-desktop) {
         justify-content: start;
+        grid-template-columns: repeat(auto-fill, em(240px));
       }
     }
   }
