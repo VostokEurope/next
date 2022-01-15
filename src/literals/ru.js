@@ -152,7 +152,8 @@ export default {
         home: "Главная",
         collections: "Коллекции",
         offers: "Специальные предложения",
-        admin: "Администрация"
+        admin: "Администрация",
+        contact: "Контакты"
     }
 }
 

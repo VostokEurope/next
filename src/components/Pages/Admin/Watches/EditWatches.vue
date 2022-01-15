@@ -386,14 +386,12 @@
         useMechanismsBrowse,
         usePropertiesBrowse,
         useResistancesBrowse,
-        useWatchesCreate,
         useWatchesEdit,
         useWatchesGetComplete
     } from '@/use/useApi'
     import useImage from '@/use/useImage'
-    import { useRoute, useRouter } from 'vue-router'
+    import { useRoute } from 'vue-router'
     import { reactive, ref, watch } from 'vue'
-    import { useI18n } from 'vue-i18n'
 
     export default {
         components: {

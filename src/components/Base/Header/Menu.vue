@@ -4,7 +4,7 @@
             v-for="path in paths"
             :key="path.name"
             class="menu__item"
-            :class="{'menu__item--active': path.path === $route.path}"
+            :class="{'menu__item--active ': path.path === $route.path}"
             @click="$router.push({ name: path.name })"
         >
             {{ $t(`router.${path.name}`) }}
@@ -36,15 +36,14 @@
 
     &__item {
       cursor: pointer;
-      font-size: var(--font-size-h3);
-      opacity: 1;
-      font-weight: 300;
+      font-weight: 600;
 
       &--active {
-        font-weight: 600;
-        position: relative;
-        opacity: 1;
-        border-bottom: 2px solid var(--color-primary);
+        color: var(--color-primary-dark);
+      }
+
+      &:hover {
+        color: var(--color-primary);
       }
     }
 

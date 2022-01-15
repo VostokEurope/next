@@ -25,7 +25,15 @@ const routes = [
     },
     ...chasy,
     ...collekciya,
-    ...admin
+    ...admin,
+    {
+        path: '/kontacty',
+        name: 'contact',
+        meta: {
+            menu: true
+        },
+        component: () => import('@/views/Contact.vue')
+    },
 ]
 
 const router = createRouter({
