@@ -352,14 +352,14 @@
                     <div class="admin-page-watches-edit__buttons-submit">
                         <el-button
                             type="primary"
-                            :loading="isSaving || isCreating"
+                            :loading="isSaving"
                             @click="submit(false)"
                         >
                             {{ $t('commons.save') }}
                         </el-button>
                         <el-button
                             v-if="!form.published"
-                            :loading="isSaving || isCreating"
+                            :loading="isSaving"
                             @click="submit(true)"
                         >
                             {{ $t('commons.savepublish') }}
@@ -402,28 +402,11 @@
             LayoutScrollable
         },
         setup () {
-            const { t } = useI18n()
-            const router = useRouter()
             const formRef = ref()
             const imageUrl = ref()
             const { resolveImage } = useImage()
 
-            const rules = reactive({
-                name: [
-                    {
-                        required: true,
-                        message: t('errors.form.required'),
-                        trigger: 'blur',
-                    }
-                ],
-                mechanismId: [
-                    {
-                        required: true,
-                        message: t('errors.form.required'),
-                        trigger: 'blur',
-                    }
-                ]
-            })
+            const rules = reactive({})
             const route = useRoute()
             const form = reactive({
                 id: undefined,
@@ -432,7 +415,6 @@
             })
             const { data: item, fetchData: get } = useWatchesGetComplete()
             const { data: saved, fetchData: edit, isLoading: isSaving } = useWatchesEdit()
-            const { data: created, fetchData: create, isLoading: isCreating } = useWatchesCreate()
             const { data: mechanisms, fetchData: getMechanisms, isLoading: loadingMechanisms } = useMechanismsBrowse()
             const { data: cases, fetchData: getCases, isLoading: loadingCases } = useCasesBrowse()
             const { data: coatings, fetchData: getCoatings, isLoading: loadingCoatings } = useCoatingsBrowse()
@@ -454,11 +436,11 @@
                 return isJPG && isLt2M
             }
 
-            if (route.params.id) {
-                get({
-                    id: route.params.id
-                })
-            }
+            get({
+                id: route.params.id
+            })
+
+
 
 
             const submit = (publish) => {
@@ -467,11 +449,7 @@
             }
 
             const afterValidation = () => {
-                if (route.params.id) {
-                    edit(form)
-                } else {
-                    create(form)
-                }
+                edit(form)
             }
 
             const addImage = (newImage) => {
@@ -527,13 +505,7 @@
                 form.published = data.published
             })
 
-            watch([created], () => {
-                router.push({
-                    name: 'admin-watches-edit',
-                    params: {
-                        id: created.value.slug
-                    }})
-            })
+
 
             watch([avaiableProperties, item], () => {
                 const props =  avaiableProperties.value
@@ -575,7 +547,6 @@
                 imageUrl,
                 submit,
                 isSaving,
-                isCreating,
                 rules,
                 formRef,
                 mechanisms,

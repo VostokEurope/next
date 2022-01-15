@@ -9,7 +9,7 @@
                             placeholder="Search"
                             clearable
                         />
-                        <el-button type="primary" plain @click="create">
+                        <el-button type="primary" plain :loading="isCreating" @click="create">
                             New
                         </el-button>
                     </div>
@@ -66,7 +66,7 @@
 <script>
     import AdminLayout from '@/components/Layouts/Admin.vue'
     import { ref, watch } from 'vue'
-    import { useWatchesBrowse, useWatchesDelete } from '@/use/useApi'
+    import { useWatchesBrowse, useWatchesCreate, useWatchesDelete } from '@/use/useApi'
     import { useRouter } from 'vue-router'
     const basePath = 'admin-watches'
 
@@ -83,12 +83,13 @@
 
             const {data, fetchData: getItems, isLoading }  = useWatchesBrowse()
             const {data: deleted, fetchData: deleteItem, isLoading: loadingDelete } = useWatchesDelete()
+            const { data: created, fetchData: createWatch, isLoading: isCreating } = useWatchesCreate()
 
             const editRow = (row) => {
                 router.push({
                     name:`${basePath}-edit`,
                     params: {
-                        id: row.slug
+                        id: row.id
                     }
                 })
             }
@@ -99,7 +100,8 @@
             }
 
             const create = () => {
-                router.push({name:`${basePath}-new`,})
+                createWatch()
+                //router.push({name:`${basePath}-new`,})
             }
             const filterTable = () => {
 
@@ -122,6 +124,16 @@
                 router.go()
             })
 
+            watch([created], () => {
+                console.log(created)
+                router.push({
+                    name:`${basePath}-edit`,
+                    params: {
+                        id: created.value.id
+                    }
+                })
+            })
+
             return {
                 isLoading,
                 search,
@@ -131,7 +143,8 @@
                 removeEntry,
                 create,
                 filterTable,
-                loadingDelete
+                loadingDelete,
+                isCreating
             }
         },
     }

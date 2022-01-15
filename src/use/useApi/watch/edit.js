@@ -11,7 +11,7 @@ export default () => {
         isFinished: undefined
     })
 
-    const fetchData = (params) => {
+    const fetchData = (params = {}) => {
         const { response, data, error, isLoading, isFinished } = useAxios(`/watch/${params?.id}`, {
             method: 'patch',
             data: {
