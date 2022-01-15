@@ -1,3 +1,5 @@
+import isAdmin from '@/middleware/isAdmin'
+
 import bracelets from '@/router/admin/bracelets'
 import calibres from '@/router/admin/calibres'
 import cases from '@/router/admin/cases'
@@ -14,6 +16,7 @@ export default [
     {
         path: '/admin',
         component: () => import('@/views/Router.vue'),
+        beforeEnter: [isAdmin],
         children: [
             {
                 path: '',

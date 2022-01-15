@@ -1,3 +1,5 @@
+import isAdmin from '@/middleware/isAdmin'
+
 const base = 'admin'
 const entry = 'collections'
 
@@ -5,6 +7,7 @@ export default [
     {
         path: `${entry}`,
         name: `${base}-${entry}`,
+        beforeEnter: [isAdmin],
         meta: {
             title: `${entry}`,
             icon: 'fal fa-border-all',
@@ -16,6 +19,7 @@ export default [
     {
         path: `${entry}/:id`,
         name: `${base}-${entry}-edit`,
+        beforeEnter: [isAdmin],
         component: () => import('@/views/Admin/Collections/Edit.vue'),
         meta: {
             title: `${entry} Edit`
@@ -24,6 +28,7 @@ export default [
     {
         path: `${entry}/new`,
         name: `${base}-${entry}-new`,
+        beforeEnter: [isAdmin],
         component: () => import('@/views/Admin/Collections/Edit.vue'),
         meta: {
             title: `${entry} New`
