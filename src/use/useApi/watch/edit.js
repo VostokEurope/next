@@ -16,6 +16,7 @@ export default () => {
             method: 'patch',
             data: {
                 calibresIds: params.calibres,
+                braceletsIds: params.bracelets,
                 caseId: params.caseId,
                 collectionId: params.collectionId,
                 coatingId: params.coatingId,
@@ -38,7 +39,8 @@ export default () => {
                     })),
                 stock: params.stock,
                 thickness: params.thickness,
-                width: params.width
+                width: params.width,
+                published: params.published
             }
         }, axios)
 

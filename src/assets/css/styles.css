@@ -115,6 +115,24 @@ strong {
   }
 }
 
+.tag {
+  font-weight: bold;
+  background-color: black;
+  color: white;
+  padding: em(16px);
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 14px;
+
+  &--warning {
+    background-color: var(--color-warning);
+  }
+
+  &--success {
+    background-color: var(--color-success);
+  }
+}
+
 .page {
   padding-top: calc(em(24px) + var(--safe-area-top));
   padding-bottom: calc(em(24px) + var(--safe-area-bottom));

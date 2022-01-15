@@ -47,7 +47,8 @@ export default {
             payment: "Оплата и доставка"
         },
         search: "Найти",
-        save: "Сохранить"
+        save: "Сохранить",
+        savepublish: "Сохранить & publish"
     },
     navigation: {
         home: "Главная",

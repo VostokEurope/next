@@ -1,6 +1,20 @@
 <template>
     <AdminLayout>
         <div class="admin-page-watches-edit">
+            <div class="admin-page-watches-edit__tags">
+                <div
+                    v-if="form.published"
+                    class="tag tag--success"
+                >
+                    Published
+                </div>
+                <div
+                    v-if="!form.published"
+                    class="tag tag--warning"
+                >
+                    Draft
+                </div>
+            </div>
             <el-form
                 ref="formRef"
                 class="admin-page-watches-edit__form"
@@ -193,11 +207,34 @@
                                 <el-form-item
                                     label="calibre"
                                 >
-                                    <el-select v-model="form.calibres" multiple filterable placeholder="Select">
+                                    <el-select
+                                        v-model="form.calibres"
+                                        multiple
+                                        filterable
+                                        placeholder="Select"
+                                    >
                                         <el-option
                                             v-for="entry in calibres?.items"
                                             :key="entry.id"
                                             :loading="loadingCalibres"
+                                            :label="entry.name"
+                                            :value="entry.id"
+                                        />
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item
+                                    label="bracelet"
+                                >
+                                    <el-select
+                                        v-model="form.bracelets"
+                                        multiple
+                                        filterable
+                                        placeholder="Select"
+                                    >
+                                        <el-option
+                                            v-for="entry in bracelets?.items"
+                                            :key="entry.id"
+                                            :loading="loadingBracelets"
                                             :label="entry.name"
                                             :value="entry.id"
                                         />
@@ -283,17 +320,32 @@
                         <el-table-column label="value" prop="value">
                             <template #default="scope">
                                 <el-form-item>
-                                    <el-input v-model="scope.row.value" placeholder="value" :disabled="!scope.row.avaiable" />
+                                    <el-input
+                                        v-model="scope.row.value"
+                                        placeholder="value"
+                                        :disabled="!scope.row.avaiable"
+                                    />
                                 </el-form-item>
                             </template>
                         </el-table-column>
-                        <el-table-column label="unity" prop="unity">
+                        <el-table-column
+                            label="unity"
+                            prop="unity"
+                        >
                             <template #default="scope">
                                 <el-form-item>
-                                    <el-input v-model="scope.row.unity" placeholder="unity" :disabled="!scope.row.avaiable" />
+                                    <el-input
+                                        v-model="scope.row.unity"
+                                        placeholder="unity"
+                                        :disabled="!scope.row.avaiable"
+                                    />
                                 </el-form-item>
                             </template>
                         </el-table-column>
+                        <el-table-column
+                            label="type"
+                            prop="type.code"
+                        />
                     </el-table>
                 </div>
                 <div class="admin-page-watches-edit__buttons">
@@ -301,9 +353,16 @@
                         <el-button
                             type="primary"
                             :loading="isSaving || isCreating"
-                            @click="submit"
+                            @click="submit(false)"
                         >
                             {{ $t('commons.save') }}
+                        </el-button>
+                        <el-button
+                            v-if="!form.published"
+                            :loading="isSaving || isCreating"
+                            @click="submit(true)"
+                        >
+                            {{ $t('commons.savepublish') }}
                         </el-button>
                     </div>
                 </div>
@@ -317,6 +376,7 @@
     import EditImage from '@/components/Base/Admin/EditImage.vue'
     import LayoutScrollable from '@/components/Layouts/Scrollable.vue'
     import {
+        useBraceletsBrowse,
         useCalibresBrowse,
         useCasesBrowse,
         useCoatingsBrowse,
@@ -379,6 +439,8 @@
             const { data: glasses, fetchData: getGlasses, isLoading: loadingGlasses } = useGlassesBrowse()
             const { data: resistances, fetchData: getResistances, isLoading: loadingResistances } = useResistancesBrowse()
             const { data: calibres, fetchData: getCalibres, isLoading: loadingCalibres } = useCalibresBrowse()
+            const { data: bracelets, fetchData: getBracelets, isLoading: loadingBracelets } = useBraceletsBrowse()
+
             const { data: avaiableProperties, fetchData: getProperties, isLoading: loadingProperties } = usePropertiesBrowse()
             const { data: genders, fetchData: getGenders, isLoading: loadingGenders } = useGendersBrowse()
             const { data: collections, fetchData: getCollections, isLoading: loadingCollections } = useCollectionsBrowse()
@@ -399,13 +461,13 @@
             }
 
 
-            const submit = () => {
+            const submit = (publish) => {
+                form.published = publish
                 formRef.value.validate().then(afterValidation)
             }
 
             const afterValidation = () => {
                 if (route.params.id) {
-                    console.log(form)
                     edit(form)
                 } else {
                     create(form)
@@ -459,6 +521,10 @@
 
                 //multi
                 form.calibres = data.calibres.map(entry => entry.id)
+                form.bracelets = data.bracelets.map(entry => entry.id)
+
+                //published
+                form.published = data.published
             })
 
             watch([created], () => {
@@ -476,15 +542,14 @@
                 if(avaiableProperties?.value?.length && (item.value?.id || !route.params.id)) {
                     form.properties = props.map((entry) => {
                         const match =  (settedProps || []).find(prop => entry.id === prop.id)
-                        console.log(entry)
                         return {
                             ...entry,
                             avaiable: !!match?.id,
+                            type:  entry?.type,
                             unity: match?.params?.unity,
                             value: match?.params?.value
                         }
-                    })
-
+                    }).sort((a, b) => b?.typeId - a?.typeId)
                 }
 
             })
@@ -498,11 +563,13 @@
             getProperties()
             getGenders()
             getCollections()
+            getBracelets()
 
 
 
             return {
                 collections,
+                bracelets,
                 form,
                 item,
                 imageUrl,
@@ -527,6 +594,7 @@
                 loadingProperties,
                 loadingGenders,
                 loadingCollections,
+                loadingBracelets,
                 handleImageSuccess,
                 beforeImageUpload,
                 resolveImage,
@@ -605,6 +673,11 @@
       & > * {
         margin: 0 auto;
       }
+    }
+
+    &__tags {
+      display: flex;
+      padding: em(16px);
     }
   }
 </style>

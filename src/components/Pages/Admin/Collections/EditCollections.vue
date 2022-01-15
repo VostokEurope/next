@@ -1,6 +1,20 @@
 <template>
     <AdminLayout>
         <div class="admin-page-collections-edit ">
+            <div class="admin-page-collections-edit__tags">
+                <div
+                    v-if="form.published"
+                    class="tag tag--success"
+                >
+                    Published
+                </div>
+                <div
+                    v-if="!form.published"
+                    class="tag tag--warning"
+                >
+                    Draft
+                </div>
+            </div>
             <el-form
                 ref="formRef"
 
@@ -90,8 +104,19 @@
             </el-form>
             <div class="admin-page-collections-edit__buttons">
                 <div class="admin-page-collections-edit__buttons-submit">
-                    <el-button type="primary" :loading="isSaving || isCreating" @click="submit">
+                    <el-button
+                        type="primary"
+                        :loading="isSaving || isCreating"
+                        @click="submit(false)"
+                    >
                         {{ $t('commons.save') }}
+                    </el-button>
+                    <el-button
+                        v-if="!form.published"
+                        :loading="isSaving || isCreating"
+                        @click="submit(true)"
+                    >
+                        {{ $t('commons.savepublish') }}
                     </el-button>
                 </div>
             </div>
@@ -147,7 +172,8 @@
             }
 
 
-            const submit = () => {
+            const submit = (publish) => {
+                form.published = publish
                 formRef.value.validate().then(afterValidation)
             }
 
@@ -171,6 +197,8 @@
                 form.image = collection.value.image
                 form.relevance = collection.value.relevance
                 form.discount = !collection.value.banDiscount
+                //published
+                form.published = collection.value.published
             })
 
             watch([saved, created], () => {
@@ -220,6 +248,11 @@
 
     &__buttons {
       margin: em(16px) auto;
+    }
+
+    &__tags {
+      display: flex;
+      padding: em(16px);
     }
   }
 </style>
