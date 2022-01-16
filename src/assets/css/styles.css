@@ -113,6 +113,25 @@ strong {
   &--bold {
     font-weight: bold;
   }
+
+  &--strike {
+    display: inline-block;
+    color: red;
+    text-decoration: none;
+    position: relative;
+
+    &::after {
+      content: " ";
+      display: block;
+      width: 100%;
+      border-top: 2px solid red;
+      height: 12px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: rotate(-7deg);
+    }
+  }
 }
 
 .tag {

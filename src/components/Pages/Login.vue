@@ -27,6 +27,7 @@
                                 v-model="formLogin.password"
                                 :label="$t('commons.password.field')"
                                 type="password"
+                                @change="submitLogin"
                             />
                         </div>
                         <div class="page-login__buttons">
@@ -69,7 +70,11 @@
                                 prop="phone"
                                 :label="$t('commons.phone')"
                             >
-                                <el-input v-model="formRegister.phone" />
+                                <el-input
+                                    v-model="formRegister.phone"
+                                    pattern="\d*"
+                                    type="tel"
+                                />
                             </el-form-item>
                         </div>
                         <div class="page-login__row">
@@ -145,6 +150,11 @@
                     }
                 ],
                 email: [
+                    {
+                        required: true,
+                        message: t('errors.form.required'),
+                        trigger: 'blur',
+                    },
                     {
                         type: 'email',
                         message: t('errors.form.email'),

@@ -2,6 +2,9 @@ export default {
     search: {
         result: (ctx) => `Search: '${ctx.named('search')}' shown ${ctx.named('results')} results`,
     },
+    slider: {
+        link: 'Discover'
+    },
     header: {
         account: 'account',
         contact: 'email',
@@ -153,7 +156,9 @@ export default {
         collections: "Коллекции",
         offers: "Специальные предложения",
         admin: "Администрация",
-        contact: "Контакты"
+        contact: "Контакты",
+        delivery: "Оплата и доставка",
+        guaranty: "Гарантия и сервис"
     }
 }
 

@@ -10,7 +10,11 @@ export default ({ position = 'r', currency = '₽', separator = ' ', decimal = '
             + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + separator)
             + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : '')
     }
-    const get = (number) => {
+    const get = (price, discount) => {
+        let number = price
+        if (discount) {
+            number = price - (price * discount/100)
+        }
         return `${formatMoney(number)} ${currency}`
     }
     return {

@@ -20,6 +20,7 @@
                                 v-for="collection in collections"
                                 :key="collection.id"
                                 v-model="form.collection"
+                                :value="collection.id"
                                 :label="collection.name"
                             />
                         </div>
@@ -72,6 +73,8 @@
                 limit: 100
             })
 
+
+
             watch(watches, () => {
                 collections.value =  watches.value?.items.reduce((acc, item) => {
                     const id = item.collectionId
@@ -90,6 +93,10 @@
                     search: search.value,
                     limit: 100
                 })
+            })
+
+            watch(form, () => {
+                console.log(form)
             })
 
             return {
@@ -112,7 +119,7 @@
     &__content {
       display: grid;
       grid-gap: em(16px);
-      grid-template-columns: 1fr 4fr;
+      grid-template-columns: em(240px) 4fr;
     }
 
     &__searcher {

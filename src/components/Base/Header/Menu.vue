@@ -31,12 +31,15 @@
   .menu {
     display: grid;
     grid-auto-flow: column;
-    grid-gap: em(16px);
+    grid-gap: em(80px);
     justify-content: start;
+    padding: em(16px) 0;
 
     &__item {
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 18px;
+      color: black;
 
       &--active {
         color: var(--color-primary-dark);

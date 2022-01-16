@@ -156,7 +156,7 @@
                                     Size
                                 </div>
                                 <el-form-item
-                                    label="width (cm)"
+                                    label="width (mm)"
                                     prop="width"
                                 >
                                     <el-input
@@ -165,7 +165,7 @@
                                     />
                                 </el-form-item>
                                 <el-form-item
-                                    label="height (cm)"
+                                    label="height (mm)"
                                     prop="height"
                                 >
                                     <el-input
@@ -174,7 +174,7 @@
                                     />
                                 </el-form-item>
                                 <el-form-item
-                                    label="thickness (cm)"
+                                    label="thickness (mm)"
                                     prop="thickness"
                                 >
                                     <el-input
@@ -442,7 +442,9 @@
 
 
             const submit = (publish) => {
-                form.published = publish
+                if(publish) {
+                    form.published = publish
+                }
                 formRef.value.validate().then(afterValidation)
             }
 

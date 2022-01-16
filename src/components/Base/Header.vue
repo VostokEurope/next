@@ -25,12 +25,12 @@
             </div>
         </div>
         <div class="header__brand">
-            <HeaderMenu v-show="!clear" class="header__menu" />
+            <div></div>
             <div v-show="!clear" class="header__bars" @click="toggleMenu">
                 <span class="fa fa-bars"></span>
             </div>
             <div class="header__image" @click="$router.push({ name: 'home' })">
-                <img src="https://hoprojection.com/wp-content/uploads/2018/05/Vostok_Europe_Hoprojection_Hopro_Hologram-1288x724.png">
+                <img src="/logo.png" alt="Vostok Europe Shop">
             </div>
             <div class="header__tools">
                 <div v-if="!hideSearch" v-show="!clear" class="header__search">
@@ -52,6 +52,7 @@
                 </div>
             </div>
         </div>
+        <HeaderMenu v-show="!clear" class="header__menu" />
         <MobileMenu v-if="mobileMenu" @close="toggleMenu" />
     </div>
 </template>
@@ -92,7 +93,6 @@
             }
 
             const toggleMenu = () => {
-                console.log(mobileMenu.value)
                 mobileMenu.value =  !mobileMenu.value
             }
 
@@ -147,7 +147,7 @@
       justify-content: start;
       align-items: center;
       font-size: 12px;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 2fr 1fr;
       text-align: right;
 
       &-user,
@@ -176,23 +176,38 @@
     &__brand {
       position: relative;
       display: grid;
-      height: em(64px);
+      height: em(140px);
       justify-content: center;
       align-items: center;
       padding: em(16px);
 
       @media (--bp-desktop) {
-        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
       }
     }
 
     &__image {
+      position: relative;
+      display: grid;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
       cursor: pointer;
-      height: 100%;
       margin: 0 auto;
+      font-size: 16px;
+      font-weight: bold;
+
+      .title {
+        font-weight: bold;
+        position: absolute;
+        bottom: -2px;
+        left: 16px;
+        line-height: 1;
+        font-size: 12px;
+      }
 
       img {
-        height: em(52px);
+        height: 110px;
         object-fit: cover;
       }
     }
@@ -215,6 +230,8 @@
 
       @media (--bp-desktop) {
         display: grid;
+        align-items: center;
+        justify-content: center;
       }
     }
 

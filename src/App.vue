@@ -2,6 +2,11 @@
     <!-- Notification -->
     <div class="vostok-app">
         <Router />
+        <metainfo>
+            <template #title="{ content }">
+                {{ content }} - Yay!
+            </template>
+        </metainfo>
     </div>
     <!-- Waiting --->
 </template>

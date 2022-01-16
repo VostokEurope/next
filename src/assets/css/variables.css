@@ -45,7 +45,7 @@
   --line-height-900: 1.9;
 
   /* Typhography */
-  --font-family: "Muli", sans-serif;
+  --font-family: "Nunito", sans-serif;
   --font-size: em(16px);
   --font-weight: var(--font-weight-regular);
   --line-height: var(--line-height-400);

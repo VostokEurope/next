@@ -8,9 +8,6 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        meta: {
-            menu: true
-        },
         component: () => import('@/views/Home.vue')
     },
     {
@@ -34,7 +31,25 @@ const routes = [
         },
         component: () => import('@/views/Contact.vue')
     },
+    {
+        path: '/delivery',
+        name: 'delivery',
+        meta: {
+            menu: true
+        },
+        component: () => import('@/views/Contact.vue')
+    },
+    {
+        path: '/guaranty',
+        name: 'guaranty',
+        meta: {
+            menu: true
+        },
+        component: () => import('@/views/Contact.vue')
+    },
+
 ]
+
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),

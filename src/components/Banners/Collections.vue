@@ -9,32 +9,43 @@
             >
                 <img class="banner-hero__image" :src="item.image">
                 <div class="banner-hero__overlay">
-                    <div
-                        class="banner-hero__title"
-                        @click="$router.push({ name: 'collection', params: {
-                            id: item.slug
-                        }})"
-                    >
-                        {{ item.name }}
-                    </div>
-                    <div class="banner-hero__arrows">
-                        <a :href="`#${collections?.items[i-1 < 0 ? collections?.items.length - 1 : i-1].name}`">
-                            <span class="fa fa-angle-left"></span>
-                        </a>
-                        <div class="banner-hero__balls">
-                            <div v-for="(ball, j) in collections?.items.length" :key="ball">
-                                <a
-                                    class="banner-hero__ball"
-                                    :href="`#${collections?.items[j].name}`"
-                                    :class="{'banner-hero__ball--active': ball-1 === i}"
-                                >
-                                    <span class="fa fa-circle" />
-                                </a>
+                    <div class="banner-hero__overlay-content">
+                        <div
+                            class="banner-hero__title"
+                        >
+                            {{ item.name }}
+                        </div>
+                        <div
+                            class="banner-hero__buttons"
+                        >
+                            <div
+                                class="banner-hero__button"
+                                @click="$router.push({ name: 'collection', params: {
+                                    id: item.slug
+                                }})"
+                            >
+                                {{ $t('slider.link') }}
                             </div>
                         </div>
-                        <a :href="`#${collections?.items[i+1 > collections?.items.length - 1 ? 0 : i+1]?.name}`">
-                            <span class="fa fa-angle-right"></span>
-                        </a>
+                        <div class="banner-hero__arrows">
+                            <a :href="`#${collections?.items[i-1 < 0 ? collections?.items.length - 1 : i-1].name}`">
+                                <span class="fa fa-angle-left"></span>
+                            </a>
+                            <div class="banner-hero__balls">
+                                <div v-for="(ball, j) in collections?.items.length" :key="ball">
+                                    <a
+                                        class="banner-hero__ball"
+                                        :href="`#${collections?.items[j].name}`"
+                                        :class="{'banner-hero__ball--active': ball-1 === i}"
+                                    >
+                                        <span class="fa fa-circle" />
+                                    </a>
+                                </div>
+                            </div>
+                            <a :href="`#${collections?.items[i+1 > collections?.items.length - 1 ? 0 : i+1]?.name}`">
+                                <span class="fa fa-angle-right"></span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,7 +107,7 @@
       z-index: 10;
       display: grid;
       justify-content: center;
-      align-items: center;
+      align-items: end;
       text-align: center;
       background:
         linear-gradient(
@@ -105,6 +116,11 @@
           rgb(0 0 0 / 60%) 50%,
           rgb(0 0 0 / 100%) 100%
         );
+
+      &-content {
+        display: grid;
+        grid-gap: em(16px);
+      }
     }
 
     &__title {
@@ -134,6 +150,24 @@
       justify-content: center;
       grid-template-columns: auto auto auto;
       grid-gap: em(16px);
+    }
+
+    &__buttons {
+      width: 100%;
+    }
+
+    &__button {
+      cursor: pointer;
+      margin: 0 auto;
+      border: 1px solid var(--color-white);
+      padding: em(16px);
+      width: em(200px);
+      margin-top: em(20px);
+      background: radial-gradient(circle, rgb(255 255 255 / 35%) 0%, rgb(255 255 255 / 0%) 90%);
+
+      &:hover {
+        background: radial-gradient(circle, rgb(255 255 255 / 50%) 0%, rgb(255 255 255 / 0%) 100%);
+      }
     }
   }
 </style>

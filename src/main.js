@@ -10,8 +10,7 @@ import { createI18n } from 'vue-i18n'
 import messages from '@/literals'
 import ElementPlus from 'element-plus'
 import '@/assets/css/vendors.css'
-
-
+import { createMetaManager, plugin as metaPlugin } from 'vue-meta'
 
 const i18n = createI18n({
     locale: 'ru',
@@ -19,9 +18,13 @@ const i18n = createI18n({
     messages,
 })
 
+const metaManager = createMetaManager()
+
 createApp(App)
     .use(store)
     .use(router)
     .use(i18n)
+    .use(metaManager)
+    .use(metaPlugin)
     .use(ElementPlus)
     .mount('#app')

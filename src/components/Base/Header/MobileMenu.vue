@@ -40,7 +40,7 @@
     import useCustomRouter from '@/use/useCustomRouter'
     import { useStore } from 'vuex'
     import { useRouter } from 'vue-router'
-    import { ref } from 'vue-demi'
+    import { ref } from 'vue'
     export default {
         emits: ['close'],
         setup() {
@@ -58,7 +58,6 @@
             }
 
             const toggleMenu = () => {
-                console.log(mobileMenu.value)
                 mobileMenu.value =  !mobileMenu.value
             }
 
