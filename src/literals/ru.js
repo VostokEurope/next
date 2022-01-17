@@ -3,47 +3,47 @@ export default {
         result: (ctx) => `Search: '${ctx.named('search')}' shown ${ctx.named('results')} results`,
     },
     watch: {
-        size: 'Size:',
-        mechanism: 'Mechanism:',
-        case: 'Case:',
-        coating: 'Coating:',
-        glass: 'Glass:',
+        size: 'Размер:',
+        mechanism: 'Механизм:',
+        case: 'Корпус:',
+        coating: 'Покрытие:',
+        glass: 'Стекло:',
         buy: 'КУПИТЬ СО СКИДКОЙ',
         features: {
-            time:'Time:',
-            others:'Others:',
-            luminosity:'Luminosity:',
-            features: 'Additional Features'
+            time:'Функции:',
+            others:'Дополнительно:',
+            luminosity:'Подсветка:',
+            features: 'Аксессуары'
         },
         property: {
-            hours: 'hours',
-            minutes: 'minutes',
-            seconds: 'seconds',
-            date: 'date',
-            dayOfWeek: 'dayOfWeek',
-            month: 'month',
-            year: 'year',
-            chronograph: 'chronograph',
-            tacimeter: 'tacimeter',
-            "12/24": '12/14',
-            alarm: 'alarm',
-            worldTimer: 'worldTimer',
-            superlimonova: 'superlimonova',
-            powerReserveIndicator: 'powerReserveIndicator',
-            openBalance: 'openBalance',
-            perpetualCalendar: 'perpetualCalendar',
-            transparent: 'transparent',
-            rotatingBezel: 'rotatingBezel',
-            powerReserveCapacity: 'powerReserveCapacity',
-            screwCrown: 'screwCrown',
-            heliumValve: 'heliumValve',
-            screwInCaseBack: 'screwInCaseBack',
-            serialNumber: 'serialNumber',
-            tritium: 'tritium'
+            hours: 'часы',
+            minutes: 'минуты',
+            seconds: 'секунды',
+            date: 'дата',
+            dayOfWeek: 'день недели',
+            month: 'месяц',
+            year: 'год',
+            chronograph: 'хронограф',
+            tacimeter: 'тахиметр',
+            "12/24": '12/24-часовой формат',
+            alarm: 'будильник',
+            worldTimer: 'мировое время',
+            superlimonova: 'покрытие Super-LumiNova',
+            powerReserveIndicator: 'ретроградный индикатор запаса хода',
+            openBalance: 'открытый баланс',
+            perpetualCalendar: 'вечный календарь',
+            transparent: 'прозрачная задняя крышка',
+            rotatingBezel: 'вращающийся безель',
+            powerReserveCapacity: 'запас хода',
+            screwCrown: 'завинчивающаяся заводная головка',
+            heliumValve: 'автоматический гелиевый декомпрессионный клапан',
+            screwInCaseBack: 'завинчивающаяся задняя крышка',
+            serialNumber: 'с гравировкой серийного номера',
+            tritium: 'тритиевые трубки (GTLS «Trigalight»)'
         }
     },
     slider: {
-        link: 'Discover'
+        link: 'Посмотреть коллекцию'
     },
     commons: {
         business: {
@@ -51,22 +51,22 @@ export default {
             watches: "Часы"
         },
         logged: (ctx) => `Already logged as ${ctx.named('name')}`,
-        name: "Name",
-        login: "Login",
-        register: "Register",
+        name: "Имя",
+        login: "Войти",
+        register: "Зарегистрироваться",
         showall: "Показать все",
-        noAccount: "Don't have an account?",
-        haveAccount: "Do you have an account?",
+        noAccount: "Еще не зарегистрированы?",
+        haveAccount: "Вы зарегистрированы?",
         email: "Email",
-        phone: "Phone: +7 (000) 000 00 00",
+        phone: "Телефон: +7 (000) 000 00 00",
         password: {
-            field: "Password",
-            forget: "Do you forgot Password?",
-            confirm: "Repeat Password"
+            field: "Пароль",
+            forget: "Забыли пароль?",
+            confirm: "Повторите пароль"
         },
         search: "Найти",
         save: "Сохранить",
-        savepublish: "Сохранить & publish"
+        savepublish: "Сохранить & опубликовать"
     },
     home: {
         news: "Новости",
@@ -76,8 +76,8 @@ export default {
 
     errors: {
         form: {
-            email: '- format: sample(at)sample(dot)ru',
-            required: 'Required field',
+            email: '- формат: sample(at)sample(dot)ru',
+            required: 'Обязательно для заполнения',
             min: (ctx) => `- ${ctx.named('length')} characters or more`
         }
     },
@@ -90,7 +90,7 @@ export default {
     legal: {
         title: 'Enlaces a las políticas de:',
         cookies: 'Cookies',
-        privacy: 'Privacidad'
+        privacy: 'Политика конфиденциальности'
     },
     router: {
         home: "Главная",
