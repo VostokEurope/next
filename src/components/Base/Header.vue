@@ -1,29 +1,5 @@
 <template>
     <div class="header">
-        <div v-show="!clear" v-if="false" class="header__promo">
-            <div class="header__wrapper">
-                <div class="header__wrapper-email">
-                    <a :href="$t('header.claim.1.value')">
-                        {{ $t('header.claim.1.label') }}
-                    </a>
-                </div>
-                <div class="header__wrapper-phone link">
-                    <a :href="$t('header.claim.2.value')">
-                        {{ $t('header.claim.2.label') }}
-                    </a>
-                </div>
-                <div class="header__wrapper-user">
-                    <div v-if="$store.getters['auth/user']?.id" class="">
-                        {{ $store.getters['auth/user']?.name }}, <span class="text link" @click="logout">
-                            {{ $t('commons.logout') }}
-                        </span>
-                    </div>
-                    <div v-else class="text link" @click="$router.push({name: 'login'})">
-                        {{ $t('header.account') }}
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="header__brand">
             <div></div>
             <div v-show="!clear" class="header__bars" @click="toggleMenu">
