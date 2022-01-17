@@ -116,7 +116,7 @@ strong {
 
   &--strike {
     display: inline-block;
-    color: red;
+    color: var(--color-primary);
     text-decoration: none;
     position: relative;
 
@@ -124,7 +124,7 @@ strong {
       content: " ";
       display: block;
       width: 100%;
-      border-top: 2px solid red;
+      border-top: 2px solid var(--color-primary-dark);
       height: 12px;
       position: absolute;
       bottom: 0;

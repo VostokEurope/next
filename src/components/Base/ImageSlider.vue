@@ -69,7 +69,11 @@
 <style lang="postcss">
   .image-slider {
     position: relative;
-    width: 40vw;
+    width: 80vw;
+
+    @media (--bp-desktop) {
+      width: 40vw;
+    }
 
     .layout-scrollable-list__items {
       padding: 0;
@@ -79,7 +83,11 @@
       transition: all 0.3s linear;
 
       img {
-        width: 40vw;
+        width: 80vw;
+
+        @media (--bp-desktop) {
+          width: 40vw;
+        }
       }
     }
 

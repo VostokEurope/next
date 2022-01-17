@@ -143,7 +143,6 @@
 
     &__arrows {
       margin: 0 auto;
-      width: em(500px);
       padding: em(16px) 0;
       align-self: end;
       display: grid;

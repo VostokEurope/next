@@ -2,6 +2,46 @@ export default {
     search: {
         result: (ctx) => `Search: '${ctx.named('search')}' shown ${ctx.named('results')} results`,
     },
+    watch: {
+        size: 'Size:',
+        mechanism: 'Mechanism:',
+        case: 'Case:',
+        coating: 'Coating:',
+        glass: 'Glass:',
+        buy: 'КУПИТЬ СО СКИДКОЙ',
+        features: {
+            time:'Time:',
+            others:'Others:',
+            luminosity:'Luminosity:',
+            features: 'Additional Features'
+        },
+        property: {
+            hours: 'hours',
+            minutes: 'minutes',
+            seconds: 'seconds',
+            date: 'date',
+            dayOfWeek: 'dayOfWeek',
+            month: 'month',
+            year: 'year',
+            chronograph: 'chronograph',
+            tacimeter: 'tacimeter',
+            "12/24": '12/14',
+            alarm: 'alarm',
+            worldTimer: 'worldTimer',
+            superlimonova: 'superlimonova',
+            powerReserveIndicator: 'powerReserveIndicator',
+            openBalance: 'openBalance',
+            perpetualCalendar: 'perpetualCalendar',
+            transparent: 'transparent',
+            rotatingBezel: 'rotatingBezel',
+            powerReserveCapacity: 'powerReserveCapacity',
+            screwCrown: 'screwCrown',
+            heliumValve: 'heliumValve',
+            screwInCaseBack: 'screwInCaseBack',
+            serialNumber: 'serialNumber',
+            tritium: 'tritium'
+        }
+    },
     slider: {
         link: 'Discover'
     },
