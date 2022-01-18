@@ -9,8 +9,8 @@ export default {
         coating: 'Покрытие:',
         glass: 'Стекло:',
         buy: 'КУПИТЬ СО СКИДКОЙ',
-        calibres: 'Calibres:',
-        dialColor: 'DialColor:',
+        calibres: 'Калибр:',
+        dialColor: 'Цвет циферблата:',
         features: {
             time:'Функции:',
             others:'Дополнительно:',
@@ -90,8 +90,8 @@ export default {
         },
     },
     legal: {
-        title: 'Enlaces a las políticas de:',
-        cookies: 'Cookies',
+        title: '',
+        cookies: 'Политика Cookies',
         privacy: 'Политика конфиденциальности'
     },
     router: {
