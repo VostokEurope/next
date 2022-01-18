@@ -9,7 +9,7 @@ export default {
         coating: 'Покрытие:',
         glass: 'Стекло:',
         buy: 'КУПИТЬ СО СКИДКОЙ',
-        calibres: 'Calibres: ',
+        calibres: 'Calibres:',
         dialColor: 'DialColor:',
         features: {
             time:'Функции:',

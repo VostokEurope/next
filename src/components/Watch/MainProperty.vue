@@ -2,9 +2,10 @@
     <div class="watch-main-property">
         <h2 class="watch-main-property__content title title--h5 ">
             {{ title }}
-            <span class="watch-main-property__value">
+            <span v-if="value" class="watch-main-property__value">
                 {{ value }}
             </span>
+            <slot></slot>
         </h2>
     </div>
 </template>

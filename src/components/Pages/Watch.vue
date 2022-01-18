@@ -63,16 +63,24 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div class="page-watch__props">
                         <WatchSize :item="item" />
                         <MainProperty :title="$t('watch.mechanism')" :value="item?.mechanisms?.name" />
                         <MainProperty :title="$t('watch.case')" :value="item?.case?.name" />
-                        <MainProperty :title="$t('watch.coating')" :value="item?.coating?.name" />
+                        <MainProperty :title="$t('watch.coating')" :value="item?.coating?.name">
+                            <div class="page-watch__balls">
+                                <span
+                                    v-for="color in item?.coating?.colors"
+                                    :key="color.id"
+                                    class="page-watch__ball"
+                                    :style="`background-color:${color.hexadecimal}`"
+                                >
+                                </span>
+                            </div>
+                        </MainProperty>
                         <MainProperty :title="$t('watch.glass')" :value="item?.glass?.name" />
-                        <MainProperty :title="$t('watch.dialColor')">
-                            <span class="page-watch__ball">
-                                {{ item?.color?.hexadecimal }}
-                            </span>
+                        <MainProperty :title="$t('watch.dialColor')" :value="item?.color.name">
+                            <span class="page-watch__ball" :style="`background-color:${item?.color.hexadecimal}`"></span>
                         </MainProperty>
 
                         <ul class="page-watch__calibres">
@@ -208,7 +216,7 @@
 
     &__content {
       & > * {
-        padding: em(16px) 0;
+        padding: em(12px) 0;
       }
     }
 
@@ -247,9 +255,22 @@
     }
 
     &__ball {
-      width: em(16px);
-      height: em(16px);
+      margin-top: em(4px);
+      width: em(12px);
+      height: em(12px);
       border-radius: 50%;
+    }
+
+    &__balls {
+      display: grid;
+      grid-auto-flow: column;
+      justify-content: start;
+      grid-gap: em(2px);
+    }
+
+    &__props {
+      display: grid;
+      grid-gap: em(8px);
     }
   }
 </style>

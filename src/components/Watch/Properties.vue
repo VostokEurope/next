@@ -19,7 +19,7 @@
                 {{ $t('watch.features.others') }}
             </h3>
             <li v-for="(property) in features?.others" :key="property.id" class="watch-properties__others-item">
-                {{ $t(`watch.property.${property.code}`) }} {{ property.value }}{{ property?.unity }}
+                {{ property.value }}{{ property?.unity }} {{ $t(`watch.property.${property.code}`) }}
             </li>
         </div>
 
@@ -93,7 +93,7 @@
       flex-wrap: wrap;
       line-height: 1;
       grid-auto-flow: column;
-      justify-content: start;
+      justify-content: flex-start;
       grid-gap: 0 em(8px);
       align-items: bottom;
 
