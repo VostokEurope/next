@@ -16,7 +16,8 @@ export default () => {
             method: 'patch',
             data: {
                 name: params?.name,
-                code: params?.code
+                code: params?.code,
+                colorIds: (params?.colors || [])
             }
         }, axios)
 

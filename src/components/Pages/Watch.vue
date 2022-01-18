@@ -1,5 +1,5 @@
 <template>
-    <LayoutDefault breadcrumbs>
+    <LayoutDefault v-if="item?.id" breadcrumbs>
         <template #breadcrumbs>
             /
             <div
@@ -16,46 +16,78 @@
                 {{ item?.name }}
             </div>
         </template>
+
         <div class="page-watch">
-            <ImageSlider
-                v-if="item?.images?.length"
-                :images="item?.images"
-            />
-            <div class="page-watch__content">
-                <h1 class="title title--h1">
-                    {{ item?.name }}
-                </h1>
+            <div
+                v-if="item?.editable && $store?.getters['auth/user']?.role?.id === 2"
+                class="page-watch__edit"
+                @click="$router.push({name: 'admin-watches-edit', params: {id: item?.id} } )"
+            >
+                <span class="fa fa-edit"></span>
+            </div>
+            <div class="page-watch__wrapper">
+                <ImageSlider
+                    v-if="item?.images?.length"
+                    :images="item?.images"
+                />
+                <div class="page-watch__content">
+                    <h1 class="title title--h1">
+                        {{ item?.name }}
+                    </h1>
 
-                <div class="page-watch__description text">
-                    {{ item?.description }}
-                </div>
-
-                <div class="page-watch__price">
-                    <span class="text" :class="{'text--strike': showDiscount}">
-                        {{ getPrice(item?.price) }} <span v-if="item?.discount && !showDiscount" class="page-watch__price-gift" @click="applyDiscount">
-                            <span class="fas fa-gift"></span>
-                        </span>
-                    </span>
-                    <span v-if="showDiscount" class="text showDiscount">
-                        {{ getPrice(item?.price, item?.discount) }}
-                    </span>
-                </div>
-
-                <div class="page-watch__buttons">
-                    <div class="page-watch__button page-watch__button--large">
-                        {{ $t('watch.buy') }}
+                    <div class="page-watch__description text">
+                        {{ item?.description }}
                     </div>
-                    <div class="page-watch__button">
-                        <span class="fa fa-shopping-cart"></span>
-                    </div>
-                </div>
 
-                <WatchSize :item="item" />
-                <MainProperty :title="$t('watch.mechanism')" :value="item?.mechanisms?.name" />
-                <MainProperty :title="$t('watch.case')" :value="item?.case?.name" />
-                <MainProperty :title="$t('watch.coating')" :value="item?.coating?.name" />
-                <MainProperty :title="$t('watch.glass')" :value="item?.glass?.name" />
-                <WatchProperties v-if="item?.properties.length" :properties="item?.properties" />
+                    <div>
+                        <div class="page-watch__price">
+                            <span class="text" :class="{'text--strike': showDiscount}">
+                                {{ getPrice(item?.price) }} <span v-if="item?.discount && !showDiscount" class="page-watch__price-gift" @click="applyDiscount">
+                                    <span class="link">
+                                        получить скидку
+                                    </span>
+                                </span>
+                            </span>
+                            <span v-if="showDiscount" class="text showDiscount">
+                                {{ getPrice(item?.price, item?.discount) }}
+                            </span>
+                        </div>
+
+                        <div class="page-watch__buttons">
+                            <div class="page-watch__button page-watch__button--large">
+                                {{ $t('watch.buy') }}
+                            </div>
+                            <div class="page-watch__button">
+                                <span class="fa fa-shopping-cart"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <WatchSize :item="item" />
+                        <MainProperty :title="$t('watch.mechanism')" :value="item?.mechanisms?.name" />
+                        <MainProperty :title="$t('watch.case')" :value="item?.case?.name" />
+                        <MainProperty :title="$t('watch.coating')" :value="item?.coating?.name" />
+                        <MainProperty :title="$t('watch.glass')" :value="item?.glass?.name" />
+                        <MainProperty :title="$t('watch.dialColor')">
+                            <span class="page-watch__ball">
+                                {{ item?.color?.hexadecimal }}
+                            </span>
+                        </MainProperty>
+
+                        <ul class="page-watch__calibres">
+                            <h2 class="title title--h5">
+                                {{ $t('watch.calibres') }}
+                            </h2>
+                            <li v-for="calibre in item?.calibres" :key="calibre.id" class="page-watch__calibres_item text text--bold">
+                                - {{ calibre.name }} <span v-if="!calibre.origin.hide">
+                                    {{ calibre.origin.code }}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <WatchProperties v-if="item?.properties.length" :properties="item?.properties" />
+                </div>
             </div>
         </div>
     </LayoutDefault>
@@ -158,22 +190,25 @@
 
 <style lang="postcss">
   .page-watch {
-    padding: em(32px);
-    display: grid;
-    grid-gap: em(32px);
+    &__edit {
+      display: grid;
+      justify-content: end;
+      margin: em(16px) em(32px);
+    }
 
-    @media (--bp-desktop) {
-      grid-template-columns: 1fr 1fr;
+    &__wrapper {
+      padding: em(32px);
+      display: grid;
+      grid-gap: em(32px);
+
+      @media (--bp-desktop) {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     &__content {
-      display: grid;
-      grid-gap: em(16px);
-      justify-content: start;
-      align-items: start;
-
-      @media (--bp-desktop) {
-        order: 1;
+      & > * {
+        padding: em(16px) 0;
       }
     }
 
@@ -183,13 +218,16 @@
       justify-content: start;
       grid-gap: em(8px);
       font-weight: bold;
+      align-items: center;
 
       &-gift {
         cursor: pointer;
+        padding: em(8px) em(8px);
       }
     }
 
     &__buttons {
+      margin: 8px 0;
       display: grid;
       grid-auto-flow: column;
       justify-content: start;
@@ -203,9 +241,15 @@
       font-weight: 600;
       background-color: var(--color-primary);
       color: var(--color-primary-inside);
-      padding: em(12px) em(12px);
+      padding: em(15px) em(15px);
       border-radius: 5px;
-      font-size: 12px;
+      font-size: 14px;
+    }
+
+    &__ball {
+      width: em(16px);
+      height: em(16px);
+      border-radius: 50%;
     }
   }
 </style>

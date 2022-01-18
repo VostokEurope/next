@@ -96,7 +96,7 @@
       display: grid;
       grid-auto-flow: column;
       justify-content: end;
-      margin-top: em(-80px);
+      margin-top: em(-40px);
       z-index: 3;
       padding: 0 em(16px);
 

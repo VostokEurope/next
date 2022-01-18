@@ -10,6 +10,7 @@ import mechanisms from '@/router/admin/mechanisms'
 import origins from '@/router/admin/origins'
 import resistances from '@/router/admin/resistances'
 import watches from '@/router/admin/watches'
+import colors from '@/router/admin/colors'
 
 
 export default [
@@ -29,16 +30,17 @@ export default [
                 },
                 component: () => import('@/views/Admin/AdminHome.vue'),
             },
+            ...watches,
+            ...collections,
             ...bracelets,
             ...calibres,
-            ...collections,
             ...cases,
             ...coatings,
             ...glasses,
             ...mechanisms,
             ...origins,
             ...resistances,
-            ...watches
+            ...colors
         ]
     }
 ]

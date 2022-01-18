@@ -90,6 +90,20 @@
                                 </el-select>
                             </el-form-item>
                             <el-form-item
+                                label="Dial Color"
+                                prop="dialColorId"
+                            >
+                                <el-select v-model="form.dialColorId" filterable placeholder="Select">
+                                    <el-option
+                                        v-for="entry in colors?.items"
+                                        :key="entry.id"
+                                        :loading="loadingColors"
+                                        :label="entry.name"
+                                        :value="entry.id"
+                                    />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item
                                 label="description"
                                 prop="description"
                             >
@@ -381,6 +395,7 @@
         useCasesBrowse,
         useCoatingsBrowse,
         useCollectionsBrowse,
+        useColorsBrowse,
         useGendersBrowse,
         useGlassesBrowse,
         useMechanismsBrowse,
@@ -424,6 +439,7 @@
             const { data: avaiableProperties, fetchData: getProperties, isLoading: loadingProperties } = usePropertiesBrowse()
             const { data: genders, fetchData: getGenders, isLoading: loadingGenders } = useGendersBrowse()
             const { data: collections, fetchData: getCollections, isLoading: loadingCollections } = useCollectionsBrowse()
+            const { data: colors, fetchData: getColors, isLoading: loadingColors } = useColorsBrowse()
 
             const handleImageSuccess = (res, file) => {
                 imageUrl.value = URL.createObjectURL(file.raw)
@@ -468,6 +484,8 @@
 
             watch(item, () => {
                 const data = item.value
+                console.log(data)
+
                 // base
                 form.id = data.id
                 form.name = data.name
@@ -503,6 +521,7 @@
 
                 //published
                 form.published = data.published
+                form.dialColorId = data.dialColorId
             })
 
 
@@ -536,6 +555,7 @@
             getGenders()
             getCollections()
             getBracelets()
+            getColors()
 
 
 
@@ -566,12 +586,14 @@
                 loadingGenders,
                 loadingCollections,
                 loadingBracelets,
+                loadingColors,
                 handleImageSuccess,
                 beforeImageUpload,
                 resolveImage,
                 addImage,
                 removeImage,
-                changeImage
+                changeImage,
+                colors
             }
 
         },

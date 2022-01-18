@@ -12,14 +12,8 @@ export default () => {
     })
 
     const fetchData = (params) => {
-        const { response, data, error, isLoading, isFinished } = useAxios(`/coating/`, {
-            method: 'post',
-            data: {
-                name: params?.name,
-                code: params?.code,
-                colorIds: (params?.colors || []).map(entry => entry.id)
-
-            }
+        const { response, data, error, isLoading, isFinished } = useAxios(`/color/${params?.id}`, {
+            method: 'delete',
         }, axios)
 
         state.response = response

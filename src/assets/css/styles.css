@@ -12,6 +12,13 @@ body {
   overflow: hidden auto;
   color: var(--color-text);
   background-color: var(--color-bg-body);
+  -webkit-touch-callout: none;
+  user-select: none;
+  user-select: none;
+  user-select: none;
+  user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
 }
 
 strong {

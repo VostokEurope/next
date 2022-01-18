@@ -1,9 +1,9 @@
 <template>
     <AdminLayout>
-        <div class="admin-page-coatings ">
+        <div class="admin-page-colors ">
             <el-card shadow="never">
                 <template #header>
-                    <div class="admin-page-coatings__actions">
+                    <div class="admin-page-colors__actions">
                         <el-input
                             v-model="search"
                             placeholder="Search"
@@ -16,22 +16,15 @@
                 </template>
                 <el-table
                     v-loading="isLoading"
-                    class="admin-page-coatings__table"
+                    class="admin-page-colors__table"
                     :data="data?.items"
                 >
                     <el-table-column label="id" prop="id" width="40" />
                     <el-table-column label="name" prop="name" />
                     <el-table-column label="code" prop="code" />
-                    <el-table-column label="color" prop="colors">
+                    <el-table-column label="color" prop="hexadecimal">
                         <template #default="scope">
-                            <div class="admin-page-coatings__balls">
-                                <div
-                                    v-for="color in scope.row.colors"
-                                    :key="color.id"
-                                    class="admin-page-coatings__ball"
-                                    :style="`background-color:${color.hexadecimal}`"
-                                >
-                                </div>
+                            <div class="admin-page-colors__ball" :style="`background-color:${scope.row.hexadecimal}`">
                             </div>
                         </template>
                     </el-table-column>
@@ -64,7 +57,7 @@
                         </template>
                     </el-table-column>
                 </el-table>
-                <div v-if="data?.pages > 1" class="admin-page-coatings__pagination">
+                <div v-if="data?.pages > 1" class="admin-page-colors__pagination">
                     <el-pagination
                         v-model:currentPage="currentPage"
                         layout="prev, pager, next"
@@ -80,9 +73,9 @@
 <script>
     import AdminLayout from '@/components/Layouts/Admin.vue'
     import { ref, watch } from 'vue'
-    import { useCoatingsBrowse, useCoatingsDelete } from '@/use/useApi'
+    import { useColorsBrowse, useColorsDelete } from '@/use/useApi'
     import { useRouter } from 'vue-router'
-    const basePath = 'admin-coatings'
+    const basePath = 'admin-colors'
 
 
     export default {
@@ -95,8 +88,8 @@
             const router = useRouter()
 
 
-            const {data, fetchData: getItems, isLoading }  = useCoatingsBrowse()
-            const {data: deleted, fetchData: deleteItem, isLoading: loadingDelete } = useCoatingsDelete()
+            const {data, fetchData: getItems, isLoading }  = useColorsBrowse()
+            const {data: deleted, fetchData: deleteItem, isLoading: loadingDelete } = useColorsDelete()
 
             const editRow = (row) => {
                 router.push({
@@ -152,7 +145,7 @@
 </script>
 
 <style lang="postcss">
-  .admin-page-coatings {
+  .admin-page-colors {
     &__actions {
       display: grid;
       grid-template-columns: auto auto;
@@ -164,13 +157,6 @@
       display: flex;
       justify-content: flex-end;
       margin-top: 24px;
-    }
-
-    &__balls {
-      display: grid;
-      grid-auto-flow: column;
-      justify-content: start;
-      grid-gap: em(2px);
     }
 
     &__ball {

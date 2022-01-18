@@ -12,6 +12,7 @@ export default () => {
     })
 
     const fetchData = (params = {}) => {
+        console.log(params)
         const { response, data, error, isLoading, isFinished } = useAxios(`/watch/${params?.id}`, {
             method: 'patch',
             data: {
@@ -40,7 +41,9 @@ export default () => {
                 stock: params.stock,
                 thickness: params.thickness,
                 width: params.width,
-                published: params.published
+                published: params.published,
+                dialColorId: params.dialColorId
+
             }
         }, axios)
 

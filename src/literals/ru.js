@@ -9,6 +9,7 @@ export default {
         coating: 'Coating:',
         glass: 'Glass:',
         buy: 'КУПИТЬ СО СКИДКОЙ',
+        calibres: 'Calibres: ',
         features: {
             time:'Time:',
             others:'Others:',

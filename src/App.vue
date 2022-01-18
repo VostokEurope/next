@@ -4,7 +4,7 @@
         <Router />
         <metainfo>
             <template #title="{ content }">
-                {{ content }} - Yay!
+                {{ content }}
             </template>
         </metainfo>
     </div>

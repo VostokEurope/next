@@ -12,13 +12,12 @@ export default () => {
     })
 
     const fetchData = (params) => {
-        const { response, data, error, isLoading, isFinished } = useAxios(`/coating/`, {
+        const { response, data, error, isLoading, isFinished } = useAxios(`/color/`, {
             method: 'post',
             data: {
                 name: params?.name,
                 code: params?.code,
-                colorIds: (params?.colors || []).map(entry => entry.id)
-
+                hexadecimal: params?.color
             }
         }, axios)
 

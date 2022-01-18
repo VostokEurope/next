@@ -1,0 +1,5 @@
+export { default as useColorsBrowse } from '@/use/useApi/color/browse'
+export { default as useColorsGet } from '@/use/useApi/color/get'
+export { default as useColorsEdit } from '@/use/useApi/color/edit'
+export { default as useColorsCreate } from '@/use/useApi/color/create'
+export { default as useColorsDelete } from '@/use/useApi/color/delete'

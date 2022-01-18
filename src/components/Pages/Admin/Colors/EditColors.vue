@@ -1,13 +1,13 @@
 <template>
     <AdminLayout>
-        <div class="admin-page-coatings-edit ">
+        <div class="admin-page-colors-edit ">
             <el-form
                 ref="formRef"
-                class="admin-page-coatings-edit__form"
+                class="admin-page-colors-edit__form"
                 :model="form"
                 :rules="rules"
             >
-                <div class="admin-page-coatings-edit__row">
+                <div class="admin-page-colors-edit__row">
                     <el-form-item
                         prop="id"
                         label="id"
@@ -16,18 +16,7 @@
                         <el-input v-model="form.id" disabled />
                     </el-form-item>
                 </div>
-                <div class="admin-page-coatings-edit__row">
-                    <el-form-item
-                        label="name"
-                        prop="name"
-                    >
-                        <el-input
-                            v-model="form.name"
-                            type="text"
-                        />
-                    </el-form-item>
-                </div>
-                <div class="admin-page-coatings-edit__row">
+                <div class="admin-page-colors-edit__row">
                     <el-form-item
                         label="code"
                         prop="code"
@@ -38,27 +27,28 @@
                         />
                     </el-form-item>
                 </div>
-                <el-form-item
-                    label="colors"
-                >
-                    <el-select
-                        v-model="form.colors"
-                        multiple
-                        filterable
-                        placeholder="Select"
+                <div class="admin-page-colors-edit__row">
+                    <el-form-item
+                        label="name"
+                        prop="name"
                     >
-                        <el-option
-                            v-for="entry in colors?.items"
-                            :key="entry.id"
-                            :loading="loadingColors"
-                            :label="entry.name"
-                            :value="entry.id"
+                        <el-input
+                            v-model="form.name"
+                            type="text"
                         />
-                    </el-select>
-                </el-form-item>
-                <div class="admin-page-coatings-edit__buttons">
-                    <div class="admin-page-coatings-edit__buttons-submit">
-                        <el-button type="primary" :loading="isSaving || isCreating" @click="submit">
+                    </el-form-item>
+                </div>
+                <div class="admin-page-colors-edit__row">
+                    <el-form-item
+                        label="color"
+                        prop="color"
+                    >
+                        <el-color-picker v-model="form.color" />
+                    </el-form-item>
+                </div>
+                <div class="admin-page-colors-edit__buttons">
+                    <div class="admin-page-colors-edit__buttons-submit">
+                        <el-button type="primary" :loading="isSaving || isCreating" @click="submit">
                             {{ $t('commons.save') }}
                         </el-button>
                     </div>
@@ -70,7 +60,7 @@
 
 <script>
     import AdminLayout from '@/components/Layouts/Admin.vue'
-    import { useCoatingsCreate, useCoatingsEdit, useCoatingsGet, useColorsBrowse } from '@/use/useApi'
+    import { useColorsCreate, useColorsEdit, useColorsGet } from '@/use/useApi'
     import { useRoute, useRouter } from 'vue-router'
     import { reactive, ref, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
@@ -90,6 +80,20 @@
                         message: t('errors.form.required'),
                         trigger: 'blur',
                     }
+                ],
+                color: [
+                    {
+                        required: true,
+                        message: t('errors.form.required'),
+                        trigger: 'blur',
+                    }
+                ],
+                code: [
+                    {
+                        required: true,
+                        message: t('errors.form.required'),
+                        trigger: 'blur',
+                    }
                 ]
             })
             const route = useRoute()
@@ -98,10 +102,9 @@
                 name: undefined,
 
             })
-            const { data: coating, fetchData: get } = useCoatingsGet()
-            const { data: saved, fetchData: edit, isLoading: isSaving } = useCoatingsEdit()
-            const { data: created, fetchData: create, isLoading: isCreating } = useCoatingsCreate()
-            const { data: colors, fetchData: getColors, isLoading: loadingColors } = useColorsBrowse()
+            const { data: color, fetchData: get } = useColorsGet()
+            const { data: saved, fetchData: edit, isLoading: isSaving } = useColorsEdit()
+            const { data: created, fetchData: create, isLoading: isCreating } = useColorsCreate()
 
             if (route.params.id) {
                 get({
@@ -122,29 +125,29 @@
                 }
             }
 
-            watch(coating, () => {
-                form.id = coating.value.id
-                form.name = coating.value.name
-                form.code = coating.value.code
-                form.colors = coating.value.colors.map(entry => entry.id)
+            watch(color, () => {
+                form.id = color.value.id
+                form.name = color.value.name,
+                form.color = color.value.hexadecimal,
+                form.code = color.value.code
             })
 
             watch([saved, created], () => {
-                router.push({name: 'admin-coatings'})
+                router.push({name: 'admin-colors'})
             })
 
-            getColors()
+            watch(form, () => {
+                console.log(form)
+            })
 
             return {
                 form,
-                coating,
+                color,
                 submit,
                 isSaving,
                 isCreating,
                 rules,
-                formRef,
-                colors,
-                loadingColors
+                formRef
             }
 
         },
@@ -152,7 +155,7 @@
 </script>
 
 <style lang="postcss">
-  .admin-page-coatings-edit {
+  .admin-page-colors-edit {
     display: grid;
     justify-content: center;
 

@@ -24,14 +24,6 @@ const routes = [
     ...collekciya,
     ...admin,
     {
-        path: '/kontacty',
-        name: 'contact',
-        meta: {
-            menu: true
-        },
-        component: () => import('@/views/Contact.vue')
-    },
-    {
         path: '/delivery',
         name: 'delivery',
         meta: {
@@ -42,6 +34,14 @@ const routes = [
     {
         path: '/guaranty',
         name: 'guaranty',
+        meta: {
+            menu: true
+        },
+        component: () => import('@/views/Contact.vue')
+    },
+    {
+        path: '/kontacty',
+        name: 'contact',
         meta: {
             menu: true
         },

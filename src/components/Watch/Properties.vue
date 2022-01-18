@@ -89,19 +89,21 @@
     }
 
     &__time {
-      display: grid;
+      display: flex;
+      flex-wrap: wrap;
+      line-height: 1;
       grid-auto-flow: column;
       justify-content: start;
-      grid-gap: em(8px);
+      grid-gap: 0 em(8px);
       align-items: bottom;
 
       &-item {
-        display: grid;
-        grid-auto-flow: column;
-        grid-gap: em(4px);
+        position: relative;
+        display: inline-block;
+        padding-right: em(8px);
 
         .after {
-          margin-left: em(-4px);
+          position: absolute;
         }
       }
 
