@@ -2,6 +2,9 @@ export default {
     search: {
         result: (ctx) => `Search: '${ctx.named('search')}' shown ${ctx.named('results')} results`,
     },
+    cart: {
+        delete: 'Delete'
+    },
     watch: {
         size: 'Размер:',
         mechanism: 'Механизм:',

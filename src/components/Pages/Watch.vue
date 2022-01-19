@@ -57,8 +57,13 @@
                             <div class="page-watch__button page-watch__button--large">
                                 {{ $t('watch.buy') }}
                             </div>
-                            <div class="page-watch__button">
-                                <span class="fa fa-shopping-cart"></span>
+                            <div class="page-watch__button" @click="addToCart">
+                                <div v-show="!isAdding">
+                                    <span class="fa fa-shopping-cart"></span>
+                                </div>
+                                <div v-show="isAdding" :disabled="isAdding" :class="{ 'page-watch__button--loading' : isAdding }">
+                                    <span class="fas fa-spinner"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -69,13 +74,14 @@
                         <MainProperty :title="$t('watch.case')" :value="item?.case?.name" />
                         <MainProperty :title="$t('watch.coating')" :value="item?.coating?.name">
                             <div class="page-watch__balls">
-                                <span
+                                <div
                                     v-for="color in item?.coating?.colors"
                                     :key="color.id"
-                                    class="page-watch__ball"
-                                    :style="`background-color:${color.hexadecimal}`"
+                                    class="page-watch__balls-wrap"
                                 >
-                                </span>
+                                    <span class="page-watch__ball" :style="`background-color:${color.hexadecimal}`"></span>
+                                    <span>{{ color.name }}</span>
+                                </div>
                             </div>
                         </MainProperty>
                         <MainProperty :title="$t('watch.glass')" :value="item?.glass?.name" />
@@ -107,8 +113,8 @@
     import WatchSize from '@/components/Watch/Size.vue'
     import WatchProperties from '@/components/Watch/Properties.vue'
 
-    import { useWatchesGet } from '@/use/useApi'
-    import { useRoute } from 'vue-router'
+    import { useAddProduct, useWatchesGet } from '@/use/useApi'
+    import { useRoute, useRouter } from 'vue-router'
     import { useMeta } from 'vue-meta'
     import { ref, watch } from 'vue'
     import useImage from '@/use/useImage'
@@ -123,6 +129,7 @@
             WatchSize
         },
         setup() {
+            const router = useRouter()
             const imageIndex = ref(0)
             const route = useRoute()
             const { resolveImage } = useImage()
@@ -143,8 +150,17 @@
                 showDiscount.value = true
             }
 
-            const { data: item, fetchData: getWatch, isLoading } = useWatchesGet()
 
+
+            const { data: item, fetchData: getWatch, isLoading } = useWatchesGet()
+            const { isFinished, fetchData: addProduct,isLoading: isAdding} = useAddProduct()
+
+
+            const addToCart = ()  =>{
+                addProduct({
+                    watchId: item?.value?.id
+                })
+            }
             getWatch({
                 id: route.params.id
             })
@@ -175,8 +191,11 @@
                     { property: 'twitter:description', content: description },
                     { property: 'twitter:image', content: image },
                 ]
-                console.log(item.value)
 
+            })
+
+            watch(isFinished, () => {
+                router.go()
             })
 
 
@@ -188,7 +207,9 @@
                 setIndexImage,
                 getPrice,
                 showDiscount,
-                applyDiscount
+                applyDiscount,
+                addToCart,
+                isAdding
             }
 
         }
@@ -252,20 +273,32 @@
       padding: em(15px) em(15px);
       border-radius: 5px;
       font-size: 14px;
+
+      &--loading {
+        animation: spin 0.7s linear infinite;
+      }
     }
 
     &__ball {
-      margin-top: em(4px);
+      display: inline-block;
       width: em(12px);
       height: em(12px);
       border-radius: 50%;
+      align-self: center;
     }
 
     &__balls {
       display: grid;
       grid-auto-flow: column;
-      justify-content: start;
-      grid-gap: em(2px);
+      grid-gap: em(8px);
+
+      &-wrap {
+        display: grid;
+        grid-auto-flow: column;
+        justify-content: start;
+        grid-gap: em(4px);
+        align-items: center;
+      }
     }
 
     &__props {
@@ -273,4 +306,15 @@
       grid-gap: em(8px);
     }
   }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
 </style>

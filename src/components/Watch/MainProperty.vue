@@ -1,12 +1,14 @@
 <template>
     <div class="watch-main-property">
-        <h2 class="watch-main-property__content title title--h5 ">
-            {{ title }}
+        <div class="watch-main-property__content">
+            <h2 class=" title title--h5 ">
+                {{ title }}
+            </h2>
             <span v-if="value" class="watch-main-property__value">
                 {{ value }}
             </span>
             <slot></slot>
-        </h2>
+        </div>
     </div>
 </template>
 

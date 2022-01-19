@@ -36,16 +36,12 @@
             SectionShowcase
         },
         setup() {
-            const {
-                data: news,
-                fetchData,
-                isLoading: newsLoading
-            } = useWatchesNews()
+            const { data: news,  fetchData,  isLoading: newsLoading } = useWatchesNews()
             fetchData()
 
             return {
                 news,
-                newsLoading
+                newsLoading,
             }
         }
 

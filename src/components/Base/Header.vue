@@ -23,11 +23,40 @@
                         <span class="fa fa-user"></span>
                     </div>
                 </div>
-                <div class="text">
-                    <span class="fa fa-shopping-cart"></span>
+                <div class="header__cart">
+                    <el-popover :width="240" trigger="click">
+                        <template #reference>
+                            <div class="text">
+                                <span class="fa fa-shopping-cart"></span>
+                                <div v-if="user?.products?.length" class="header__cart-notification">
+                                    {{ user?.products.length }}
+                                </div>
+                            </div>
+                        </template>
+                        <div v-for="product in user?.products" :key="product.id" class="header__cart-list">
+                            <div class="header__cart-item text">
+                                <img class="header__cart-image" :src="resolveImage(product?.images[0]?.src)" @click="$router.push({name: 'watch', params: {id: product?.slug}})">
+                                <div>
+                                    <div class="header__cart-price link" @click="$router.push({name: 'watch', params: {id: product?.slug}})">
+                                        {{ product.name }}
+                                    </div>
+                                    <div class="header__cart-price" @click="$router.push({name: 'watch', params: {id: product?.slug}})">
+                                        {{ getPrice(product.price) }}
+                                    </div>
+                                    <div class="header__cart-delete link" @click="deleteCart(product?.id)">
+                                        {{ $t('cart.delete') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="!user?.products?.length" class="text u-text-align-cente">
+                            No tienes nada en el carrito
+                        </div>
+                    </el-popover>
                 </div>
             </div>
         </div>
+
         <HeaderMenu v-show="!clear" class="header__menu" />
         <MobileMenu v-if="mobileMenu" @close="toggleMenu" />
     </div>
@@ -39,7 +68,10 @@
 
     import { useStore } from 'vuex'
     import { useRouter } from 'vue-router'
-    import { ref } from 'vue'
+    import { ref, watch } from 'vue'
+    import { useGetUser, useRemoveProduct } from '@/use/useApi'
+    import useImage from '@/use/useImage'
+    import useCurrency from '@/use/useCurrency'
     export default {
         components: {
             HeaderMenu,
@@ -60,6 +92,11 @@
             const router = useRouter()
             const search = ref('')
             const mobileMenu = ref(false)
+            const { resolveImage } = useImage()
+            const { get: getPrice } = useCurrency()
+            const { data: user, fetchData: getUser } = useGetUser()
+            const {isFinished, fetchData: deleteItem } = useRemoveProduct()
+
             const logout = () => {
                 store.dispatch('auth/logout')
             }
@@ -72,12 +109,27 @@
                 mobileMenu.value =  !mobileMenu.value
             }
 
+            const deleteCart = (id) => {
+                deleteItem({watchId: id})
+            }
+
+            getUser()
+            console.log(user)
+
+            watch(isFinished, () => {
+                router.go()
+            })
+
             return {
                 logout,
                 search,
                 sendSearch,
                 mobileMenu,
-                toggleMenu
+                toggleMenu,
+                deleteCart,
+                user,
+                getPrice,
+                resolveImage
             }
 
 
@@ -113,6 +165,50 @@
         height: 100%;
         padding: em(8px);
         border-radius: 0 5px 5px 0;
+      }
+    }
+
+    &__cart {
+      position: relative;
+      cursor: pointer;
+
+      &-notification {
+        position: absolute;
+        font-weight: bold;
+        font-size: 9px;
+        background-color: var(--color-primary-dark);
+        border-radius: 50%;
+        color: var(--color-white);
+        display: grid;
+        width: 16px;
+        height: 16px;
+        align-items: center;
+        justify-content: center;
+        bottom: em(-6px);
+        left: em(24px);
+      }
+
+      &-item {
+        display: grid;
+        grid-auto-flow: column;
+        justify-content: start;
+        cursor: pointer;
+        align-items: center;
+        grid-gap: em(16px);
+      }
+
+      &-image {
+        height: em(100px);
+      }
+
+      &-list {
+        display: grid;
+        justify-content: center;
+      }
+
+      &-delete {
+        font-size: 10px;
+        color: var(--color-primary);
       }
     }
 
