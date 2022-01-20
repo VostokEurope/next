@@ -16,11 +16,21 @@ export default {
         buy: 'КУПИТЬ СО СКИДКОЙ',
         calibres: 'Калибр:',
         dialColor: 'Цвет циферблата:',
+        gender: {
+            value: 'gender',
+            male: 'male',
+            female: 'female',
+            unisex: 'unisex'
+        },
         features: {
             time:'Функции:',
             others:'Дополнительно:',
             luminosity:'Подсветка:',
             features: 'Аксессуары'
+        },
+        resistance: {
+            value: 'Resistance:',
+            unity: 'ATM'
         },
         property: {
             hours: 'часы',

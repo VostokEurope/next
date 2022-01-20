@@ -72,6 +72,8 @@
                         <WatchSize :item="item" />
                         <MainProperty :title="$t('watch.mechanism')" :value="item?.mechanisms?.name" />
                         <MainProperty :title="$t('watch.case')" :value="item?.case?.name" />
+                        <MainProperty :title="$t('watch.gender.value')" :value="$t(`watch.gender.${item?.gender?.name}`)" />
+
                         <MainProperty :title="$t('watch.coating')" :value="item?.coating?.name">
                             <div class="page-watch__balls">
                                 <div
@@ -84,6 +86,8 @@
                                 </div>
                             </div>
                         </MainProperty>
+                        <MainProperty :title="$t('watch.resistance.value')" :value="`${item?.resistance?.name} ${$t('watch.resistance.unity')}`" />
+
                         <MainProperty :title="$t('watch.glass')" :value="item?.glass?.name" />
                         <MainProperty :title="$t('watch.dialColor')" :value="item?.color.name">
                             <span class="page-watch__ball" :style="`background-color:${item?.color.hexadecimal}`"></span>
