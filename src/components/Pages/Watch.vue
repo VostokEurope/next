@@ -90,11 +90,11 @@
                         </MainProperty>
 
                         <ul class="page-watch__calibres">
-                            <h2 class="title title--h5">
+                            <h2 class="title title--h5 text--bold">
                                 {{ $t('watch.calibres') }}
                             </h2>
-                            <li v-for="calibre in item?.calibres" :key="calibre.id" class="page-watch__calibres_item text text--bold">
-                                - {{ calibre.name }} <span v-if="!calibre.origin.hide">
+                            <li v-for="calibre in item?.calibres" :key="calibre.id" class="page-watch__calibres-item text">
+                                {{ calibre.name }} <span v-if="!calibre.origin.hide">
                                     {{ calibre.origin.code }}
                                 </span>
                             </li>
@@ -158,7 +158,8 @@
 
             const addToCart = ()  =>{
                 addProduct({
-                    watchId: item?.value?.id
+                    watchId: item?.value?.id,
+                    ...item?.value
                 })
             }
             getWatch({
@@ -248,6 +249,8 @@
       grid-gap: em(8px);
       font-weight: bold;
       align-items: center;
+      font-size: 18px;
+      padding: em(8px) 0;
 
       &-gift {
         cursor: pointer;
@@ -256,7 +259,7 @@
     }
 
     &__buttons {
-      margin: 8px 0;
+      margin: em(8px) 0;
       display: grid;
       grid-auto-flow: column;
       justify-content: start;
@@ -303,6 +306,14 @@
 
     &__props {
       display: grid;
+      grid-gap: em(8px);
+    }
+
+    &__calibres {
+      display: grid;
+      grid-auto-flow: column;
+      justify-content: start;
+      align-items: center;
       grid-gap: em(8px);
     }
   }

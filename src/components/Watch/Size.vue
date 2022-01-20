@@ -1,6 +1,6 @@
 <template>
     <div v-if=" item?.width || item?.height || item?.thickness" class="watch-size">
-        <h2 class="title title--h4">
+        <h2 class="title title--h4 text--bold">
             {{ $t('watch.size') }}
         </h2>
         <div v-if="item?.width && item?.height !== item?.width" class="watch-size__row">

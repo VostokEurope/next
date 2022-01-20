@@ -4,6 +4,10 @@ import { reactive, toRefs } from 'vue'
 import { useStore } from 'vuex'
 
 export default () => {
+
+    const store = useStore()
+    const products = store.getters['cart/products']
+
     const state = reactive({
         response: undefined,
         data: undefined,
@@ -12,13 +16,11 @@ export default () => {
         isFinished: undefined
     })
 
-    const fetchData = (params) => {
-        const store = useStore()
-        const user = store.getters['auth/user']
-
-        if(user?.id) {
-            const { response, data, error, isLoading, isFinished } = useAxios(`/user/`, {
-                method: 'get'
+    const fetchData = () => {
+        if (products?.length) {
+            const { response, data, error, isLoading, isFinished } = useAxios(`/cart/transfer`, {
+                method: 'post',
+                data: {products: (products || []).map(product => product.id)}
             }, axios)
 
             state.response = response
@@ -26,15 +28,10 @@ export default () => {
             state.error = error
             state.isLoading = isLoading
             state.isFinished = isFinished
+            store.dispatch('cart/transfer')
         } else {
-            console.log('alternative')
-            console.log(store.getters['cart/products'])
-            state.data = { products: store.getters['cart/products']}
             state.isFinished = true
-
         }
-
-
 
     }
 

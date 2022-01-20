@@ -49,8 +49,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="!user?.products?.length" class="text u-text-align-cente">
-                            No tienes nada en el carrito
+                        <div v-if="user?.products?.length" class="link u-text-align-center" @click="$router.push({name:'checkout'})">
+                            {{ $t('cart.buy') }}
+                        </div>
+                        <div v-else class="text u-text-align-cente">
+                            {{ $t('cart.empty') }}
                         </div>
                     </el-popover>
                 </div>
@@ -114,7 +117,6 @@
             }
 
             getUser()
-            console.log(user)
 
             watch(isFinished, () => {
                 router.go()

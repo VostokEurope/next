@@ -136,10 +136,6 @@
                 router.push({name: 'admin-colors'})
             })
 
-            watch(form, () => {
-                console.log(form)
-            })
-
             return {
                 form,
                 color,

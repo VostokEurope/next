@@ -14,21 +14,27 @@
             </li>
         </div>
 
-        <div v-if="features?.others?.length" class="watch-properties__others">
-            <h3 class="watch-properties__others-title">
-                {{ $t('watch.features.others') }}
-            </h3>
-            <li v-for="(property) in features?.others" :key="property.id" class="watch-properties__others-item">
-                {{ property.value }}{{ property?.unity }} {{ $t(`watch.property.${property.code}`) }}
-            </li>
-        </div>
 
         <div v-if="features?.luminosity?.length" class="watch-properties__luminosity">
             <h3 class="watch-properties__luminosity-title">
                 {{ $t('watch.features.luminosity') }}
             </h3>
             <li v-for="(property) in features?.luminosity" :key="property.id" class="watch-properties__luminosity-item">
-                {{ $t(`watch.property.${property.code}`) }} {{ property.value }}{{ property?.unity }}
+                {{ $t(`watch.property.${property.code}`) }}{{ property?.unity ? ':' : '' }} {{ property.value }} {{ property?.unity }}
+            </li>
+        </div>
+
+        <div v-if="features?.others?.length" class="watch-properties__others">
+            <h3 class="watch-properties__others-title">
+                {{ $t('watch.features.others') }}
+            </h3>
+            <li v-for="(property) in features?.others" :key="property.id" class="watch-properties__others-item">
+                <span v-if="property.code !== 'rotatingBezel'">
+                    {{ $t(`watch.property.${property.code}`) }}{{ property?.unity ? ':' : '' }} {{ property.value }} {{ property?.unity }}
+                </span>
+                <span v-else>
+                    {{ property.value }} {{ property?.unity }} {{ $t(`watch.property.${property.code}`) }}
+                </span>
             </li>
         </div>
 
@@ -37,7 +43,7 @@
                 {{ $t('watch.features.features') }}
             </h3>
             <li v-for="(property) in features?.features" :key="property.id" class="watch-properties__features-item">
-                {{ $t(`watch.property.${property.code}`) }} {{ property.value }}{{ property?.unity }}
+                {{ $t(`watch.property.${property.code}`) }}{{ property?.unity ? ':' : '' }} {{ property.value }} {{ property?.unity }}
             </li>
         </div>
     </div>
@@ -66,9 +72,6 @@
 
                 return acc
             }, {})
-
-            console.log(features)
-
 
             return {
                 features

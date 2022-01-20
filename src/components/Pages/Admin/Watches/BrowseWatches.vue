@@ -125,7 +125,6 @@
             })
 
             watch([created], () => {
-                console.log(created)
                 router.push({
                     name:`${basePath}-edit`,
                     params: {

@@ -15,6 +15,7 @@
             </div>
         </LayoutScrollable>
         <div
+            v-if="images.length && images.length > 1"
 
             class="image-slider__navigation"
         >

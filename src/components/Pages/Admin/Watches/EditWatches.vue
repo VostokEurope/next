@@ -484,7 +484,6 @@
 
             watch(item, () => {
                 const data = item.value
-                console.log(data)
 
                 // base
                 form.id = data.id

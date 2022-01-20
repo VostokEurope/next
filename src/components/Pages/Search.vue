@@ -95,10 +95,6 @@
                 })
             })
 
-            watch(form, () => {
-                console.log(form)
-            })
-
             return {
                 search,
                 form,

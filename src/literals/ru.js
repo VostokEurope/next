@@ -3,7 +3,9 @@ export default {
         result: (ctx) => `Search: '${ctx.named('search')}' shown ${ctx.named('results')} results`,
     },
     cart: {
-        delete: 'Delete'
+        delete: 'Delete',
+        empty: 'El carrito esta vacío',
+        buy: 'checkout'
     },
     watch: {
         size: 'Размер:',
@@ -44,7 +46,10 @@ export default {
             heliumValve: 'автоматический гелиевый декомпрессионный клапан',
             screwInCaseBack: 'завинчивающаяся задняя крышка',
             serialNumber: 'с гравировкой серийного номера',
-            tritium: 'тритиевые трубки (GTLS «Trigalight»)'
+            tritium: 'тритиевые трубки (GTLS «Trigalight»)',
+            braceletSet: 'braceletSet',
+            screwDriver: 'screwDriver',
+            dryBox: 'dryBox'
         }
     },
     slider: {

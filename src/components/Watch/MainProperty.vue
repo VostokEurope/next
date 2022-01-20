@@ -36,7 +36,7 @@
       grid-gap: em(8px);
     }
 
-    &__value {
+    .title {
       font-weight: bold;
     }
   }

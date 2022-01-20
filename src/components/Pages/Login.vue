@@ -125,7 +125,7 @@
     import VoPicture from '@/components/Base/Picture.vue'
     import { reactive, ref, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
-    import { useLogin, useRegister } from '@/use/useApi'
+    import { useLogin, useRegister, useTransferProducts } from '@/use/useApi'
     import { useRouter } from 'vue-router'
     export default {
         components: {
@@ -140,6 +140,7 @@
             const isLogin = ref(true)
             const { data, fetchData: sendLogin, isLoading} = useLogin()
             const { data: registered, fetchData: sendRegister, isLoading: loadingRegister} = useRegister()
+            const { isFinished, fetchData: transferProducts } = useTransferProducts()
 
             const registerRules = reactive({
                 name: [
@@ -237,13 +238,18 @@
             }
 
             watch([data], () => {
-                router.push({ name: 'home' })
+                transferProducts()
             })
 
             watch([registered], () => {
-                router.push({ name: 'home' })
-
+                transferProducts()
             })
+
+            watch(isFinished, () => {
+                router.push({ name: 'home' })
+            })
+
+
 
             return {
                 registerRules,

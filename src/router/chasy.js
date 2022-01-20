@@ -4,7 +4,6 @@ export default [
         name: 'watch',
         meta: {
             title: (name) => {
-                console.log(name)
                 return `Восток Европа  - Часы ${name.replace('-','/')}`.toUpperCase()
             }
         },
