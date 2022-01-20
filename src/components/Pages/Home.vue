@@ -10,14 +10,16 @@
                 />
                 <SectionShowcase
                     :title="$t('home.highlighted')"
-                    :items="news"
+                    :items="favorites"
                     path="watch"
                 />
+                <!--
                 <SectionShowcase
                     :title="$t('home.offers')"
                     :items="news"
                     path="watch"
                 />
+                -->
             </div>
         </div>
     </LayoutDefault>
@@ -28,7 +30,7 @@
     import BannerCollections from '@/components/Banners/Collections.vue'
     import SectionShowcase from '@/components/Section/Showcase.vue'
 
-    import { useWatchesNews } from '@/use/useApi'
+    import { useWatchesFavorites, useWatchesNews } from '@/use/useApi'
     export default {
         components: {
             LayoutDefault,
@@ -37,11 +39,16 @@
         },
         setup() {
             const { data: news,  fetchData,  isLoading: newsLoading } = useWatchesNews()
+            const { data: favorites, fetchData: getFavorites,  isLoading: loadingFavorites } = useWatchesFavorites()
+
             fetchData()
+            getFavorites()
 
             return {
+                favorites,
                 news,
                 newsLoading,
+                loadingFavorites
             }
         }
 

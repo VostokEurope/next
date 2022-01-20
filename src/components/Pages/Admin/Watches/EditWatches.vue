@@ -539,7 +539,14 @@
                             unity: match?.params?.unity,
                             value: match?.params?.value
                         }
-                    }).sort((a, b) => b?.typeId - a?.typeId)
+                    }).sort((a, b) => {
+                        const indexA = [1,3,undefined,0].findIndex(i => i === a.typeId) || 2
+                        const indexB = [1,3,undefined,0].findIndex(i => i === b.typeId) || 2
+
+                        return indexB - indexA
+
+
+                    })
                 }
 
             })
