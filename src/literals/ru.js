@@ -1,11 +1,11 @@
 export default {
     search: {
-        result: (ctx) => `Search: '${ctx.named('search')}' shown ${ctx.named('results')} results`,
+        result: (ctx) => `Поиск: '${ctx.named('search')}' показал ${ctx.named('results')} результатов`,
     },
     cart: {
-        delete: 'Delete',
-        empty: 'El carrito esta vacío',
-        buy: 'checkout'
+        delete: 'Удалить',
+        empty: 'Ваша корзина пуста',
+        buy: 'Перейти в корзину'
     },
     watch: {
         size: 'Размер:',
@@ -47,9 +47,9 @@ export default {
             screwInCaseBack: 'завинчивающаяся задняя крышка',
             serialNumber: 'с гравировкой серийного номера',
             tritium: 'тритиевые трубки (GTLS «Trigalight»)',
-            braceletSet: 'braceletSet',
-            screwDriver: 'screwDriver',
-            dryBox: 'dryBox'
+            braceletSet: 'комплект ремней',
+            screwDriver: 'отвертка для смены ремней / VE Multitool',
+            dryBox: 'противоударный водонепроницаемый чемоданчик'
         }
     },
     slider: {
