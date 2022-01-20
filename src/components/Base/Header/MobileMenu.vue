@@ -11,7 +11,7 @@
                 <div v-else class="text" @click="$router.push({name: 'login'})">
                     <span class="fa fa-user"></span>
                 </div>
-                <div class="text">
+                <div class="text" @click="goToCart">
                     <span class="fa fa-shopping-cart"></span>
                 </div>
             </div>
@@ -53,6 +53,12 @@
                 store.dispatch('auth/logout')
             }
 
+            const goToCart = () => {
+                console.log('carting')
+                mobileMenu.value = false
+                router.push({name: 'cart'})
+            }
+
             const sendSearch = () => {
                 router.push({name:'search', query: {search: search.value}})
             }
@@ -68,7 +74,8 @@
                 search,
                 sendSearch,
                 mobileMenu,
-                toggleMenu
+                toggleMenu,
+                goToCart
             }
         }
 

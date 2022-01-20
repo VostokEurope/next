@@ -11,20 +11,30 @@
                 <div class="banner-hero__overlay">
                     <div class="banner-hero__overlay-content">
                         <div
-                            class="banner-hero__title"
-                        >
-                            {{ item.name }}
-                        </div>
-                        <div
-                            class="banner-hero__buttons"
+                            class="banner-hero__overlay-wrapper"
+                            @click="$router.push({ name: 'collection', params: {
+                                id: item.slug
+                            }})"
                         >
                             <div
-                                class="banner-hero__button"
+                                class="banner-hero__title"
+                            >
+                                <div>{{ item.name }}</div>
+                                <div v-if="item?.subtitle" class="subtitle">
+                                    {{ item.subtitle }}
+                                </div>
+                            </div>
+                            <div
+                                class="banner-hero__buttons"
                                 @click="$router.push({ name: 'collection', params: {
                                     id: item.slug
                                 }})"
                             >
-                                {{ $t('slider.link') }}
+                                <div
+                                    class="banner-hero__button"
+                                >
+                                    {{ $t('slider.link') }}
+                                </div>
                             </div>
                         </div>
                         <div class="banner-hero__arrows">
@@ -121,10 +131,23 @@
         display: grid;
         grid-gap: em(16px);
       }
+
+      &-wrapper {
+        display: grid;
+        grid-gap: em(16px);
+        cursor: pointer;
+      }
     }
 
     &__title {
-      font-size: em(36px);
+      display: grid;
+      font-size: 32px;
+      grid-gap: em(8px);
+
+      .subtitle {
+        opacity: 0.6;
+        font-size: 24px;
+      }
     }
 
     &__balls {
@@ -152,6 +175,7 @@
     }
 
     &__buttons {
+      cursor: pointer;
       width: 100%;
     }
 

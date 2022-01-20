@@ -20,7 +20,8 @@ export default () => {
                 image: params?.image,
                 relevance: params?.relevance,
                 banDiscount: params?.banDiscount,
-                published: params.published
+                published: params?.published,
+                subtitle: params?.subtitle
             }
         }, axios)
 

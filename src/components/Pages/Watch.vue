@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="page-watch__buttons">
-                            <div class="page-watch__button page-watch__button--large">
+                            <div class="page-watch__button page-watch__button--large" @click="buy">
                                 {{ $t('watch.buy') }}
                             </div>
                             <div class="page-watch__button" @click="addToCart">
@@ -139,6 +139,7 @@
             })
             const { get: getPrice } = useCurrency()
             const showDiscount = ref(false)
+            const toBuy = ref(false)
 
 
             const setIndexImage = (i) => {
@@ -148,6 +149,16 @@
 
             const applyDiscount = () => {
                 showDiscount.value = true
+            }
+
+            const buy = () => {
+                toBuy.value = true
+                addProduct({
+                    watchId: item?.value?.id,
+                    ...item?.value
+                })
+
+
             }
 
 
@@ -196,7 +207,12 @@
             })
 
             watch(isFinished, () => {
-                router.go()
+                if(toBuy.value) {
+                    router.push({name: 'checkout'})
+                } else {
+                    router.go()
+                }
+
             })
 
 
@@ -210,7 +226,8 @@
                 showDiscount,
                 applyDiscount,
                 addToCart,
-                isAdding
+                isAdding,
+                buy
             }
 
         }

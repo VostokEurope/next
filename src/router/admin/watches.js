@@ -11,7 +11,7 @@ export default [
         meta: {
             title: `${entry}`,
             icon: 'fal fa-watch',
-            shortcut: false,
+            shortcut: true,
             admin: true
         },
         component: () => import('@/views/Admin/Watches/Browse.vue'),

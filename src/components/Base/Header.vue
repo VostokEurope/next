@@ -8,7 +8,7 @@
             <div class="header__image" @click="$router.push({ name: 'home' })">
                 <img src="/logo.png" alt="Vostok Europe Shop">
             </div>
-            <div class="header__tools">
+            <div v-if="!clear" class="header__tools">
                 <div v-if="!hideSearch" v-show="!clear" class="header__search">
                     <el-input v-model="search" />
                     <div class="header__search-button" @click="sendSearch">
@@ -133,8 +133,6 @@
                 getPrice,
                 resolveImage
             }
-
-
         }
     }
 </script>

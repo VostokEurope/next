@@ -1,7 +1,7 @@
 <template>
     <div class="layout-default">
-        <DefaultHeader :hide-search="hideSearch" />
-        <nav v-if="breadcrumbs" class="layout-default__breadcrumbs">
+        <DefaultHeader :clear="clear" :hide-search="hideSearch" />
+        <nav v-if="breadcrumbs && !clear" class="layout-default__breadcrumbs">
             <div class="" @click="$router.push({ name: 'home'})">
                 {{ $t('router.home') }}
             </div>
@@ -30,6 +30,10 @@
             DebugTools
         },
         props: {
+            clear: {
+                type: Boolean,
+                default: false
+            },
             hideSearch: {
                 type: Boolean,
                 default: false

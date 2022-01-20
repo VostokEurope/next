@@ -118,7 +118,7 @@
       justify-content: center;
       grid-gap: em(32px);
       padding: em(16px) 0;
-      grid-template-columns: repeat(auto-fill, em(140px));
+      grid-template-columns: repeat(auto-fill, em(136px));
 
       @media (--bp-desktop) {
         justify-content: start;

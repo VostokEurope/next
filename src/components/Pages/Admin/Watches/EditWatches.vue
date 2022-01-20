@@ -277,7 +277,7 @@
                                             v-for="entry in coatings?.items"
                                             :key="entry.id"
                                             :loading="loadingCoatings"
-                                            :label="entry.name"
+                                            :label="entry.code"
                                             :value="entry.id"
                                         />
                                     </el-select>

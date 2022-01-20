@@ -47,6 +47,17 @@
                     </div>
                     <div class="admin-page-collections-edit__row">
                         <el-form-item
+                            label="subtitle"
+                            prop="subtitle"
+                        >
+                            <el-input
+                                v-model="form.subtitle"
+                                type="text"
+                            />
+                        </el-form-item>
+                    </div>
+                    <div class="admin-page-collections-edit__row">
+                        <el-form-item
                             label="slug"
                             prop="slug"
                         >
@@ -192,6 +203,7 @@
             watch(collection, () => {
                 form.id = collection.value.id
                 form.name = collection.value.name
+                form.subtitle = collection.value.subtitle
                 form.slug = collection.value.slug
                 form.description = collection.value.description
                 form.image = collection.value.image
