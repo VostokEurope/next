@@ -27,9 +27,10 @@ export default {
         glass: 'Стекло:',
         buy: 'КУПИТЬ СО СКИДКОЙ',
         calibres: 'Калибр:',
+        bracelets: 'Bracelets:',
         dialColor: 'Цвет циферблата:',
         gender: {
-            value: 'gender',
+            value: 'gender:',
             male: 'male',
             female: 'female',
             unisex: 'unisex'

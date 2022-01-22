@@ -93,7 +93,7 @@
                             <span class="page-watch__ball" :style="`background-color:${item?.color.hexadecimal}`"></span>
                         </MainProperty>
 
-                        <ul class="page-watch__calibres">
+                        <ul v-if="item?.calibres?.length" class="page-watch__calibres">
                             <h2 class="title title--h5 text--bold">
                                 {{ $t('watch.calibres') }}
                             </h2>
@@ -101,6 +101,15 @@
                                 {{ calibre.name }} <span v-if="!calibre.origin.hide">
                                     {{ calibre.origin.code }}
                                 </span>
+                            </li>
+                        </ul>
+
+                        <ul v-if="item?.bracelets?.length" class="page-watch__calibres">
+                            <h2 class="title title--h5 text--bold">
+                                {{ $t('watch.bracelets') }}
+                            </h2>
+                            <li v-for="bracelet in item?.bracelets" :key="bracelet.id" class="page-watch__calibres-item text">
+                                {{ bracelet.name }}
                             </li>
                         </ul>
                     </div>
@@ -116,10 +125,10 @@
     import ImageSlider from '@/components/Base/ImageSlider.vue'
     import WatchSize from '@/components/Watch/Size.vue'
     import WatchProperties from '@/components/Watch/Properties.vue'
+    import MainProperty from '@/components/Watch/MainProperty.vue'
 
     import { useAddProduct, useWatchesGet } from '@/use/useApi'
     import { useRoute, useRouter } from 'vue-router'
-    import { useMeta } from 'vue-meta'
     import { ref, watch } from 'vue'
     import useImage from '@/use/useImage'
     import useSeo from '@/use/useSeo'
@@ -130,7 +139,8 @@
             LayoutDefault,
             ImageSlider,
             WatchProperties,
-            WatchSize
+            WatchSize,
+            MainProperty
         },
         setup() {
             const router = useRouter()
@@ -183,7 +193,6 @@
                     name: item.value.name,
                     description: item.value.description
                 })
-
             })
 
             watch(isFinished, () => {

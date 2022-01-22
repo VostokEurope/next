@@ -1,5 +1,5 @@
 <template>
-    <div class="watch-main-property">
+    <div v-if="title && value" class="watch-main-property">
         <div class="watch-main-property__content">
             <h2 class=" title title--h5 ">
                 {{ title }}

@@ -6,7 +6,7 @@
             </h3>
             <li v-for="(property, i) in features?.time" :key="property.id" class="watch-properties__time-item">
                 {{ $t(`watch.property.${property.code}`) }} <span v-if="property.value " class="watch-properties__time-value">
-                    ({{ property.value }}{{ property?.unity }})
+                    ({{ property.value }} {{ property?.unity }})
                 </span>
                 <span v-if="i !== features?.time.length - 1" class="after">
                     ,

@@ -110,7 +110,7 @@
             }
 
             fetchData({
-                limit: 30
+                limit: 5
             })
 
             onMounted(() => {
@@ -168,6 +168,7 @@
       bottom: em(32px);
 
       &-image {
+        cursor: pointer;
         opacity: 0.5;
 
         &--active {
