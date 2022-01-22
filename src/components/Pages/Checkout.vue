@@ -61,23 +61,32 @@
                 </div>
             </el-form>
             <div class="page-checkout__resume">
-                <div class="title title--h3">
-                    {{ $t('checkout.resume') }}
-                </div>
-                <div v-for="product in user?.products" :key="product.id" class="page-checkout__item  text">
-                    <div class="page-checkout__item-watch">
-                        <div class="page-checkout__name text--bold">
-                            {{ product.name }}:
+                <div class="page-checkout__resume-content">
+                    <div class="title title--h3">
+                        {{ $t('checkout.resume') }}
+                    </div>
+                    <div v-for="product in user?.products" :key="product.id" class="page-checkout__item  text">
+                        <div class="page-checkout__item-watch">
+                            <div class="page-checkout__name text--bold">
+                                {{ product.name }}:
+                            </div>
+                        </div>
+                        <div class="page-checkout__item-price">
+                            {{ getPrice(product?.price) }}
                         </div>
                     </div>
-                    <div class="page-checkout__item-price">
-                        {{ getPrice(product?.price) }}
+                    <hr>
+                    <div v-if="discount" class="page-checkout__item">
+                        <div>{{ $t('checkout.discount') }}</div>
+                        <div class="text--bold u-color-success">
+                            -{{ getPrice(discount) }}
+                        </div>
                     </div>
-                </div>
-                <div class="page-checkout__item">
-                    <div>{{ $t('checkout.total') }}</div>
-                    <div class="text--bold">
-                        {{ getPrice(total) }}
+                    <div class="page-checkout__item">
+                        <div>{{ $t('checkout.total') }}</div>
+                        <div class="text--bold ">
+                            {{ getPrice(total - discount) }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -88,10 +97,9 @@
 <script>
     import LayoutDefault from '@/components/Layouts/Default.vue'
     import { useStore } from 'vuex'
-    import { useRouter } from 'vue-router'
     import useImage from '@/use/useImage'
     import useCurrency from '@/use/useCurrency'
-    import { useGetUser, useRemoveProduct } from '@/use/useApi'
+    import { useGetUser } from '@/use/useApi'
     import { reactive, ref, watch } from 'vue-demi'
     import { useI18n } from 'vue-i18n'
     import useSeo from '@/use/useSeo'
@@ -101,14 +109,16 @@
             LayoutDefault,
         },
         setup() {
+            useSeo()
             const store = useStore()
             const { resolveImage } = useImage()
             const { get: getPrice } = useCurrency()
             const { data: user, fetchData: getUser,  isLoading } = useGetUser()
             const total = ref(null)
             const { t } = useI18n()
-            const { setMetas } = useSeo({})
-
+            const discounts = store.getters['discount/discounts']
+            console.log(discounts)
+            const discount = ref(0)
             const formCheckout = reactive({
 
             })
@@ -142,11 +152,19 @@
 
             }
 
+
             getUser()
 
             watch(user, () => {
-                total.value = user.value.products.reduce((acc, item) => {
+                const products = user.value.products
+                total.value = products.reduce((acc, item) => {
                     acc += item.price
+                    return acc
+                }, 0)
+
+                discount.value = products.reduce((acc, entry) => {
+                    const discountPercent = discounts.includes(entry.id) ? entry.discount : 0
+                    acc += entry.price - (entry.price - (entry.price) * (discountPercent / 100))
                     return acc
                 }, 0)
 
@@ -162,7 +180,8 @@
                 formCheckout,
                 submitChekcout,
                 total,
-                isLoading
+                isLoading,
+                discount
             }
         }
 
@@ -178,11 +197,27 @@
     grid-template-columns: 3fr 1fr;
     grid-gap: em(16px);
 
-    &__content,
-    &__resume {
+    &__content {
       border-radius: em(5px);
       background-color: white;
       padding: em(16px);
+    }
+
+    &__resume {
+      .title {
+        padding: em(8px) 0;
+      }
+
+      &-content {
+        border-radius: em(5px);
+        padding: em(16px);
+        background-color: white;
+      }
+
+      hr {
+        opacity: 0.3;
+        margin: em(16px);
+      }
     }
 
     &__content {
@@ -209,12 +244,6 @@
       display: grid;
       grid-template-columns: 1fr auto;
       padding: em(4px) em(16px);
-    }
-
-    &__resume {
-      .title {
-        padding: em(8px) 0;
-      }
     }
   }
 </style>

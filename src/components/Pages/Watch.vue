@@ -42,7 +42,11 @@
                     <div>
                         <div class="page-watch__price">
                             <span class="text" :class="{'text--strike': showDiscount}">
-                                {{ getPrice(item?.price) }} <span v-if="item?.discount && !showDiscount" class="page-watch__price-gift" @click="applyDiscount">
+                                {{ getPrice(item?.price) }} <span
+                                    v-if="item?.discount && !showDiscount"
+                                    class="page-watch__price-gift"
+                                    @click="applyDiscount"
+                                >
                                     <span class="link">
                                         получить скидку
                                     </span>
@@ -70,10 +74,9 @@
 
                     <div class="page-watch__props">
                         <WatchSize :item="item" />
+                        <MainProperty :title="$t('watch.gender.value')" :value="$t(`watch.gender.${item?.gender?.name}`)" />
                         <MainProperty :title="$t('watch.mechanism')" :value="item?.mechanisms?.name" />
                         <MainProperty :title="$t('watch.case')" :value="item?.case?.name" />
-                        <MainProperty :title="$t('watch.gender.value')" :value="$t(`watch.gender.${item?.gender?.name}`)" />
-
                         <MainProperty :title="$t('watch.coating')" :value="item?.coating?.name">
                             <div class="page-watch__balls">
                                 <div
@@ -87,12 +90,10 @@
                             </div>
                         </MainProperty>
                         <MainProperty :title="$t('watch.resistance.value')" :value="`${item?.resistance?.name} ${$t('watch.resistance.unity')}`" />
-
                         <MainProperty :title="$t('watch.glass')" :value="item?.glass?.name" />
-                        <MainProperty :title="$t('watch.dialColor')" :value="item?.color.name">
-                            <span class="page-watch__ball" :style="`background-color:${item?.color.hexadecimal}`"></span>
+                        <MainProperty :title="$t('watch.dialColor')" :value="item?.color?.name">
+                            <span class="page-watch__ball" :style="`background-color:${item?.color?.hexadecimal}`"></span>
                         </MainProperty>
-
                         <ul v-if="item?.calibres?.length" class="page-watch__calibres">
                             <h2 class="title title--h5 text--bold">
                                 {{ $t('watch.calibres') }}
@@ -103,7 +104,6 @@
                                 </span>
                             </li>
                         </ul>
-
                         <ul v-if="item?.bracelets?.length" class="page-watch__calibres">
                             <h2 class="title title--h5 text--bold">
                                 {{ $t('watch.bracelets') }}
@@ -113,7 +113,10 @@
                             </li>
                         </ul>
                     </div>
-                    <WatchProperties v-if="item?.properties.length" :properties="item?.properties" />
+                    <WatchProperties
+                        v-if="item?.properties.length"
+                        :properties="item?.properties"
+                    />
                 </div>
             </div>
         </div>
@@ -133,6 +136,7 @@
     import useImage from '@/use/useImage'
     import useSeo from '@/use/useSeo'
     import useCurrency from '@/use/useCurrency'
+    import { useStore } from 'vuex'
 
     export default {
         components: {
@@ -145,12 +149,14 @@
         setup() {
             const router = useRouter()
             const route = useRoute()
+            const store = useStore()
             const { resolveImage } = useImage()
 
             const { setMetas } = useSeo({
                 name: route?.params?.id.toUpperCase()
             })
             const { get: getPrice } = useCurrency()
+            const discounts = store.getters['discount/discounts']
             const showDiscount = ref(false)
             const toBuy = ref(false)
 
@@ -158,6 +164,8 @@
 
 
             const applyDiscount = () => {
+                console.log(item?.value.id)
+                store.dispatch('discount/add', item?.value.id)
                 showDiscount.value = true
             }
 
@@ -188,7 +196,8 @@
             })
 
             watch(item, () => {
-                showDiscount.value = !item?.value?.collection?.banDiscount
+                console.log(discounts)
+                showDiscount.value = !item?.value?.collection?.banDiscount || discounts.includes(item?.value?.id)
                 setMetas({
                     name: item.value.name,
                     description: item.value.description

@@ -14,6 +14,9 @@ export default {
             title: (ctx) => `Восток Европа  - Часы ${ctx.named('name')}`
         }
     },
+    checkout: {
+        buy: 'Confirm'
+    },
     cart: {
         delete: 'Удалить',
         empty: 'Ваша корзина пуста',

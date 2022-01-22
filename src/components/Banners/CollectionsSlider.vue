@@ -49,7 +49,12 @@
                 }})"
             >
             </div>
-            <div class="collection-slider__arrows-item" @click="nextSlide">
+            <div
+                class="collection-slider__arrows-item"
+                @click="nextSlide({
+                    manual: true
+                })"
+            >
                 <span class="fa fa-angle-right"></span>
             </div>
         </div>
@@ -105,7 +110,7 @@
 
             const interval = ref(null)
 
-            const nextSlide = () => {
+            const nextSlide = (params = {}) => {
                 if (userChange.value) {
                     userChange.value = false
                     return
@@ -114,7 +119,7 @@
                 if (next > collections.value.items.length - 1) {
                     next = 0
                 }
-                setIndexImage(next, true)
+                setIndexImage(next, !params.manual)
 
             }
 
@@ -132,7 +137,7 @@
             }
 
             fetchData({
-                limit: 5
+                limit: 20
             })
 
             onMounted(() => {
