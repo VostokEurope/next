@@ -2,6 +2,7 @@ export default {
     search: {
         result: (ctx) => `Поиск: '${ctx.named('search')}' показал ${ctx.named('results')} результатов`,
     },
+    // SEO PROPOSAL
     page: {
         collection: {
             title: (ctx) =>`${ctx.named('item')}' коллекция`
@@ -12,6 +13,30 @@ export default {
         },
         watch: {
             title: (ctx) => `Восток Европа  - Часы ${ctx.named('name')}`
+        },
+        home: {
+            title: 'Home',
+            description: 'Home Description'
+        },
+        checkout: {
+            title: 'Checkout',
+            description: 'Checkout Description'
+        },
+        login: {
+            title: 'Login',
+            description: 'Login Description'
+        },
+        contact: {
+            title: 'Contact',
+            description: 'Contact Description'
+        },
+        guaranty: {
+            title: 'Garantía y Servicio',
+            description: 'Garantía y Servicio Descripción'
+        },
+        payment: {
+            title: 'Delivery & Pago',
+            description: 'Delivery Description'
         }
     },
     checkout: {
@@ -128,7 +153,7 @@ export default {
         offers: "Специальные предложения",
         admin: "Администрация",
         contact: "Контакты",
-        delivery: "Оплата и доставка",
+        payment: "Оплата и доставка",
         guaranty: "Гарантия и сервис"
     }
 }

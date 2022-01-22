@@ -7,14 +7,20 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: () => import('@/views/Home.vue')
+        component: () => import('@/views/Home.vue'),
+        meta: {
+            title: 'page.home.title',
+            description: 'page.home.description',
+        }
     },
     {
         path: '/login',
         name: 'login',
         component: () => import('@/views/Login.vue'),
         meta: {
-            robots: 'noindex,nofollow'
+            robots: 'noindex,nofollow',
+            title: 'page.login.title',
+            description: 'page.login.description',
         }
     },
     {
@@ -22,32 +28,40 @@ const routes = [
         name: 'search',
         component: () => import('@/views/Search.vue'),
         meta: {
-            robots: 'noindex,nofollow'
+            robots: 'noindex,nofollow',
+            title: 'page.search.title',
+            description: 'page.seach.description',
         }
     },
     ...chasy,
     ...collekciya,
     ...admin,
     {
-        path: '/delivery',
-        name: 'delivery',
+        path: '/payment',
+        name: 'payment',
         meta: {
-            menu: true
+            menu: true,
+            title: 'page.payment.title',
+            description: 'page.payment.description',
         },
-        component: () => import('@/views/Contact.vue')
+        component: () => import('@/views/Payment.vue')
     },
     {
         path: '/guaranty',
         name: 'guaranty',
         meta: {
+            title: 'page.guaranty.title',
+            description: 'page.guaranty.description',
             menu: true
         },
-        component: () => import('@/views/Contact.vue')
+        component: () => import('@/views/Guaranty.vue')
     },
     {
         path: '/kontacty',
         name: 'contact',
         meta: {
+            title: 'page.contact.title',
+            description: 'page.contact.description',
             menu: true
         },
         component: () => import('@/views/Contact.vue')
@@ -57,6 +71,7 @@ const routes = [
         name: 'checkout',
         component: () => import('@/views/Checkout.vue'),
         meta: {
+            title: 'page.checkout.title',
             robots: 'noindex,nofollow'
         }
     },
@@ -65,6 +80,7 @@ const routes = [
         name: 'cart',
         component: () => import('@/views/Cart.vue'),
         meta: {
+            title: 'page.cart.title',
             robots: 'noindex,nofollow'
         }
     },

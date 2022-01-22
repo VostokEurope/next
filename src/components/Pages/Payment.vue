@@ -1,7 +1,7 @@
 <template>
     <LayoutDefault>
-        <div class="page-contact">
-            Contact
+        <div class="page-payment">
+            Payment
         </div>
     </LayoutDefault>
 </template>
@@ -23,7 +23,7 @@
 </script>
 
 <style lang="postcss">
-  .page-contact {
+  .page-payment {
 
   }
 </style>

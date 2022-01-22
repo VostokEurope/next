@@ -142,7 +142,7 @@
             const { data, fetchData: sendLogin, isLoading} = useLogin()
             const { data: registered, fetchData: sendRegister, isLoading: loadingRegister} = useRegister()
             const { isFinished, fetchData: transferProducts } = useTransferProducts()
-            const { setMetas } = useSeo({})
+            useSeo()
 
             const registerRules = reactive({
                 name: [

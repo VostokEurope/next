@@ -31,6 +31,7 @@
     import SectionShowcase from '@/components/Section/Showcase.vue'
 
     import { useWatchesFavorites, useWatchesNews } from '@/use/useApi'
+    import useSeo from '@/use/useSeo'
     export default {
         components: {
             LayoutDefault,
@@ -38,6 +39,7 @@
             SectionShowcase
         },
         setup() {
+            useSeo()
             const { data: news,  fetchData,  isLoading: newsLoading } = useWatchesNews()
             const { data: favorites, fetchData: getFavorites,  isLoading: loadingFavorites } = useWatchesFavorites()
 

@@ -1,7 +1,7 @@
 <template>
     <LayoutDefault>
-        <div class="page-contact">
-            Contact
+        <div class="page-guaranty">
+            Guaranty
         </div>
     </LayoutDefault>
 </template>
@@ -23,7 +23,7 @@
 </script>
 
 <style lang="postcss">
-  .page-contact {
+  .page-guaranty {
 
   }
 </style>
