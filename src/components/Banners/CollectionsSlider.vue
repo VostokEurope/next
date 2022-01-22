@@ -190,6 +190,7 @@
       justify-content: center;
       grid-gap: em(4px);
       bottom: em(32px);
+      z-index: 100;
 
       &-image {
         cursor: pointer;
@@ -262,7 +263,7 @@
     }
 
     &__arrows {
-      padding: em(16px);
+      padding: em(8px);
       position: absolute;
       top: 0;
       left: 0;
@@ -275,7 +276,12 @@
       z-index: 3;
       color: var(--color-white);
       font-size: em(32px);
-      grid-gap: em(32px);
+      grid-gap: em(8px);
+
+      @media (--bp-desktop) {
+        grid-gap: em(32px);
+        padding: em(16px);
+      }
 
       &-item {
         cursor: pointer;
