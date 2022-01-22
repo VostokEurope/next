@@ -15,9 +15,6 @@
 
                 <div
                     class="collection-slider__overlay"
-                    @click="$router.push({ name: 'collection', params: {
-                        id: collection.slug
-                    }})"
                 >
                     <div class="collection-slider__overlay-wrapper">
                         <h2
@@ -30,9 +27,6 @@
                         </h2>
                         <div
                             class="collection-slider__buttons"
-                            @click="$router.push({ name: 'collection', params: {
-                                id: collection.slug
-                            }})"
                         >
                             <div
                                 class="collection-slider__button"
@@ -44,6 +38,21 @@
                 </div>
             </div>
         </LayoutScrollable>
+        <div class="collection-slider__arrows">
+            <div class="collection-slider__arrows-item" @click="prevSlide">
+                <span class="fa fa-angle-left"></span>
+            </div>
+            <div
+                class="collection-slider__action"
+                @click="$router.push({ name: 'collection', params: {
+                    id: collections?.items[imageIndex].slug
+                }})"
+            >
+            </div>
+            <div class="collection-slider__arrows-item" @click="nextSlide">
+                <span class="fa fa-angle-right"></span>
+            </div>
+        </div>
         <div
             v-if="collections?.items?.length && collections?.items?.length > 1"
             class="collection-slider__navigation"
@@ -109,6 +118,19 @@
 
             }
 
+            const prevSlide = () => {
+                if (userChange.value) {
+                    userChange.value = false
+                    return
+                }
+                let next = imageIndex.value - 1
+                if (next < 0) {
+                    next = collections.value.items.length - 1
+                }
+                setIndexImage(next)
+
+            }
+
             fetchData({
                 limit: 5
             })
@@ -123,7 +145,9 @@
                 collections,
                 resolveImage,
                 imageIndex,
-                setIndexImage
+                setIndexImage,
+                nextSlide,
+                prevSlide
             }
         }
 
@@ -187,6 +211,7 @@
       align-items: end;
       text-align: center;
       padding-bottom: em(80px);
+      z-index: 4;
       background:
         linear-gradient(
           180deg,
@@ -221,7 +246,7 @@
     }
 
     &__buttons {
-      cursor: pointer;
+      z-index: 4;
     }
 
     &__button {
@@ -234,6 +259,33 @@
       &:hover {
         background: radial-gradient(circle, rgb(255 255 255 / 50%) 0%, rgb(255 255 255 / 0%) 100%);
       }
+    }
+
+    &__arrows {
+      padding: em(16px);
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      text-align: center;
+      z-index: 3;
+      color: var(--color-white);
+      font-size: em(32px);
+      grid-gap: em(32px);
+
+      &-item {
+        cursor: pointer;
+      }
+    }
+
+    &__action {
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
     }
   }
 </style>
