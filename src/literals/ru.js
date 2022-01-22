@@ -25,7 +25,7 @@ export default {
         case: 'Корпус:',
         coating: 'Покрытие:',
         glass: 'Стекло:',
-        buy: 'КУПИТЬ СО СКИДКОЙ',
+        buy: 'КУПИТЬ',
         calibres: 'Калибр:',
         bracelets: 'Ремень:',
         dialColor: 'Цвет циферблата:',
@@ -102,7 +102,7 @@ export default {
         savepublish: "Сохранить & опубликовать"
     },
     home: {
-        news: "Новости",
+        news: "Новинки",
         highlighted: "Избранное",
         offers: "Специальные предложения"
     },
