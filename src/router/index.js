@@ -3,7 +3,6 @@ import  useTracking from '@/use/useTracking'
 import chasy from '@/router/chasy'
 import collekciya from '@/router/collekciya'
 import admin from '@/router/admin'
-
 const routes = [
     {
         path: '/',
@@ -13,12 +12,18 @@ const routes = [
     {
         path: '/login',
         name: 'login',
-        component: () => import('@/views/Login.vue')
+        component: () => import('@/views/Login.vue'),
+        meta: {
+            robots: 'noindex,nofollow'
+        }
     },
     {
         path: '/search',
         name: 'search',
-        component: () => import('@/views/Search.vue')
+        component: () => import('@/views/Search.vue'),
+        meta: {
+            robots: 'noindex,nofollow'
+        }
     },
     ...chasy,
     ...collekciya,
@@ -50,12 +55,18 @@ const routes = [
     {
         path: '/checkout',
         name: 'checkout',
-        component: () => import('@/views/Checkout.vue')
+        component: () => import('@/views/Checkout.vue'),
+        meta: {
+            robots: 'noindex,nofollow'
+        }
     },
     {
         path: '/cart',
         name: 'cart',
-        component: () => import('@/views/Cart.vue')
+        component: () => import('@/views/Cart.vue'),
+        meta: {
+            robots: 'noindex,nofollow'
+        }
     },
 
 ]

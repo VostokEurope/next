@@ -26,7 +26,8 @@ export default [
                     title: `Home`,
                     icon: 'fal fa-home',
                     shortcut: true,
-                    admin: true
+                    admin: true,
+                    robots: 'noindex,nofollow'
                 },
                 component: () => import('@/views/Admin/AdminHome.vue'),
             },

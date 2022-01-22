@@ -4,10 +4,10 @@
             <div class="page-collections__content">
                 <div class="page-collections__heading">
                     <h1 class="title title--h1 text--bold">
-                        {{ $t('collections.page.title') }}
+                        {{ $t('page.collections.title') }}
                     </h1>
                     <div class="page-collections__description text">
-                        {{ $t('collections.page.description') }}
+                        {{ $t('page.collections.description') }}
                     </div>
                     Privet
                     <div class="anchor-image">
@@ -56,10 +56,7 @@
     import LayoutDefault from '@/components/Layouts/Default.vue'
     import SectionShowcase from '@/components/Section/Showcase.vue'
     import { useCollectionsBrowse } from '@/use/useApi'
-    import { useMeta } from 'vue-meta'
     import useSeo from '@/use/useSeo'
-    import { useRoute } from 'vue-router'
-    import { useI18n } from 'vue-i18n'
 
     export default {
         components: {
@@ -67,39 +64,15 @@
             SectionShowcase
         },
         setup() {
-            const route = useRoute()
             const {data: collections, fetchData, isLoading }  = useCollectionsBrowse()
-            const { url: getUrl } = useSeo()
-            const { t } = useI18n()
-            const title = t('collections.page.title')
-            const description =t('collections.page.description')
-            const url = getUrl(route)
-            useMeta({
-                title: t('collections.page.title'),
-                description : t('collections.page.description'),
-                meta: [
-                    // Primary Meta Tags
-                    { name: 'title', content:  title, },
-                    { name: 'description', content: description },
-                    // Open Graph / Facebook
-                    { property: 'og:type', content: 'shop' },
-                    { property: 'og:url', content: url },
-                    { property: 'og:title', content:  title, },
-                    { property: 'og:description', content: description},
-                    // Twitter
-                    { property: 'twitter:card', content: 'summary_large_image' },
-                    { property: 'twitter:url', content: url },
-                    { property: 'twitter:title', content: title },
-                    { property: 'twitter:description', content: description },
-                ]
-            })
+
+            useSeo({})
             fetchData()
 
 
             return {
                 collections,
-                isLoading,
-                title
+                isLoading
             }
 
         }

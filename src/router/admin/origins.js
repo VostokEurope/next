@@ -14,7 +14,8 @@ export default [
             title: `${entry}`,
             icon: 'fal fa-flag',
             shortcut: false,
-            admin: true
+            admin: true,
+            robots: 'noindex,nofollow'
         },
         component: () => import('@/views/Admin/Origins/Browse.vue'),
     },
@@ -24,7 +25,8 @@ export default [
         beforeEnter: [isAdmin],
         component: () => import('@/views/Admin/Origins/Edit.vue'),
         meta: {
-            title: `${entry} Edit`
+            title: `${entry} Edit`,
+            robots: 'noindex,nofollow'
         },
     },
     {
@@ -33,7 +35,8 @@ export default [
         beforeEnter: [isAdmin],
         component: () => import('@/views/Admin/Origins/Edit.vue'),
         meta: {
-            title: `${entry} New`
+            title: `${entry} New`,
+            robots: 'noindex,nofollow'
         },
     }
 ]

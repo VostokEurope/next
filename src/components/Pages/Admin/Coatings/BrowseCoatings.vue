@@ -82,6 +82,7 @@
     import { ref, watch } from 'vue'
     import { useCoatingsBrowse, useCoatingsDelete } from '@/use/useApi'
     import { useRouter } from 'vue-router'
+    import useSeo from '@/use/useSeo'
     const basePath = 'admin-coatings'
 
 
@@ -90,6 +91,7 @@
             AdminLayout
         },
         setup () {
+            useSeo({})
             const search = ref('')
             const currentPage = ref(1)
             const router = useRouter()

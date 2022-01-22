@@ -41,6 +41,7 @@
     import useCurrency from '@/use/useCurrency'
     import { useGetUser, useRemoveProduct } from '@/use/useApi'
     import { watch } from 'vue-demi'
+    import useSeo from '@/use/useSeo'
 
     export default {
         components: {
@@ -53,6 +54,7 @@
             const { get: getPrice } = useCurrency()
             const { data: user, fetchData: getUser } = useGetUser()
             const {isFinished, fetchData: deleteItem } = useRemoveProduct()
+            const { setMetas } = useSeo({})
 
             const logout = () => {
                 store.dispatch('auth/logout')

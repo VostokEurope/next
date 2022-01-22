@@ -70,6 +70,7 @@
     import { ref, watch } from 'vue'
     import { useBraceletsBrowse, useBraceletsDelete } from '@/use/useApi'
     import { useRouter } from 'vue-router'
+    import useSeo from '@/use/useSeo'
     const basePath = 'admin-bracelets'
 
 
@@ -81,6 +82,7 @@
             const search = ref('')
             const currentPage = ref(1)
             const router = useRouter()
+            useSeo({})
 
 
             const {data, fetchData: getItems, isLoading }  = useBraceletsBrowse()

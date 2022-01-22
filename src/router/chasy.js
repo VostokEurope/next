@@ -3,9 +3,7 @@ export default [
         path: '/chasy/:id/',
         name: 'watch',
         meta: {
-            title: (name) => {
-                return `Восток Европа  - Часы ${name.replace('-','/')}`.toUpperCase()
-            }
+            title: 'page.watch.title'
         },
         component: () => import('@/views/Watch.vue')
     }

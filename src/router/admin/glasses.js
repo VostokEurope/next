@@ -12,7 +12,8 @@ export default [
             title: `${entry}`,
             icon: 'fal fa-lightbulb',
             shortcut: false,
-            admin: true
+            admin: true,
+            robots: 'noindex,nofollow'
         },
         component: () => import('@/views/Admin/Glasses/Browse.vue'),
     },
@@ -22,7 +23,8 @@ export default [
         beforeEnter: [isAdmin],
         component: () => import('@/views/Admin/Glasses/Edit.vue'),
         meta: {
-            title: `${entry} Edit`
+            title: `${entry} Edit`,
+            robots: 'noindex,nofollow'
         },
     },
     {
@@ -31,7 +33,8 @@ export default [
         beforeEnter: [isAdmin],
         component: () => import('@/views/Admin/Glasses/Edit.vue'),
         meta: {
-            title: `${entry} New`
+            title: `${entry} New`,
+            robots: 'noindex,nofollow'
         },
     }
 ]

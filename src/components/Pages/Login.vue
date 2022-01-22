@@ -127,6 +127,7 @@
     import { useI18n } from 'vue-i18n'
     import { useLogin, useRegister, useTransferProducts } from '@/use/useApi'
     import { useRouter } from 'vue-router'
+    import useSeo from '@/use/useSeo'
     export default {
         components: {
             LayoutDefault,
@@ -141,6 +142,7 @@
             const { data, fetchData: sendLogin, isLoading} = useLogin()
             const { data: registered, fetchData: sendRegister, isLoading: loadingRegister} = useRegister()
             const { isFinished, fetchData: transferProducts } = useTransferProducts()
+            const { setMetas } = useSeo({})
 
             const registerRules = reactive({
                 name: [

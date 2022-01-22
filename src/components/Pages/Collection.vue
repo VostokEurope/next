@@ -31,6 +31,8 @@
     import LayoutDefault from '@/components/Layouts/Default.vue'
     import SectionShowcase from '@/components/Section/Showcase.vue'
     import VoPicture from '@/components/Base/Picture.vue'
+    import useSeo from '@/use/useSeo'
+    import { watch } from 'vue-demi'
 
     export default {
         components: {
@@ -41,9 +43,17 @@
         setup() {
             const route = useRoute()
             const { data: collection, fetchData, isLoading }  = useCollectionsGet()
+            const {setMetas} = useSeo()
 
             fetchData({
                 id: route.params.id
+            })
+
+            watch(collection, () => {
+                setMetas({
+                    item: collection.value.name,
+                    description: collection.value.description
+                })
             })
 
             return {

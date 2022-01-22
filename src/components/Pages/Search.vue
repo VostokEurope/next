@@ -54,6 +54,7 @@
     import { reactive, ref, watch } from 'vue'
     import { useWatchesFilter } from '@/use/useApi'
     import CardBasic from '@/components/Card/Elegant.vue'
+    import useSeo from '@/use/useSeo'
 
     export default {
         components: {
@@ -66,7 +67,7 @@
             const collections = ref([])
             const search = ref(route.query.search)
             const { data: watches, fetchData: getWatches, isLoading } = useWatchesFilter()
-
+            const { setMetas } = useSeo({})
 
             getWatches({
                 search: route.query.search,

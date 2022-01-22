@@ -94,6 +94,7 @@
     import { useGetUser, useRemoveProduct } from '@/use/useApi'
     import { reactive, ref, watch } from 'vue-demi'
     import { useI18n } from 'vue-i18n'
+    import useSeo from '@/use/useSeo'
 
     export default {
         components: {
@@ -106,6 +107,8 @@
             const { data: user, fetchData: getUser,  isLoading } = useGetUser()
             const total = ref(null)
             const { t } = useI18n()
+            const { setMetas } = useSeo({})
+
             const formCheckout = reactive({
 
             })

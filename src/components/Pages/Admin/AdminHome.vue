@@ -28,12 +28,14 @@
 <script>
     import LayoutAdmin from '@/components/Layouts/Admin.vue'
     import useCustomRouter from '@/use/useCustomRouter'
+    import useSeo from '@/use/useSeo'
 
     export default {
         components: {
             LayoutAdmin
         },
         setup() {
+            useSeo()
 
             const { getAdminNav } = useCustomRouter()
             const options = getAdminNav()

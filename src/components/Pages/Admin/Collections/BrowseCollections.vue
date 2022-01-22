@@ -76,6 +76,7 @@
     import { ref, watch } from 'vue'
     import { useCollectionsBrowse, useCollectionsDelete } from '@/use/useApi'
     import { useRouter } from 'vue-router'
+    import useSeo from '@/use/useSeo'
     const basePath = 'admin-collections'
 
 
@@ -84,6 +85,7 @@
             AdminLayout
         },
         setup () {
+            useSeo({})
             const search = ref('')
             const currentPage = ref(1)
             const router = useRouter()

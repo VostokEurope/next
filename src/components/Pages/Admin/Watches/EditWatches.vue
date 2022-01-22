@@ -407,6 +407,7 @@
     import useImage from '@/use/useImage'
     import { useRoute } from 'vue-router'
     import { reactive, ref, watch } from 'vue'
+    import useSeo from '@/use/useSeo'
 
     export default {
         components: {
@@ -415,6 +416,7 @@
             LayoutScrollable
         },
         setup () {
+            useSeo()
             const formRef = ref()
             const imageUrl = ref()
             const { resolveImage } = useImage()

@@ -45,12 +45,14 @@
     import { useRoute, useRouter } from 'vue-router'
     import { reactive, ref, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
+    import useSeo from '@/use/useSeo'
 
     export default {
         components: {
             AdminLayout
         },
         setup () {
+            useSeo({})
             const { t } = useI18n()
             const router = useRouter()
             const formRef = ref()

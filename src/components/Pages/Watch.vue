@@ -136,9 +136,9 @@
             const router = useRouter()
             const route = useRoute()
             const { resolveImage } = useImage()
-            const { url: getUrl, title: getTitle } = useSeo()
-            const { meta } = useMeta({
-                title: getTitle(route, route?.params?.id),
+
+            const { setMetas } = useSeo({
+                name: route?.params?.id.toUpperCase()
             })
             const { get: getPrice } = useCurrency()
             const showDiscount = ref(false)
@@ -178,31 +178,11 @@
             })
 
             watch(item, () => {
-                const title = getTitle(route, item?.value?.name)
-                const description = item?.value?.description
-                const image = resolveImage(item?.value?.images[0]?.src)
-                const url = getUrl(route)
-
-
                 showDiscount.value = !item?.value?.collection?.banDiscount
-
-                meta.meta = [
-                    // Primary Meta Tags
-                    { name: 'title', content:  title, },
-                    { name: 'description', content: description },
-                    // Open Graph / Facebook
-                    { property: 'og:type', content: 'shop' },
-                    { property: 'og:url', content: url },
-                    { property: 'og:title', content:  route.meta.title(route?.params?.id), },
-                    { property: 'og:description', content: description},
-                    { property: 'og:image', content: image },
-                    // Twitter
-                    { property: 'twitter:card', content: 'summary_large_image' },
-                    { property: 'twitter:url', content: url },
-                    { property: 'twitter:title', content: title },
-                    { property: 'twitter:description', content: description },
-                    { property: 'twitter:image', content: image },
-                ]
+                setMetas({
+                    name: item.value.name,
+                    description: item.value.description
+                })
 
             })
 

@@ -8,12 +8,14 @@
 
 <script>
     import LayoutDefault from '@/components/Layouts/Default.vue'
+    import useSeo from '@/use/useSeo'
 
     export default {
         components: {
             LayoutDefault,
         },
         setup() {
+            const { setMetas } = useSeo({})
 
             return {
 
