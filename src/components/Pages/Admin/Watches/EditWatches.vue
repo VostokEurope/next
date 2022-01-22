@@ -387,7 +387,7 @@
 
 <script>
     import AdminLayout from '@/components/Layouts/Admin.vue'
-    import EditImage from '@/components/Base/Admin/EditImage.vue'
+    import EditImage from '@/components/Base/Admin/UploadImageWatch.vue'
     import LayoutScrollable from '@/components/Layouts/Scrollable.vue'
     import {
         useBraceletsBrowse,

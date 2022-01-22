@@ -98,8 +98,9 @@
                 </div>
                 <div class="admin-page-collections-edit__image">
                     <div class="admin-page-collections-edit__image-edit">
-                        <EditImage
-                            :src="form.image"
+                        <EditImageCollection
+                            :src="resolveImage(form.image)"
+                            @add="setImage"
                         />
                     </div>
                     <el-form-item
@@ -137,18 +138,19 @@
 
 <script>
     import AdminLayout from '@/components/Layouts/Admin.vue'
-    import EditImage from '@/components/Base/Admin/EditImage.vue'
+    import EditImageCollection from '@/components/Base/Admin/UploadImageCollection.vue'
 
     import { useCollectionsCreate, useCollectionsEdit, useCollectionsGet } from '@/use/useApi'
     import { useRoute, useRouter } from 'vue-router'
     import { reactive, ref, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
     import useSeo from '@/use/useSeo'
+    import useImage from '@/use/useImage'
 
     export default {
         components: {
             AdminLayout,
-            EditImage
+            EditImageCollection
         },
         setup () {
             useSeo({})
@@ -165,6 +167,7 @@
                 ]
             })
             const route = useRoute()
+            const { resolveImage } = useImage()
             const form = reactive({
                 id: undefined,
                 name: undefined,
@@ -186,8 +189,14 @@
 
 
             const submit = (publish) => {
-                form.published = publish
+                if(publish) {
+                    form.published = publish
+                }
                 formRef.value.validate().then(afterValidation)
+            }
+
+            const setImage = (file) => {
+                form.image = file.path
             }
 
             const afterValidation = () => {
@@ -226,7 +235,9 @@
                 isSaving,
                 isCreating,
                 rules,
-                formRef
+                formRef,
+                setImage,
+                resolveImage
             }
 
         },

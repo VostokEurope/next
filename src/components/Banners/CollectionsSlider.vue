@@ -111,7 +111,7 @@
             const interval = ref(null)
 
             const nextSlide = (params = {}) => {
-                if (userChange.value) {
+                if (userChange.value && !params?.manual) {
                     userChange.value = false
                     return
                 }
