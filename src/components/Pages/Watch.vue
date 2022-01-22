@@ -134,7 +134,6 @@
         },
         setup() {
             const router = useRouter()
-            const imageIndex = ref(0)
             const route = useRoute()
             const { resolveImage } = useImage()
             const { url: getUrl, title: getTitle } = useSeo()
@@ -146,10 +145,7 @@
             const toBuy = ref(false)
 
 
-            const setIndexImage = (i) => {
-                imageIndex.value = i
 
-            }
 
             const applyDiscount = () => {
                 showDiscount.value = true
@@ -224,8 +220,6 @@
                 isLoading,
                 item,
                 resolveImage,
-                imageIndex,
-                setIndexImage,
                 getPrice,
                 showDiscount,
                 applyDiscount,

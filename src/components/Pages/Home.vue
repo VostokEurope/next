@@ -27,7 +27,7 @@
 
 <script>
     import LayoutDefault from '@/components/Layouts/Default.vue'
-    import BannerCollections from '@/components/Banners/Collections.vue'
+    import BannerCollections from '@/components/Banners/CollectionsSlider.vue'
     import SectionShowcase from '@/components/Section/Showcase.vue'
 
     import { useWatchesFavorites, useWatchesNews } from '@/use/useApi'

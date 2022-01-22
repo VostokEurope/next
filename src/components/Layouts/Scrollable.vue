@@ -67,7 +67,6 @@
 </script>
 
 <style lang="postcss">
-
   .layout-scrollable-list {
     &__mask {
       overflow: hidden;
@@ -100,6 +99,10 @@
         &.active {
           cursor: auto;
         }
+      }
+
+      .layout-scrollable-list__items {
+        grid-gap: 0;
       }
     }
 
