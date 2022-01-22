@@ -37,6 +37,10 @@ export default {
         payment: {
             title: 'Delivery & Pago',
             description: 'Delivery Description'
+        },
+        cart: {
+            title: 'Cart',
+            description: 'Cart Description'
         }
     },
     checkout: {
