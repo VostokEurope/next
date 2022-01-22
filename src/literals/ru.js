@@ -4,7 +4,7 @@ export default {
     },
     page: {
         collection: {
-            title: (ctx) =>`${ctx.named('item')}' kollektsiya`
+            title: (ctx) =>`${ctx.named('item')}' коллекция`
         },
         collections: {
             title: "Коллекции часов Восток-Европа (Vostok Europe)",
@@ -27,13 +27,13 @@ export default {
         glass: 'Стекло:',
         buy: 'КУПИТЬ СО СКИДКОЙ',
         calibres: 'Калибр:',
-        bracelets: 'Bracelets:',
+        bracelets: 'Ремень:',
         dialColor: 'Цвет циферблата:',
         gender: {
-            value: 'gender:',
-            male: 'male',
-            female: 'female',
-            unisex: 'unisex'
+            value: 'Пол:',
+            male: 'мужские',
+            female: 'женские',
+            unisex: 'унисекс'
         },
         features: {
             time:'Функции:',
@@ -42,7 +42,7 @@ export default {
             features: 'Аксессуары'
         },
         resistance: {
-            value: 'Resistance:',
+            value: 'Водонепроницаемость:',
             unity: 'ATM'
         },
         property: {
@@ -83,7 +83,7 @@ export default {
             watch: "Часы",
             watches: "Часы"
         },
-        logged: (ctx) => `Already logged as ${ctx.named('name')}`,
+        logged: (ctx) => `Уже зарегистрированы как ${ctx.named('name')}`,
         name: "Имя",
         login: "Войти",
         register: "Зарегистрироваться",
@@ -111,7 +111,7 @@ export default {
         form: {
             email: '- формат: sample(at)sample(dot)ru',
             required: 'Обязательно для заполнения',
-            min: (ctx) => `- ${ctx.named('length')} characters or more`
+            min: (ctx) => `- ${ctx.named('length')} символов или больше`
         }
     },
     legal: {
