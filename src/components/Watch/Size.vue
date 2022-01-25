@@ -4,16 +4,16 @@
             {{ $t('watch.size') }}
         </h2>
         <div v-if="item?.width && item?.height !== item?.width" class="watch-size__row">
-            <span class="fa fa-arrows-alt-h"></span> {{ item?.width }} mm
+            <span class="fa fa-arrows-alt-h"></span> {{ item?.width }} {{ $t('watch.unitySize') }}
         </div>
         <div v-if="item?.height && item?.height !== item?.width" class="watch-size__row">
-            <span class="fa fa-arrows-alt-v"></span> {{ item?.height }} mm
+            <span class="fa fa-arrows-alt-v"></span> {{ item?.height }}  {{ $t('watch.unitySize') }}
         </div>
         <div v-if="item?.height && item?.height === item?.width" class="watch-size__row">
-            Ø {{ item?.height }} mm
+            Ø {{ item?.height }}  {{ $t('watch.unitySize') }}
         </div>
         <div v-if="item?.thickness" class="watch-size__row">
-            x {{ item?.thickness }} mm
+            x {{ item?.thickness }} {{ $t('watch.unitySize') }}
         </div>
     </div>
 </template>

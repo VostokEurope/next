@@ -45,12 +45,14 @@
                     <div class="title title--h3">
                         {{ $t('checkout.payment') }}
                     </div>
-                    <el-form-item
-                        prop="address"
-                        :label="$t('commons.address')"
-                    >
-                        <el-input v-model="formCheckout.address" />
-                    </el-form-item>
+                    <div class="page-checkout__row">
+                        <el-form-item
+                            prop="address"
+                            :label="$t('commons.address')"
+                        >
+                            <el-input v-model="formCheckout.address" />
+                        </el-form-item>
+                    </div>
                 </div>
                 <div class="page-checkout__buttons">
                     <div class="page-checkout__buttons-submit">
@@ -67,12 +69,29 @@
                     </div>
                     <div v-for="product in user?.products" :key="product.id" class="page-checkout__item  text">
                         <div class="page-checkout__item-watch">
-                            <div class="page-checkout__name text--bold">
-                                {{ product.name }}:
-                            </div>
+                            <el-popover :width="50" trigger="hover">
+                                <template #reference>
+                                    <div class="page-checkout__name link text--bold">
+                                        {{ product.name }}:
+                                    </div>
+                                </template>
+                                <div class="page-checkout__product">
+                                    <img
+                                        :src="resolveImage(product?.images[0]?.src)"
+                                    >
+                                </div>
+                            </el-popover>
                         </div>
                         <div class="page-checkout__item-price">
-                            {{ getPrice(product?.price) }}
+                            <div v-if="product.appliedDiscount">
+                                {{ getPrice(product?.price - product.appliedDiscount) }}
+                                <span class="text text--small text--strike">
+                                    {{ getPrice(product?.price) }}
+                                </span>
+                            </div>
+                            <div v-else>
+                                {{ getPrice(product?.price) }}
+                            </div>
                         </div>
                     </div>
                     <hr>
@@ -165,6 +184,7 @@
                 discount.value = products.reduce((acc, entry) => {
                     const discountPercent = discounts.includes(entry.id) ? entry.discount : 0
                     acc += entry.price - (entry.price - (entry.price) * (discountPercent / 100))
+                    entry.appliedDiscount = entry.price - (entry.price - (entry.price) * (discountPercent / 100))
                     return acc
                 }, 0)
 
@@ -194,13 +214,24 @@
   .page-checkout {
     padding: em(16px);
     display: grid;
-    grid-template-columns: 3fr 1fr;
+
+    @media (--bp-desktop) {
+      grid-template-columns: 3fr 1fr;
+    }
+
     grid-gap: em(16px);
 
     &__content {
+      display: grid;
+      justify-content: center;
+      align-items: start;
       border-radius: em(5px);
       background-color: white;
       padding: em(16px);
+
+      @media (--bp-desktop) {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     &__resume {
@@ -220,14 +251,11 @@
       }
     }
 
-    &__content {
-      display: grid;
-      grid-gap: em(8px);
-    }
-
     &__payment,
     &__user {
       display: grid;
+      justify-content: center;
+      padding: em(16px);
     }
 
     &__row {
@@ -244,6 +272,20 @@
       display: grid;
       grid-template-columns: 1fr auto;
       padding: em(4px) em(16px);
+    }
+
+    &__buttons {
+      justify-self: center;
+      align-self: center;
+      place-self: center;
+      display: grid;
+      width: 100%;
+      justify-content: center;
+      margin: 0 auto;
+
+      @media (--bp-desktop) {
+        grid-column: 1 / 4;
+      }
     }
   }
 </style>

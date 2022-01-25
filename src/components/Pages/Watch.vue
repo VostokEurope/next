@@ -61,7 +61,7 @@
                             <div class="page-watch__button page-watch__button--large" @click="buy">
                                 {{ $t('watch.buy') }}
                             </div>
-                            <div class="page-watch__button" @click="addToCart">
+                            <div class="page-watch__button page-watch__button--secondary" @click="addToCart">
                                 <div v-show="!isAdding">
                                     <span class="fa fa-shopping-cart"></span>
                                 </div>
@@ -108,9 +108,9 @@
                             <h2 class="title title--h5 text--bold">
                                 {{ $t('watch.bracelets') }}
                             </h2>
-                            <li v-for="bracelet in item?.bracelets" :key="bracelet.id" class="page-watch__calibres-item text">
-                                {{ bracelet.name }}
-                            </li>
+                            <span class="page-watch__calibres-item text">
+                                {{ item?.bracelets.map(e => e.name).join(', ') }}
+                            </span>
                         </ul>
                     </div>
                     <WatchProperties
@@ -276,7 +276,7 @@
       display: grid;
       grid-auto-flow: column;
       justify-content: start;
-      grid-gap: em(4px);
+      grid-gap: em(12px);
     }
 
     &__button {
@@ -286,12 +286,22 @@
       font-weight: 600;
       background-color: var(--color-primary);
       color: var(--color-primary-inside);
-      padding: em(15px) em(15px);
+      padding: em(16px);
       border-radius: 5px;
-      font-size: 14px;
+
+      &--secondary {
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
+        background-color: var(--color-primary-inside);
+      }
 
       &--loading {
         animation: spin 0.7s linear infinite;
+      }
+
+      &--large {
+        padding: em(16px) em(32px);
+        font-size: 16px;
       }
     }
 

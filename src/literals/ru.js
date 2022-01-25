@@ -44,7 +44,12 @@ export default {
         }
     },
     checkout: {
-        buy: 'Confirm'
+        resume: 'Resumen de pago',
+        buy: 'Confirm',
+        personal: 'Información Personal',
+        payment: 'Datos de pago y envío',
+        discount: 'Descuento aplicado:',
+        total: 'Total a pagar:'
     },
     cart: {
         delete: 'Удалить',
@@ -53,6 +58,7 @@ export default {
     },
     watch: {
         size: 'Размер:',
+        unitySize: 'мм',
         mechanism: 'Механизм:',
         case: 'Корпус:',
         coating: 'Покрытие:',
@@ -111,6 +117,7 @@ export default {
         link: 'Посмотреть коллекцию'
     },
     commons: {
+        address: 'Dirección',
         business: {
             watch: "Часы",
             watches: "Часы"

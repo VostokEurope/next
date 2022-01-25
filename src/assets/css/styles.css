@@ -80,6 +80,7 @@ strong {
 }
 
 .link {
+  cursor: pointer;
   font-weight: var(--font-weight-bold);
   text-decoration: underline;
   color: var(--color-text);
@@ -278,4 +279,8 @@ strong {
   &-right {
     text-align: right;
   }
+}
+
+.u-cursor-pointer {
+  cursor: pointer;
 }

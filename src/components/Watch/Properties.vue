@@ -103,7 +103,6 @@
       &-item {
         position: relative;
         display: inline-block;
-        padding-right: em(8px);
 
         .after {
           position: absolute;

@@ -109,6 +109,7 @@
                     >
                         <el-input
                             v-model="form.image"
+                            disabled
                             type="text"
                         />
                     </el-form-item>
