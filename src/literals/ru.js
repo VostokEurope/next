@@ -117,7 +117,7 @@ export default {
         link: 'Посмотреть коллекцию'
     },
     commons: {
-        address: 'Адрес (Страна, город, улица, дом, квартира)',
+        address: 'Адрес',
         business: {
             watch: "Часы",
             watches: "Часы"
