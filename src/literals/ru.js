@@ -44,12 +44,12 @@ export default {
         }
     },
     checkout: {
-        resume: 'Resumen de pago',
-        buy: 'Confirm',
-        personal: 'Información Personal',
-        payment: 'Datos de pago y envío',
-        discount: 'Descuento aplicado:',
-        total: 'Total a pagar:'
+        resume: 'Детали заказа',
+        buy: 'Подтвердить заказ',
+        personal: 'Контактные данные',
+        payment: 'Оплата и доставка',
+        discount: 'Скидка:',
+        total: 'Итого:'
     },
     cart: {
         delete: 'Удалить',
@@ -117,7 +117,7 @@ export default {
         link: 'Посмотреть коллекцию'
     },
     commons: {
-        address: 'Dirección',
+        address: 'Адрес (Страна, город, улица, дом, квартира)',
         business: {
             watch: "Часы",
             watches: "Часы"
