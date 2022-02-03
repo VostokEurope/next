@@ -65,7 +65,7 @@ export default {
         glass: 'Стекло:',
         buy: 'КУПИТЬ',
         calibres: 'Калибр:',
-        bracelets: 'Ремень:',
+        bracelets: 'Ремень/браслет:',
         dialColor: 'Цвет циферблата:',
         gender: {
             value: 'Пол:',
