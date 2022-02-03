@@ -111,8 +111,8 @@ export default {
             braceletSet: 'комплект ремней',
             screwDriver: 'отвертка для смены ремней / VE Multitool',
             dryBox: 'противоударный водонепроницаемый чемоданчик',
-            dualTime: 'DualTime',
-            dayAndNightIndicator:'DayIndicator'
+            dualTime: 'второй часовой пояс',
+            dayAndNightIndicator:'индикатор дня/ночи'
         }
     },
     slider: {
