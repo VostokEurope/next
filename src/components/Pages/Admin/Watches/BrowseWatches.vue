@@ -30,6 +30,14 @@
                             >
                                 <span class="fal fa-pencil"></span>
                             </el-button>
+                            <el-button
+                                type="text"
+                                size="small"
+                                :loading="isCloning"
+                                @click="clone(scope.row)"
+                            >
+                                <span class="fal fa-copy"></span>
+                            </el-button>
                             <el-popconfirm
                                 title="Are you sure to delete this?"
                                 confirm-button-text="Yes"
@@ -66,7 +74,7 @@
 <script>
     import AdminLayout from '@/components/Layouts/Admin.vue'
     import { ref, watch } from 'vue'
-    import { useWatchesBrowse, useWatchesCreate, useWatchesDelete } from '@/use/useApi'
+    import { useWatchesBrowse, useWatchesClone, useWatchesCreate, useWatchesDelete } from '@/use/useApi'
     import { useRouter } from 'vue-router'
     import useSeo from '@/use/useSeo'
     const basePath = 'admin-watches'
@@ -85,8 +93,9 @@
 
 
             const {data, fetchData: getItems, isLoading }  = useWatchesBrowse()
-            const {data: deleted, fetchData: deleteItem, isLoading: loadingDelete } = useWatchesDelete()
+            const { data: deleted, fetchData: deleteItem, isLoading: loadingDelete } = useWatchesDelete()
             const { data: created, fetchData: createWatch, isLoading: isCreating } = useWatchesCreate()
+            const { data: cloned, fetchData: cloneWatch, isLoading: isCloning } = useWatchesClone()
 
             const editRow = (row) => {
                 router.push({
@@ -105,6 +114,11 @@
             const create = () => {
                 createWatch()
                 //router.push({name:`${basePath}-new`,})
+            }
+
+            const clone = (row) => {
+                console.log(row, row.id)
+                cloneWatch({ id: row.id})
             }
             const filterTable = () => {
 
@@ -127,16 +141,24 @@
                 router.go()
             })
 
-            watch([created], () => {
+            watch([created, cloned], (newData) => {
+                console.log({
+                    created,
+                    cloned,
+                    newData
+                })
                 router.push({
                     name:`${basePath}-edit`,
                     params: {
-                        id: created.value.id
+                        id: created?.value?.id || cloned?.value?.id
                     }
                 })
             })
 
+
             return {
+                clone,
+                isCloning,
                 isLoading,
                 search,
                 data,

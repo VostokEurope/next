@@ -1,57 +1,64 @@
 <template>
     <LayoutDefault clear>
-        <div class="page-checkout">
+        <div v-if="products.length" class="page-checkout">
             <el-form
                 :model="formCheckout"
                 :rules="checkoutRules"
                 class="page-checkout__content"
             >
-                <div class="page-checkout__user">
-                    <div class="title title--h3">
-                        {{ $t('checkout.personal') }}
-                    </div>
-                    <div
-                        :model="formCheckout"
-                        label-width="200px"
-                        :rules="checkoutRules"
-                    >
-                        <div class="page-checkout__row">
-                            <el-form-item
-                                prop="name"
-                                :label="$t('commons.name')"
-                            >
-                                <el-input v-model="formCheckout.name" />
-                            </el-form-item>
-                            <el-form-item
-                                prop="email"
-                                :label="$t('commons.email')"
-                            >
-                                <el-input v-model="formCheckout.email" />
-                            </el-form-item>
-                            <el-form-item
-                                prop="phone"
-                                :label="$t('commons.phone')"
-                            >
-                                <el-input
-                                    v-model="formCheckout.phone"
-                                    pattern="\d*"
-                                    type="tel"
-                                />
-                            </el-form-item>
+                <div class="page-checkout__products">
+                    <LayoutScrollable>
+                        <CardResume v-for="product in products" :key="product.id" :item="product" @remove="removeItem" />
+                    </LayoutScrollable>
+                </div>
+                <div class="page-checkout__content-wrapper">
+                    <div class="page-checkout__user">
+                        <div class="title title--h3">
+                            {{ $t('checkout.personal') }}
+                        </div>
+                        <div
+                            :model="formCheckout"
+                            label-width="200px"
+                            :rules="checkoutRules"
+                        >
+                            <div class="page-checkout__row">
+                                <el-form-item
+                                    prop="name"
+                                    :label="$t('commons.name')"
+                                >
+                                    <el-input v-model="formCheckout.name" />
+                                </el-form-item>
+                                <el-form-item
+                                    prop="email"
+                                    :label="$t('commons.email')"
+                                >
+                                    <el-input v-model="formCheckout.email" />
+                                </el-form-item>
+                                <el-form-item
+                                    prop="phone"
+                                    :label="$t('commons.phone')"
+                                >
+                                    <el-input
+                                        v-model="formCheckout.phone"
+                                        pattern="\d*"
+                                        type="tel"
+                                    />
+                                </el-form-item>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="page-checkout__payment">
-                    <div class="title title--h3">
-                        {{ $t('checkout.payment') }}
-                    </div>
-                    <div class="page-checkout__row">
-                        <el-form-item
-                            prop="address"
-                            :label="$t('commons.address')"
-                        >
-                            <el-input v-model="formCheckout.address" />
-                        </el-form-item>
+                    <div class="page-checkout__payment">
+                        <div class="title title--h3">
+                            {{ $t('checkout.payment') }}
+                        </div>
+                        <div class="page-checkout__row">
+                            <el-form-item
+                                prop="address"
+                                :label="$t('commons.address')"
+                            >
+                                <el-input v-model="formCheckout.address" />
+                            </el-form-item>
+                        </div>
                     </div>
                 </div>
                 <div class="page-checkout__buttons">
@@ -67,20 +74,11 @@
                     <div class="title title--h3">
                         {{ $t('checkout.resume') }}
                     </div>
-                    <div v-for="product in user?.products" :key="product.id" class="page-checkout__item  text">
+                    <div v-for="product in products" :key="product.id" class="page-checkout__item  text">
                         <div class="page-checkout__item-watch">
-                            <el-popover :width="50" trigger="hover">
-                                <template #reference>
-                                    <div class="page-checkout__name link text--bold">
-                                        {{ product.name }}:
-                                    </div>
-                                </template>
-                                <div class="page-checkout__product">
-                                    <img
-                                        :src="resolveImage(product?.images[0]?.src)"
-                                    >
-                                </div>
-                            </el-popover>
+                            <div class="page-checkout__name text--bold">
+                                {{ product.name }}:
+                            </div>
                         </div>
                         <div class="page-checkout__item-price">
                             <div v-if="product.appliedDiscount">
@@ -110,37 +108,48 @@
                 </div>
             </div>
         </div>
+        <div v-else class="page-checkout page-checkout--full">
+            <div class="page-checkout__content title title--h2 u-text-align-center">
+                {{ $t('cart.empty') }}
+            </div>
+        </div>
     </LayoutDefault>
 </template>
 
 <script>
+    import LayoutScrollable from '@/components/Layouts/Scrollable.vue'
     import LayoutDefault from '@/components/Layouts/Default.vue'
+    import CardResume from '@/components/Card/Resume.vue'
+
     import { useStore } from 'vuex'
     import useImage from '@/use/useImage'
     import useCurrency from '@/use/useCurrency'
-    import { useGetUser } from '@/use/useApi'
-    import { reactive, ref, watch } from 'vue-demi'
+    import { useGetUser, useRemoveProduct } from '@/use/useApi'
+    import { reactive, ref, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
     import useSeo from '@/use/useSeo'
 
     export default {
         components: {
             LayoutDefault,
+            LayoutScrollable,
+            CardResume
         },
         setup() {
             useSeo()
             const store = useStore()
             const { resolveImage } = useImage()
             const { get: getPrice } = useCurrency()
-            const { data: user, fetchData: getUser,  isLoading } = useGetUser()
+            const { data: user, fetchData: getUser, isLoading } = useGetUser()
+            const { fetchData: sendRemove } = useRemoveProduct()
             const total = ref(null)
             const { t } = useI18n()
             const discounts = store.getters['discount/discounts']
-            console.log(discounts)
+
             const discount = ref(0)
             const formCheckout = reactive({
-
             })
+            const products = ref([])
 
             const checkoutRules = reactive({
                 name: [
@@ -171,24 +180,39 @@
 
             }
 
+            const removeItem = (id) => {
+                products.value = products.value.filter(item => item.id !== id)
+                sendRemove({
+                    watchId: id
+                })
 
-            getUser()
+                getBreakDown()
+            }
 
-            watch(user, () => {
-                const products = user.value.products
-                total.value = products.reduce((acc, item) => {
+            const getBreakDown = () => {
+                total.value = products.value.reduce((acc, item) => {
                     acc += item.price
                     return acc
                 }, 0)
 
-                discount.value = products.reduce((acc, entry) => {
+                discount.value = products.value.reduce((acc, entry) => {
                     const discountPercent = discounts.includes(entry.id) ? entry.discount : 0
                     acc += entry.price - (entry.price - (entry.price) * (discountPercent / 100))
                     entry.appliedDiscount = entry.price - (entry.price - (entry.price) * (discountPercent / 100))
                     return acc
                 }, 0)
+            }
 
+            watch(user, () => {
+                products.value = user?.value?.products
+                if (products?.value?.length) {
+                    getBreakDown()
+                }
             })
+
+
+            getUser()
+
 
 
             return {
@@ -201,7 +225,9 @@
                 submitChekcout,
                 total,
                 isLoading,
-                discount
+                discount,
+                removeItem,
+                products
             }
         }
 
@@ -219,19 +245,32 @@
       grid-template-columns: 3fr 1fr;
     }
 
+    &--full {
+      grid-template-columns: 1fr;
+      align-items: center;
+      min-height: 60vh;
+    }
+
     grid-gap: em(16px);
 
     &__content {
-      display: grid;
-      justify-content: center;
-      align-items: start;
-      border-radius: em(5px);
       background-color: white;
       padding: em(16px);
 
-      @media (--bp-desktop) {
-        grid-template-columns: 1fr 1fr;
+      &-wrapper {
+        display: grid;
+        align-items: start;
+        justify-content: center;
+        grid-gap: em(8px);
+
+        @media (--bp-desktop) {
+          grid-auto-flow: column;
+        }
       }
+    }
+
+    &__products {
+      grid-column: 1 / span 5;
     }
 
     &__resume {
@@ -284,7 +323,7 @@
       margin: 0 auto;
 
       @media (--bp-desktop) {
-        grid-column: 1 / 4;
+        grid-column: 1 / 12;
       }
     }
   }

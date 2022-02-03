@@ -75,10 +75,6 @@
       width: 40vw;
     }
 
-    .layout-scrollable-list__items {
-      padding: 0;
-    }
-
     &__item {
       transition: all 0.3s linear;
 
@@ -95,7 +91,7 @@
       grid-gap: em(8px);
       display: grid;
       grid-auto-flow: column;
-      justify-content: end;
+      justify-content: center;
       margin-top: em(-40px);
       z-index: 3;
       padding: 0 em(16px);

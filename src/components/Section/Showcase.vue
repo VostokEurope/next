@@ -118,11 +118,11 @@
       justify-content: center;
       grid-gap: em(32px);
       padding: em(16px) 0;
-      grid-template-columns: repeat(auto-fill, em(136px));
+      grid-template-columns: repeat(auto-fill, minmax(em(120px), 1fr));
 
       @media (--bp-desktop) {
         justify-content: start;
-        grid-template-columns: repeat(auto-fill, em(240px));
+        grid-template-columns: repeat(auto-fill, minmax(em(240px), 1fr));
       }
     }
   }

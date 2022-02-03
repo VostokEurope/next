@@ -1,5 +1,20 @@
 <template>
-    <LayoutDefault>
+    <LayoutDefault breadcrumbs>
+        <template #breadcrumbs>
+            /
+            <div
+                @click="$router.push({name:'collections'})"
+            >
+                {{ $t('router.collections') }}
+            </div>
+            /
+            <div
+                v-if="collection?.name"
+                class="is-active"
+            >
+                {{ collection?.name }}
+            </div>
+        </template>
         <div class="page-collection">
             <div v-if="!isLoading" class="page-collection__content ">
                 <h1 class="title title--h1 text--bold">
@@ -7,7 +22,7 @@
                 </h1>
                 <div class="page-collection__heading">
                     <div class="page-collection__image">
-                        <VoPicture :src="collection.image" />
+                        <VoPicture :src="resolveImage(collection.image)" />
                     </div>
                     <div class="page-collection__description text">
                         {{ collection.description }}
@@ -32,7 +47,8 @@
     import SectionShowcase from '@/components/Section/Showcase.vue'
     import VoPicture from '@/components/Base/Picture.vue'
     import useSeo from '@/use/useSeo'
-    import { watch } from 'vue-demi'
+    import { watch } from 'vue'
+    import useImage from '@/use/useImage'
 
     export default {
         components: {
@@ -41,6 +57,7 @@
             VoPicture
         },
         setup() {
+            const { resolveImage } = useImage()
             const route = useRoute()
             const { data: collection, fetchData, isLoading }  = useCollectionsGet()
             const {setMetas} = useSeo()
@@ -58,7 +75,8 @@
 
             return {
                 collection,
-                isLoading
+                isLoading,
+                resolveImage
             }
         }
 

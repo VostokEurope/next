@@ -93,7 +93,7 @@ export default {
             year: 'год',
             chronograph: 'хронограф',
             tacimeter: 'тахиметр',
-            "12/24": '12/24-часовой формат',
+            "12-24": '12/24-часовой формат',
             alarm: 'будильник',
             worldTimer: 'мировое время',
             superlimonova: 'покрытие Super-LumiNova',
@@ -110,7 +110,9 @@ export default {
             tritium: 'тритиевые трубки (GTLS «Trigalight»)',
             braceletSet: 'комплект ремней',
             screwDriver: 'отвертка для смены ремней / VE Multitool',
-            dryBox: 'противоударный водонепроницаемый чемоданчик'
+            dryBox: 'противоударный водонепроницаемый чемоданчик',
+            dualTime: 'DualTime',
+            dayAndNightIndicator:'DayIndicator'
         }
     },
     slider: {
