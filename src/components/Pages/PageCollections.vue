@@ -9,23 +9,27 @@
                     <div class="page-collections__description text">
                         {{ $t('page.collections.description') }}
                     </div>
-                    Privet
                     <div class="anchor-image">
                         <template
                             v-for="collection in collections?.items"
                             :key="collection?.id"
                         >
-                            <a
+                            <router-link
                                 v-if="collection?.watches?.length"
-                                class="anchor-image__item"
-                                :href="`#collection-${collection?.id}`"
+                                class="anchor-image__item link"
+                                :to="{
+                                    name: 'collection',
+                                    params: {
+                                        id: collection.slug
+                                    }
+                                }"
                             >
                                 <div
                                     class="anchor-image__title"
                                 >
                                     {{ collection.name }}
                                 </div>
-                            </a>
+                            </router-link>
                         </template>
                     </div>
                 </div>
@@ -86,16 +90,16 @@
 
     &__content {
       display: grid;
-      grid-gap: em(16px);
+      grid-gap: em(8px);
     }
   }
 
   .anchor-image {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, em(100px));
+    display: flex;
+    flex-wrap: wrap;
     justify-content: start;
     padding: em(16px) 0;
-    grid-gap: em(8px);
+    grid-gap: em(32px);
     align-items: center;
 
     &__title {
