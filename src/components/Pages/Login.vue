@@ -3,7 +3,7 @@
         <div class="page-login">
             <div class="page-login__image">
                 <VoPicture
-                    src="https://soyuztime.ru/uploads/product/600/643/thumbs/30_almaz-6s11-320b262-leather-strap-art-6_1_2021-02-12_18-02-28.webp"
+                    :src="resolveImage('info/showcase.jpeg')"
                     full-height
                 />
             </div>
@@ -128,12 +128,15 @@
     import { useLogin, useRegister, useTransferProducts } from '@/use/useApi'
     import { useRouter } from 'vue-router'
     import useSeo from '@/use/useSeo'
+    import useImage from '@/use/useImage'
     export default {
         components: {
             LayoutDefault,
             VoPicture
         },
         setup() {
+            const { resolveImage } = useImage()
+
             const { t } = useI18n()
             const formLogin = ref({})
             const formRegister = ref({})
@@ -263,7 +266,8 @@
                 submitLogin,
                 submitRegister,
                 toggleLogin,
-                loadingRegister
+                loadingRegister,
+                resolveImage
             }
         }
 

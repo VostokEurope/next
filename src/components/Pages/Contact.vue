@@ -2,9 +2,7 @@
     <LayoutDefault>
         <div class="page-contact text">
             <div class="page-contact__row page-contact__row--reverse">
-                <div>
-                    <img :src="resolveImage('info/shop.png')">-
-                </div>
+                <img :src="resolveImage('info/showcase.jpeg')">
                 <div class="page-contact__texts">
                     <div>
                         <div>
@@ -18,24 +16,31 @@
                         <div>
                             Мы готовы ответить на все интересующие вас вопросы по часам Vostok Europe, а также оформить заказ или забронировать понравившуюся вам модель по телефону или электронной почте. Наши консультанты будут рады ответить на ваши звонки и письма!
                         </div>
-                        <div>
+                        <div class="page-contact__info">
                             <div>
-                                Телефон: <a class="text text--bold link" href="tel:+79623007491">
-                                    +7 (926) 300-74-91
-                                </a> (с <span class="text text--bold">
-                                    10:00 до 21:00
-                                </span> по Москве)
+                                <div>
+                                    <span class="fa fa-phone-alt"></span><a class="text text--bold " href="tel:+79623007491">
+                                        +7 (926) 300-74-91
+                                    </a>
+                                </div><div>
+                                    с <span class="text">
+                                        10:00 до 21:00
+                                    </span> по Москве
+                                </div>
                             </div>
                             <div>
-                                E-mail: <a class="text text--bold link" href="mailto:zakaz@vostok-europe.shop">
-                                    zakaz@vostok-europe.shop
-                                </a>
+                                <div>
+                                    <span class="fa fa-envelope"></span>
+                                    <a class="text text--bold" href="mailto:zakaz@vostok-europe.shop">
+                                        zakaz@vostok-europe.shop
+                                    </a>
+                                </div>
+                                <div>
+                                    24 часа в сутки
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <h2 class="title title--h2 ">
-                        Наш часовой салон в Москве
-                    </h2>
                 </div>
             </div>
 
@@ -43,8 +48,9 @@
                 <div class="page-contact__texts">
                     <div>
                         <h2 class="title title--h2 ">
-                            «ФЛАГМАН AVIATORTIME.RU Часы России, Швейцарии…»
+                            Наш часовой салон в Москве
                         </h2>
+
                         <div>
                             <a href="https://yandex.ru/maps/org/aviatortime_ru/1927044845/?ll=37.592420%2C55.752141&mode=search&sll=37.592420%2C55.752141&sspn=0.020514%2C0.008144&text=aviator%20time%20ru&z=16" target="_blank" class="italic link">
                                 Москва, м. Арбатская, Новый Арбат, 15
@@ -68,9 +74,22 @@
                     </div>
                 </div>
                 <div>
-                    <a href="https://yandex.ru/maps/org/aviatortime_ru/1927044845/?ll=37.592420%2C55.752141&mode=search&sll=37.592420%2C55.752141&sspn=0.020514%2C0.008144&text=aviator%20time%20ru&z=16" target="_blank">
-                        <img :src="resolveImage('info/map.png')">
-                    </a>
+                    <div>
+                        <img :src="resolveImage('info/shop.png')">
+                        <h2 class="title ">
+                            «ФЛАГМАН AVIATORTIME.RU Часы России, Швейцарии…»
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="page-contact__row--complete">
+                <h2 class="title title--h2 ">
+                    Как добраться?
+                </h2>
+                <div>
+                    <iframe
+                        src="https://yandex.ru/map-widget/v1/-/CCU5eLX63D"
+                    ></iframe>
                 </div>
             </div>
         </div>
@@ -107,11 +126,23 @@
 
     &__row {
       display: grid;
-      grid-template-columns: 2fr 1fr;
       grid-gap: 64px;
+      justify-content: center;
+
+      @media (--bp-desktop) {
+        grid-template-columns: 2fr 1fr;
+      }
 
       &--reverse {
-        grid-template-columns: 1fr 2fr;
+        @media (--bp-desktop) {
+          grid-template-columns: 1fr 2fr;
+        }
+      }
+
+      &--complete {
+        display: grid;
+        justify-content: center;
+        grid-gap: em(24px);
       }
     }
 
@@ -121,11 +152,32 @@
       grid-gap: 32px;
     }
 
+    &__info {
+      padding: em(8px) 0;
+      font-size: 16px;
+      display: grid;
+      grid-gap: em(16px);
+
+      @media (--bp-desktop) {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
     .italic {
       font-style: italic;
       font-size: 14px;
       opacity: 0.7;
       padding-bottom: em(12px);
+    }
+
+    .title {
+      padding: em(8px) 0;
+    }
+
+    iframe {
+      width: 100vw;
+      height: em(400px);
+      border: none;
     }
   }
 </style>

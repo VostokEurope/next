@@ -21,12 +21,12 @@
                     <span class="footer__legal-title">
                         {{ $t('legal.title') }}
                     </span>
-                    <a class="footer__link" href="">
+                    <router-link :to="{name: 'privacy'}" class="footer__link" href="">
                         {{ $t('legal.privacy') }}
-                    </a>
-                    <a class="footer__link" href="">
+                    </router-link>
+                    <router-link :to="{name: 'cookies'}" class="footer__link" href="">
                         {{ $t('legal.cookies') }}
-                    </a>
+                    </router-link>
                 </div>
 
                 <div class="footer__copyright">

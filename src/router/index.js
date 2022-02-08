@@ -84,6 +84,23 @@ const routes = [
             robots: 'noindex,nofollow'
         }
     },
+    {
+        path: '/legal/privacy',
+        name: 'privacy',
+        component: () => import('@/views/Privacy.vue'),
+        meta: {
+            title: 'page.cart.privacy',
+            robots: 'noindex,nofollow'
+        }
+    }, {
+        path: '/legal/cookies',
+        name: 'cookies',
+        component: () => import('@/views/Cookies.vue'),
+        meta: {
+            title: 'page.cart.cookies',
+            robots: 'noindex,nofollow'
+        }
+    },
 
 ]
 

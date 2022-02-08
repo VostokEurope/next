@@ -50,6 +50,12 @@
 
             г. Москва, ул. Марксистская, д. 34
             Тел. +7(495) 911-68-98; +7(495) 911-67-97
+
+            <div>
+                <iframe
+                    src="https://yandex.ru/map-widget/v1/-/CCU5ePAchB"
+                ></iframe>
+            </div>
         </div>
     </LayoutDefault>
 </template>
@@ -57,13 +63,20 @@
 <script>
     import LayoutDefault from '@/components/Layouts/Default.vue'
     import useSeo from '@/use/useSeo'
+    import useImage from '@/use/useImage'
 
     export default {
         components: {
             LayoutDefault,
         },
         setup() {
+            const { resolveImage } = useImage()
+
             useSeo()
+
+            return {
+                resolveImage
+            }
         }
 
 
@@ -72,6 +85,10 @@
 
 <style lang="postcss">
   .page-guaranty {
-
+    iframe {
+      width: 100vw;
+      height: em(400px);
+      border: none;
+    }
   }
 </style>
