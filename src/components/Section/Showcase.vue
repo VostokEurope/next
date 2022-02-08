@@ -2,8 +2,10 @@
     <div>
         <div v-if="!loading" class="showcase">
             <div class="showcase__heading">
-                <h2 class="title title--h2 text--bold" @click="goTo">
-                    {{ title }}
+                <h2 class="title title--h2 text--bold">
+                    <span :class="{'link' : toTitle?.name}" @click="goTo">
+                        {{ title }}
+                    </span>
                 </h2>
 
                 <div v-if="anchor" :id="anchor" class="showcase__anchor">
@@ -108,7 +110,6 @@
     }
 
     &__description {
-      cursor: pointer;
       font-size: em(14px);
       padding: em(8px) 0;
     }
