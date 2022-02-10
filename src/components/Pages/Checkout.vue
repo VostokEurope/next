@@ -51,7 +51,7 @@
                         <div class="title title--h3">
                             {{ $t('checkout.payment') }}
                         </div>
-                        <div class="page-checkout__delivery page-checkout__row">
+                        <div class="page-checkout__delivery ">
                             <div class="page-checkout__delivery-items">
                                 <div class="page-checkout__delivery-item" :class="{'page-checkout__delivery-item--active': !formCheckout.delivery}" @click="setDelivery(false)">
                                     <div v-show="!formCheckout.delivery">
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="page-checkout__row">
+                        <div>
                             <el-form-item
                                 v-if="formCheckout.delivery"
                                 prop="address"
@@ -87,10 +87,23 @@
                             </el-form-item>
                         </div>
                     </div>
+                    <div class="page-checkout__privacy container">
+                        <div class="text text--primary">
+                            *
+                        </div>
+                        <el-checkbox
+                            v-model="formCheckout.privacy"
+                            required
+                            prop="privacy"
+                            :label="$t('checkout.privacyAccept')"
+                        />
+                    </div>
                 </div>
+
+
                 <div class="page-checkout__buttons">
                     <div class="page-checkout__buttons-submit">
-                        <el-button type="primary" :loading="isLoading" @click="submitChekcout">
+                        <el-button :loading="isLoading" type="submit" @click="submitChekcout">
                             {{ $t('checkout.buy') }}
                         </el-button>
                     </div>
@@ -193,6 +206,13 @@
                         trigger: 'blur',
                     }
                 ],
+                privacy: [
+                    {
+                        required: true,
+                        message: t('errors.form.required'),
+                        trigger: 'blur',
+                    }
+                ],
                 phone: [
                     {
                         required: true,
@@ -200,6 +220,7 @@
                         trigger: 'blur',
                     }
                 ],
+
                 email: [
                     {
                         required: true,
@@ -301,12 +322,6 @@
     &__content {
       background-color: white;
       padding: em(16px);
-
-      &-wrapper {
-        display: grid;
-        justify-content: start;
-        grid-gap: em(8px);
-      }
     }
 
     &__products {
@@ -393,6 +408,16 @@
 
       @media (--bp-desktop) {
         grid-column: 1 / 12;
+      }
+    }
+
+    &__privacy {
+      position: relative;
+
+      .text {
+        position: absolute;
+        top: 0;
+        left: em(30px);
       }
     }
   }

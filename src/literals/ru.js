@@ -53,7 +53,8 @@ export default {
         delivery: {
             shop: 'Самовывоз',
             send: 'Доставка'
-        }
+        },
+        privacyAccept: 'Согласен c обработкой своих персональных данных'
     },
     cart: {
         delete: 'Удалить',

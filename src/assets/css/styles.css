@@ -135,6 +135,10 @@ strong {
       transform: rotate(-7deg);
     }
   }
+
+  &--primary {
+    color: var(--color-primary);
+  }
 }
 
 .tag {
