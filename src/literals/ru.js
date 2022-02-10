@@ -51,8 +51,8 @@ export default {
         discount: 'Скидка:',
         total: 'Итого:',
         delivery: {
-            shop: 'Comprar en tienda',
-            send: 'Por Envio'
+            shop: 'Самовывоз',
+            send: 'Доставка'
         }
     },
     cart: {
