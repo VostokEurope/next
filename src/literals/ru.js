@@ -49,7 +49,11 @@ export default {
         personal: 'Контактные данные',
         payment: 'Оплата и доставка',
         discount: 'Скидка:',
-        total: 'Итого:'
+        total: 'Итого:',
+        delivery: {
+            shop: 'Comprar en tienda',
+            send: 'Por Envio'
+        }
     },
     cart: {
         delete: 'Удалить',

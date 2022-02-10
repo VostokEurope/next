@@ -51,8 +51,35 @@
                         <div class="title title--h3">
                             {{ $t('checkout.payment') }}
                         </div>
+                        <div class="page-checkout__delivery page-checkout__row">
+                            <div class="page-checkout__delivery-items">
+                                <div class="page-checkout__delivery-item" :class="{'page-checkout__delivery-item--active': !formCheckout.delivery}" @click="setDelivery(false)">
+                                    <div v-show="!formCheckout.delivery">
+                                        <span class="fad fa-circle"></span>
+                                    </div>
+                                    <div v-show="formCheckout.delivery">
+                                        <span class="fal fa-circle"></span>
+                                    </div>
+                                    <div>
+                                        {{ $t('checkout.delivery.shop') }}
+                                    </div>
+                                </div>
+                                <div class="page-checkout__delivery-item" :class="{'page-checkout__delivery-item--active': formCheckout.delivery}" @click="setDelivery(true)">
+                                    <div v-show="formCheckout.delivery">
+                                        <span class="fad fa-circle"></span>
+                                    </div>
+                                    <div v-show="!formCheckout.delivery">
+                                        <span class="fal fa-circle"></span>
+                                    </div>
+                                    <div>
+                                        {{ $t('checkout.delivery.send') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="page-checkout__row">
                             <el-form-item
+                                v-if="formCheckout.delivery"
                                 prop="address"
                                 :label="$t('commons.address')"
                             >
@@ -159,6 +186,20 @@
                         trigger: 'blur',
                     }
                 ],
+                address: [
+                    {
+                        required: true,
+                        message: t('errors.form.required'),
+                        trigger: 'blur',
+                    }
+                ],
+                phone: [
+                    {
+                        required: true,
+                        message: t('errors.form.required'),
+                        trigger: 'blur',
+                    }
+                ],
                 email: [
                     {
                         required: true,
@@ -187,6 +228,10 @@
                 })
 
                 getBreakDown()
+            }
+
+            const setDelivery = (state) => {
+                formCheckout.delivery = state
             }
 
             const getBreakDown = () => {
@@ -227,7 +272,8 @@
                 isLoading,
                 discount,
                 removeItem,
-                products
+                products,
+                setDelivery
             }
         }
 
@@ -240,6 +286,7 @@
   .page-checkout {
     padding: em(16px);
     display: grid;
+    grid-gap: em(16px);
 
     @media (--bp-desktop) {
       grid-template-columns: 3fr 1fr;
@@ -251,21 +298,14 @@
       min-height: 60vh;
     }
 
-    grid-gap: em(16px);
-
     &__content {
       background-color: white;
       padding: em(16px);
 
       &-wrapper {
         display: grid;
-        align-items: start;
-        justify-content: center;
+        justify-content: start;
         grid-gap: em(8px);
-
-        @media (--bp-desktop) {
-          grid-auto-flow: column;
-        }
       }
     }
 
@@ -285,21 +325,49 @@
       }
 
       hr {
-        opacity: 0.3;
+        opacity: 0.1;
         margin: em(16px);
+      }
+    }
+
+    &__delivery {
+      padding: em(16px) 0;
+
+      &-items {
+        display: grid;
+        grid-auto-flow: column;
+        align-items: center;
+        grid-gap: em(24px);
+      }
+
+      &-item {
+        display: grid;
+        grid-auto-flow: column;
+        align-items: center;
+        padding: em(16px);
+        border: 1px solid black;
+        grid-gap: em(8px);
+        border-radius: em(4px);
+        opacity: 0.4;
+
+        &--active {
+          opacity: 1;
+        }
       }
     }
 
     &__payment,
     &__user {
       display: grid;
-      justify-content: center;
+      justify-content: start;
       padding: em(16px);
     }
 
     &__row {
       display: grid;
-      grid-template-columns: repeat(auto-fill, em(200px));
+      grid-auto-flow: column;
+      align-items: start;
+      justify-content: start;
       grid-gap: em(16px);
     }
 
@@ -321,6 +389,7 @@
       width: 100%;
       justify-content: center;
       margin: 0 auto;
+      padding-top: em(32px);
 
       @media (--bp-desktop) {
         grid-column: 1 / 12;
