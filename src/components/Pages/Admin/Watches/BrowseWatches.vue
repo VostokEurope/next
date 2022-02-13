@@ -117,7 +117,6 @@
             }
 
             const clone = (row) => {
-                console.log(row, row.id)
                 cloneWatch({ id: row.id})
             }
             const filterTable = () => {
@@ -141,12 +140,7 @@
                 router.go()
             })
 
-            watch([created, cloned], (newData) => {
-                console.log({
-                    created,
-                    cloned,
-                    newData
-                })
+            watch([created, cloned], () => {
                 router.push({
                     name:`${basePath}-edit`,
                     params: {

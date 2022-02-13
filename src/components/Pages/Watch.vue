@@ -164,7 +164,6 @@
 
 
             const applyDiscount = () => {
-                console.log(item?.value.id)
                 store.dispatch('discount/add', item?.value.id)
                 showDiscount.value = true
             }
@@ -196,7 +195,6 @@
             })
 
             watch(item, () => {
-                console.log(discounts)
                 showDiscount.value = !item?.value?.collection?.banDiscount || discounts.includes(item?.value?.id)
                 setMetas({
                     name: item.value.name,

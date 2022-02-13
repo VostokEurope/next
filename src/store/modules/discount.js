@@ -9,18 +9,7 @@ const getters = {
 
 const mutations = {
     ADD (state, id) {
-        console.log('hola', id)
-        console.log('boolean', !state.discounts.some(entry => {
-            console.log(entry)
-            return entry !== id
-        }))
-        if(!state.discounts.some(entry => {
-            console.log(entry)
-            return entry === id
-        })) {
-            console.log({
-                id
-            })
+        if(!state.discounts.some(entry =>  entry === id)) {
             state.discounts.push(id)
         }
     },

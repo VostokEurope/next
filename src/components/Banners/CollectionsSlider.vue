@@ -144,8 +144,6 @@
                 interval.value = setInterval(nextSlide, 10 * 1000)
             })
 
-            console.log(collections)
-
             return {
                 collections,
                 resolveImage,

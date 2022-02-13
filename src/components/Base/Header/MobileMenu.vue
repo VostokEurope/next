@@ -54,7 +54,6 @@
             }
 
             const goToCart = () => {
-                console.log('carting')
                 mobileMenu.value = false
                 router.push({name: 'cart'})
             }
