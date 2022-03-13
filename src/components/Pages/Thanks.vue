@@ -42,6 +42,7 @@
       display: grid;
       max-width: 80%;
       grid-gap: em(16px);
+      margin: 0 auto;
     }
 
     &__icon {
