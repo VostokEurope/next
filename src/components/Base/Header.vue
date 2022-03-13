@@ -102,6 +102,7 @@
 
             const logout = () => {
                 store.dispatch('auth/logout')
+                router.go()
             }
 
             const sendSearch = () => {

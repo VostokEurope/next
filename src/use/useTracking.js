@@ -37,18 +37,14 @@ export default () => {
     const sendUser = (user) => {
         try {
             Amplitude.setUserId(user?.id)
-            /*
-            var identify = new amplitude.Identify()
+
+            const identify = new amplitude.Identify()
                 .set('gender', user?.gender)
                 .set('tribe', user?.tribe?.code)
                 .set('tribeId', user?.tribe?.id)
-                .set('premium', user?.memberships?.some(membership =>
-                    (membership.type === 'premium' || membership.type === 'coach')
-                     && membership.status === 'active'))
+                .set('premium', user?.memberships?.some(membership => (membership.type === 'premium' || membership.type === 'coach') && membership.status === 'active'))
 
             Amplitude.identify(identify)
-            */
-
         } catch (e) {
             throw new TrackingException('Error tracking setting userId', user?.id)
         }

@@ -1,4 +1,3 @@
-import { useAddProduct } from '@/use/useApi'
 
 const state = () => ({
     products: []
@@ -10,7 +9,7 @@ const getters = {
 
 const mutations = {
     ADD_PRODUCT (state, product) {
-        if(!state.products.find(p => p.id !== product.id)) {
+        if(!state.products.find(p => p.id === product.id)?.id) {
             state.products.push(product)
         }
     },

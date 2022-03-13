@@ -75,7 +75,7 @@
                 </div>
                 <div>
                     <div>
-                        <img :src="resolveImage('info/shop.png')">
+                        <img :src="resolveImage('info/shop.jpg')">
                         <h2 class="title ">
                             «ФЛАГМАН AVIATORTIME.RU Часы России, Швейцарии…»
                         </h2>

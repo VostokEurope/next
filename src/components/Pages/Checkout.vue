@@ -1,14 +1,20 @@
 <template>
     <LayoutDefault clear>
-        <div v-if="products.length" class="page-checkout">
+        <div v-if="products.length && !oldAccount" class="page-checkout">
             <el-form
+                ref="checkoutForm"
                 :model="formCheckout"
-                :rules="checkoutRules"
+                :rules="rules"
                 class="page-checkout__content"
             >
                 <div class="page-checkout__products">
                     <LayoutScrollable>
-                        <CardResume v-for="product in products" :key="product.id" :item="product" @remove="removeItem" />
+                        <CardResume
+                            v-for="product in products"
+                            :key="product.id"
+                            :item="product"
+                            @remove="removeItem"
+                        />
                     </LayoutScrollable>
                 </div>
                 <div class="page-checkout__content-wrapper">
@@ -16,17 +22,19 @@
                         <div class="title title--h3">
                             {{ $t('checkout.personal') }}
                         </div>
-                        <div
-                            :model="formCheckout"
-                            label-width="200px"
-                            :rules="checkoutRules"
-                        >
+                        <div class="page-checkout__content-row">
                             <div class="page-checkout__row">
                                 <el-form-item
                                     prop="name"
                                     :label="$t('commons.name')"
                                 >
                                     <el-input v-model="formCheckout.name" />
+                                </el-form-item>
+                                <el-form-item
+                                    prop="surname"
+                                    :label="$t('commons.surname')"
+                                >
+                                    <el-input v-model="formCheckout.surname" />
                                 </el-form-item>
                                 <el-form-item
                                     prop="email"
@@ -53,22 +61,22 @@
                         </div>
                         <div class="page-checkout__delivery ">
                             <div class="page-checkout__delivery-items">
-                                <div class="page-checkout__delivery-item" :class="{'page-checkout__delivery-item--active': !formCheckout.delivery}" @click="setDelivery(false)">
-                                    <div v-show="!formCheckout.delivery">
+                                <div class="page-checkout__delivery-item" :class="{'page-checkout__delivery-item--active': formCheckout.delivery === 'pickup'}" @click="setDelivery('pickup')">
+                                    <div v-show="formCheckout.delivery === 'pickup'">
                                         <span class="fad fa-circle"></span>
                                     </div>
-                                    <div v-show="formCheckout.delivery">
+                                    <div v-show="formCheckout.delivery !== 'pickup'">
                                         <span class="fal fa-circle"></span>
                                     </div>
                                     <div>
                                         {{ $t('checkout.delivery.shop') }}
                                     </div>
                                 </div>
-                                <div class="page-checkout__delivery-item" :class="{'page-checkout__delivery-item--active': formCheckout.delivery}" @click="setDelivery(true)">
-                                    <div v-show="formCheckout.delivery">
+                                <div class="page-checkout__delivery-item" :class="{'page-checkout__delivery-item--active': formCheckout.delivery === 'delivery'}" @click="setDelivery('delivery')">
+                                    <div v-show="formCheckout.delivery === 'delivery'">
                                         <span class="fad fa-circle"></span>
                                     </div>
-                                    <div v-show="!formCheckout.delivery">
+                                    <div v-show="formCheckout.delivery !== 'delivery'">
                                         <span class="fal fa-circle"></span>
                                     </div>
                                     <div>
@@ -77,35 +85,48 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div v-if="formCheckout.delivery === 'delivery'">
                             <el-form-item
-                                v-if="formCheckout.delivery"
+
                                 prop="address"
                                 :label="$t('commons.address')"
                             >
                                 <el-input v-model="formCheckout.address" />
                             </el-form-item>
                         </div>
+                        <div v-else>
+                            <CardShop />
+                        </div>
                     </div>
                     <div class="page-checkout__privacy container">
                         <div class="text text--primary">
                             *
                         </div>
-                        <el-checkbox
-                            v-model="formCheckout.privacy"
-                            required
+                        <el-form-item
                             prop="privacy"
-                            :label="$t('checkout.privacyAccept')"
-                        />
+                        >
+                            <el-checkbox
+                                v-model="formCheckout.privacy"
+                                required
+                                prop="privacy"
+                                :label="$t('checkout.privacyAccept')"
+                            />
+                        </el-form-item>
                     </div>
                 </div>
 
 
                 <div class="page-checkout__buttons">
                     <div class="page-checkout__buttons-submit">
-                        <el-button :loading="isLoading" type="submit" @click="submitChekcout">
-                            {{ $t('checkout.buy') }}
-                        </el-button>
+                        <el-form-item>
+                            <el-button
+                                :loading="isLoading || isBuying"
+                                type="primary"
+                                @click="submit(checkoutForm)"
+                            >
+                                {{ $t('checkout.buy') }}
+                            </el-button>
+                        </el-form-item>
                     </div>
                 </div>
             </el-form>
@@ -148,10 +169,17 @@
                 </div>
             </div>
         </div>
-        <div v-else class="page-checkout page-checkout--full">
+        <div v-if="!products.length" class="page-checkout page-checkout--full">
             <div class="page-checkout__content title title--h2 u-text-align-center">
                 {{ $t('cart.empty') }}
             </div>
+        </div>
+        <div v-if="oldAccount" class="page-checkout__login">
+            <LoginForm
+                not-toggle
+                :default-email="formCheckout.email"
+                @logged="onLogged"
+            />
         </div>
     </LayoutDefault>
 </template>
@@ -160,39 +188,62 @@
     import LayoutScrollable from '@/components/Layouts/Scrollable.vue'
     import LayoutDefault from '@/components/Layouts/Default.vue'
     import CardResume from '@/components/Card/Resume.vue'
-
-    import { useStore } from 'vuex'
+    import CardShop from '@/components/Card/Shop.vue'
+    import LoginForm from '@/components/Form/Login.vue'
     import useImage from '@/use/useImage'
     import useCurrency from '@/use/useCurrency'
-    import { useGetUser, useRemoveProduct } from '@/use/useApi'
+    import useSeo from '@/use/useSeo'
+
+    import { useGetUser, usePurchaseBuy, useRemoveProduct } from '@/use/useApi'
     import { reactive, ref, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
-    import useSeo from '@/use/useSeo'
+    import { useStore } from 'vuex'
+    import { useRouter } from 'vue-router'
+
+
 
     export default {
         components: {
             LayoutDefault,
             LayoutScrollable,
-            CardResume
+            CardResume,
+            CardShop,
+            LoginForm
         },
         setup() {
             useSeo()
             const store = useStore()
+            const router = useRouter()
+            const checkoutForm = ref()
+            const oldAccount = ref(false)
+
             const { resolveImage } = useImage()
             const { get: getPrice } = useCurrency()
             const { data: user, fetchData: getUser, isLoading } = useGetUser()
+            const { data: purchase, fetchData: sendPurchase, isLoading: isBuying, error: errorPurchase } = usePurchaseBuy()
             const { fetchData: sendRemove } = useRemoveProduct()
             const total = ref(null)
             const { t } = useI18n()
             const discounts = store.getters['discount/discounts']
-
             const discount = ref(0)
+
             const formCheckout = reactive({
+                delivery: 'pickup'
             })
+
             const products = ref([])
 
-            const checkoutRules = reactive({
+
+
+            const rules = reactive({
                 name: [
+                    {
+                        required: true,
+                        message: t('errors.form.required'),
+                        trigger: 'blur',
+                    }
+                ],
+                surname: [
                     {
                         required: true,
                         message: t('errors.form.required'),
@@ -208,19 +259,24 @@
                 ],
                 privacy: [
                     {
-                        required: true,
                         message: t('errors.form.required'),
                         trigger: 'blur',
+                        validator: (instance, value) => !!value
                     }
                 ],
                 phone: [
+
                     {
                         required: true,
+                        validator: (instance, phone) => {
+                            const phoneRe = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+                            const tempPhone = phone?.replaceAll(' ', '')?.replaceAll('-', '')?.replaceAll('(', '')?.replaceAll(')', '')
+                            return phoneRe.test(tempPhone)
+                        },
                         message: t('errors.form.required'),
                         trigger: 'blur',
                     }
                 ],
-
                 email: [
                     {
                         required: true,
@@ -238,7 +294,17 @@
                 store.dispatch('auth/logout')
             }
 
-            const submitChekcout = () => {
+            const afterValidation = () => {
+                sendPurchase({
+                    watches: products.value,
+                    userId: user?.value?.id,
+                    ...formCheckout
+                })
+            }
+
+            const submit = () => {
+                checkoutForm.value.validate().then(afterValidation)
+
 
             }
 
@@ -253,6 +319,11 @@
 
             const setDelivery = (state) => {
                 formCheckout.delivery = state
+            }
+
+            const onLogged = () => {
+                oldAccount.value = false
+                afterValidation()
             }
 
             const getBreakDown = () => {
@@ -274,27 +345,59 @@
                 if (products?.value?.length) {
                     getBreakDown()
                 }
+                formCheckout.name = user?.value?.name
+                formCheckout.surname = user?.value?.surname
+                formCheckout.email = user?.value?.email
+                formCheckout.phone = user?.value?.phone
+                formCheckout.address = user?.value?.address
+                /*toDebug   */
+                formCheckout.name = 'test'
+                formCheckout.surname = 'test'
+                formCheckout.email ='test@test.com'
+                formCheckout.phone = '+34677233356'
+                formCheckout.privacy = true
+                formCheckout.address = user?.value?.address
+                /*endDebug */
+
             })
 
 
             getUser()
 
+            watch(purchase, () => {
+                console.log('sending')
+                store.dispatch('auth/setPurchase')
+                router.push({
+                    name: 'thanks',
+                })
+            })
 
+            watch(errorPurchase, () => {
+                const code = errorPurchase?.value?.response.status
+                if (code === 422) {
+                    oldAccount.value = true
+                }
+
+            })
 
             return {
                 logout,
                 user,
                 getPrice,
                 resolveImage,
-                checkoutRules,
+                rules,
                 formCheckout,
-                submitChekcout,
+                submit,
                 total,
                 isLoading,
                 discount,
                 removeItem,
                 products,
-                setDelivery
+                setDelivery,
+                checkoutForm,
+                isBuying,
+                oldAccount,
+                onLogged
             }
         }
 
@@ -380,10 +483,14 @@
 
     &__row {
       display: grid;
-      grid-auto-flow: column;
       align-items: start;
       justify-content: start;
-      grid-gap: em(16px);
+      grid-gap: 0 em(16px);
+      grid-template-columns: 1fr 1fr;
+
+      @media (--bp-desktop) {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
     }
 
     &__product {
@@ -409,6 +516,12 @@
       @media (--bp-desktop) {
         grid-column: 1 / 12;
       }
+
+      &-submit {
+        &--disabled {
+          opacity: 0.5;
+        }
+      }
     }
 
     &__privacy {
@@ -419,6 +532,23 @@
         top: 0;
         left: em(30px);
       }
+
+      .el-form-item__error {
+        position: absolute;
+        left: 0 !important;
+        top: em(-10px);
+      }
+
+      .el-checkbox__label {
+        padding-left: 16px;
+        white-space: break-spaces;
+      }
+    }
+
+    &__login {
+      padding: em(32px);
+      display: grid;
+      justify-content: center;
     }
   }
 </style>

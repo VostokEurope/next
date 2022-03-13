@@ -24,9 +24,22 @@ const mutations = {
         state.refreshToken = null
         state.user = {}
         axios.defaults.headers.common.Authorization = null
+        var cookies = document.cookie.split(";")
+
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i]
+            var eqPos = cookie.indexOf("=")
+            var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT"
+        }
     },
     SET_USER (state, payload) {
         state.user = payload
+    },
+    SET_PURCHASE (state, payload) {
+        if(state.user && state.user.id) {
+            state.user.hasPurchase = payload
+        }
     }
 }
 
@@ -40,6 +53,9 @@ const actions = {
     },
     setUser ({ commit }, payload) {
         commit('SET_USER', payload)
+    },
+    setPurchase ({ commit }) {
+        commit('SET_PURCHASE', new Date())
     }
 }
 

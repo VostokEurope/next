@@ -3,6 +3,7 @@ import  useTracking from '@/use/useTracking'
 import chasy from '@/router/chasy'
 import collekciya from '@/router/collekciya'
 import admin from '@/router/admin'
+import hasPurchase from '@/middleware/hasPurchase'
 const routes = [
     {
         path: '/',
@@ -72,6 +73,17 @@ const routes = [
         component: () => import('@/views/Checkout.vue'),
         meta: {
             title: 'page.checkout.title',
+            robots: 'noindex,nofollow'
+        }
+    },
+    {
+        path: '/checkout/thanks',
+        beforeEnter: [hasPurchase],
+
+        name: 'thanks',
+        component: () => import('@/views/Thanks.vue'),
+        meta: {
+            title: 'page.thanks.title',
             robots: 'noindex,nofollow'
         }
     },

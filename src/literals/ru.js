@@ -41,9 +41,19 @@ export default {
         cart: {
             title: 'Cart',
             description: 'Cart Description'
+        },
+        thanks: {
+            title: 'Thanks',
+            description: 'Thanks Description'
         }
     },
+    thanks: {
+        text: 'Su pedido ha sido realizado, en breves nos pondremos en contacto contigo'
+    },
     checkout: {
+        email: {
+            exist: 'Este email ya existe, para proceder pon tu contraseña, quiero un texto más largo para que haga doble linea'
+        },
         resume: 'Детали заказа',
         buy: 'Подтвердить заказ',
         personal: 'Контактные данные',

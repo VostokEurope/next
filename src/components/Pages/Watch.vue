@@ -43,7 +43,7 @@
                         <div class="page-watch__price">
                             <span class="text" :class="{'text--strike': showDiscount}">
                                 {{ getPrice(item?.price) }} <span
-                                    v-if="item?.discount && !showDiscount"
+                                    v-if="item?.discount && !showDiscount && false"
                                     class="page-watch__price-gift"
                                     @click="applyDiscount"
                                 >

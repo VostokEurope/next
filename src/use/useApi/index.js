@@ -15,3 +15,5 @@ export * from '@/use/useApi/gender'
 export * from '@/use/useApi/image'
 export * from '@/use/useApi/color'
 export * from '@/use/useApi/user'
+export * from '@/use/useApi/purchase'
+

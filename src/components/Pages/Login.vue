@@ -8,41 +8,12 @@
                 />
             </div>
             <div v-if="!$store.getters['auth/user']?.id" class="page-login__form">
-                <div v-if="isLogin" class="page-login__login">
-                    <el-form
-                        :model="formLogin"
-                        :rules="rulesLogin"
-                    >
-                        <div class="page-login__row">
-                            <div class="page-login__label text">
-                                {{ `${$t('commons.email')} or ${$t('commons.phone')}` }}
-                            </div>
-                            <el-input v-model="formLogin.email" :label="$t('commons.email')" />
-                        </div>
-                        <div class="page-login__row">
-                            <div class="page-login__label text">
-                                {{ $t('commons.password.field') }}
-                            </div>
-                            <el-input
-                                v-model="formLogin.password"
-                                :label="$t('commons.password.field')"
-                                type="password"
-                                @change="submitLogin"
-                            />
-                        </div>
-                        <div class="page-login__buttons">
-                            <div class="page-login__buttons-submit">
-                                <el-button type="primary" :loading="isLoading" @click="submitLogin">
-                                    {{ $t('commons.login') }}
-                                </el-button>
-                            </div>
-                            <div class="page-login__buttons-change text">
-                                {{ $t('commons.noAccount') }} <span class=" link" @click="toggleLogin"> {{ $t('commons.register') }}
-                                </span>
-                            </div>
-                        </div>
-                    </el-form>
-                </div>
+                <LoginForm
+                    v-if="isLogin"
+                    @toggle="toggleLogin"
+                    @logged="onLogged"
+                />
+
                 <div v-if="!isLogin" class="page-login__register">
                     <el-form
                         :model="formRegister"
@@ -123,26 +94,27 @@
 <script>
     import LayoutDefault from '@/components/Layouts/Default.vue'
     import VoPicture from '@/components/Base/Picture.vue'
+    import LoginForm from '@/components/Form/Login.vue'
+
     import { reactive, ref, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
-    import { useLogin, useRegister, useTransferProducts } from '@/use/useApi'
+    import { useRegister, useTransferProducts } from '@/use/useApi'
     import { useRouter } from 'vue-router'
     import useSeo from '@/use/useSeo'
     import useImage from '@/use/useImage'
     export default {
         components: {
             LayoutDefault,
-            VoPicture
+            VoPicture,
+            LoginForm
         },
         setup() {
             const { resolveImage } = useImage()
 
             const { t } = useI18n()
-            const formLogin = ref({})
             const formRegister = ref({})
             const router = useRouter()
             const isLogin = ref(true)
-            const { data, fetchData: sendLogin, isLoading} = useLogin()
             const { data: registered, fetchData: sendRegister, isLoading: loadingRegister} = useRegister()
             const { isFinished, fetchData: transferProducts } = useTransferProducts()
             useSeo()
@@ -195,45 +167,14 @@
                 ]
             })
 
-            const rulesLogin = reactive({
-                email: [
-                    {
-                        required: true,
-                        message: t('errors.form.required'),
-                        trigger: 'blur',
-                    },
-                    {
-                        type: 'email',
-                        message: t('errors.form.email'),
-                        trigger: 'blur',
-                    },
-                ],
-                password: [
-                    {
-                        required: true,
-                        message: t('errors.form.required'),
-                        trigger: 'blur',
-                    },
-                    {
-                        min: 8,
-                        message: t('errors.form.min', { length: 8 }),
-                        trigger: 'blur',
-                    },
-
-                ]
-            })
 
             const toggleLogin = () => {
                 isLogin.value = !isLogin.value
             }
 
-            const submitLogin = () => {
-                sendLogin({
-                    email: formLogin.value.email,
-                    password: formLogin.value.password
-                })
+            const onLogged = () => {
+                router.push({ name: 'home' })
             }
-
             const submitRegister = () => {
                 sendRegister({
                     name: formRegister.value.name,
@@ -241,10 +182,6 @@
                     password: formRegister.value.password
                 })
             }
-
-            watch([data], () => {
-                transferProducts()
-            })
 
             watch([registered], () => {
                 transferProducts()
@@ -258,16 +195,13 @@
 
             return {
                 registerRules,
-                rulesLogin,
-                formLogin,
                 formRegister,
-                isLoading,
                 isLogin,
-                submitLogin,
                 submitRegister,
                 toggleLogin,
                 loadingRegister,
-                resolveImage
+                resolveImage,
+                onLogged
             }
         }
 
