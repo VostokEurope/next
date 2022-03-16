@@ -15,44 +15,44 @@ export default {
             title: (ctx) => `Восток Европа  - Часы ${ctx.named('name')}`
         },
         home: {
-            title: 'Home',
-            description: 'Home Description'
+            title: 'Наручные часы марки VOSTOK EUROPE',
+            description: 'Часы Восток-Европа (Vostok Europe). Полная коллекция. Новый дизайн, усовершенствованные механизмы, высокое качество'
         },
         checkout: {
             title: 'Checkout',
             description: 'Checkout Description'
         },
         login: {
-            title: 'Login',
-            description: 'Login Description'
+            title: 'Вход или регистрация нового пользователя',
+            description: 'Вход в существующий аккуант или регистрация нового пользователя в часов интернет-магазине vostok-europe.shop'
         },
         contact: {
-            title: 'Contact',
-            description: 'Contact Description'
+            title: 'Наши контакты. Официальный дилер по часам марки Восток-Европа (Vostok Europe)',
+            description: 'Телефоны для связи. Адрес часового салона. Полный ассортимент часов марки Vostok Europe в Москве.'
         },
         guaranty: {
-            title: 'Garantía y Servicio',
-            description: 'Garantía y Servicio Descripción'
+            title: 'Гаратния и сервисные центры — магазин vostok-europe.shop',
+            description: 'Гарантийные обязательства официального сайта по продаже часов марки Восток-Европа (Vostok Europe)'
         },
         payment: {
-            title: 'Delivery & Pago',
-            description: 'Delivery Description'
+            title: 'Оплата и доставка. Оформление заказов - 24 часа в сутки.',
+            description: 'Оформление заказов 24 часа в сутки. Оплата часов онлайн дебетовыми, кредитными картами, Яндекс-деньгами... Быстрая и бесплатная доставка по России.'
         },
         cart: {
-            title: 'Cart',
-            description: 'Cart Description'
+            title: 'Корзина с товарами',
+            description: 'Корзина пользователя часового интернет-магазина, специализирующегося на продаже часов марки Vostok Europe'
         },
         thanks: {
-            title: 'Thanks',
+            title: 'Спасибо за заказ',
             description: 'Thanks Description'
         }
     },
     thanks: {
-        text: 'Su pedido ha sido realizado, en breves nos pondremos en contacto contigo'
+        text: 'Ваша заявка принята! В ближайшее время мы с вами свяжемся. Если у вас есть вопросы по вашему заказу, вы можете связаться с нашими менеджерами по телефону +7 (926) 300-74-91 (с 10:00 до 21:00 по Москве).'
     },
     checkout: {
         email: {
-            exist: 'Este email ya existe, para proceder pon tu contraseña, quiero un texto más largo para que haga doble linea'
+            exist: 'Пользователь с таким адресом электронной почты уже существует. Чтобы продолжить оформление заказа, введите ваш пароль.'
         },
         resume: 'Детали заказа',
         buy: 'Подтвердить заказ',
