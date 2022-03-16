@@ -135,6 +135,7 @@ export default {
     },
     commons: {
         address: 'Адрес',
+        surname: 'Фамилия',
         business: {
             watch: "Часы",
             watches: "Часы"
