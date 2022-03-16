@@ -17,7 +17,6 @@ export default () => {
 
 
     const fetchData = (params = {}) => {
-        console.log({params, user})
         const { response, data, error, isLoading, isFinished } = useAxios(`/purchases/buy`, {
             method: 'post',
             data: {

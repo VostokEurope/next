@@ -12,7 +12,7 @@ export default () => {
     })
 
     const fetchData = ({ data: formData } = {}) => {
-        const { response, data, error, isLoading, isFinished } = useAxios('/api/v2/app/refreshToken', {
+        const { response, data, error, isLoading, isFinished } = useAxios('/auth/refreshToken', {
             method: 'post',
             data: {
                 refresh_token: formData?.refreshToken

@@ -194,7 +194,7 @@
     import useCurrency from '@/use/useCurrency'
     import useSeo from '@/use/useSeo'
 
-    import { useGetUser, usePurchaseBuy, useRemoveProduct } from '@/use/useApi'
+    import { useGetUser, useLogout, usePurchaseBuy, useRemoveProduct } from '@/use/useApi'
     import { reactive, ref, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
     import { useStore } from 'vuex'
@@ -222,6 +222,8 @@
             const { data: user, fetchData: getUser, isLoading } = useGetUser()
             const { data: purchase, fetchData: sendPurchase, isLoading: isBuying, error: errorPurchase } = usePurchaseBuy()
             const { fetchData: sendRemove } = useRemoveProduct()
+            const { fetchData: sendLogout} = useLogout()
+
             const total = ref(null)
             const { t } = useI18n()
             const discounts = store.getters['discount/discounts']
@@ -291,7 +293,7 @@
                 ]
             })
             const logout = () => {
-                store.dispatch('auth/logout')
+                sendLogout()
             }
 
             const afterValidation = () => {
@@ -365,7 +367,6 @@
             getUser()
 
             watch(purchase, () => {
-                console.log('sending')
                 store.dispatch('auth/setPurchase')
                 router.push({
                     name: 'thanks',

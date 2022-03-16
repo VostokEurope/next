@@ -17,7 +17,7 @@
     import { useRouter } from 'vue-router'
     import axios from '@/clients/axios'
     import pkg from '../package.json'
-    import { useRefreshToken } from './use/useApi'
+    import { useLogout, useRefreshToken } from './use/useApi'
     import { watch } from 'vue'
 
 
@@ -28,6 +28,7 @@
         setup () {
             const store = useStore()
             const router = useRouter()
+            const { fetchData: sendLogout, isFinished: isLoggedOut } = useLogout()
             const { fetchData: refreshToken, data: refreshData, error: errorRefresh} = useRefreshToken()
 
             const configureInterceptor = () => {
@@ -63,7 +64,10 @@
             })
 
             watch(errorRefresh, () => {
-                store.dispatch('auth/logout')
+                sendLogout()
+            })
+
+            watch(isLoggedOut, () => {
                 router.push({ name: 'login' })
             })
 

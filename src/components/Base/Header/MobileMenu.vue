@@ -38,19 +38,20 @@
 
 <script>
     import useCustomRouter from '@/use/useCustomRouter'
-    import { useStore } from 'vuex'
     import { useRouter } from 'vue-router'
     import { ref } from 'vue'
+    import { useLogout } from '@/use/useApi'
     export default {
         emits: ['close'],
         setup() {
             const { getNavPath } = useCustomRouter()
-            const store = useStore()
             const router = useRouter()
             const search = ref('')
             const mobileMenu = ref(false)
+            const { fetchData: sendLogout, isFinished: isLoggedOut} = useLogout()
+
             const logout = () => {
-                store.dispatch('auth/logout')
+                sendLogout()
             }
 
             const goToCart = () => {

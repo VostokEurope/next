@@ -35,11 +35,10 @@
 
 <script>
     import LayoutDefault from '@/components/Layouts/Default.vue'
-    import { useStore } from 'vuex'
     import { useRouter } from 'vue-router'
     import useImage from '@/use/useImage'
     import useCurrency from '@/use/useCurrency'
-    import { useGetUser, useRemoveProduct } from '@/use/useApi'
+    import { useGetUser, useLogout, useRemoveProduct } from '@/use/useApi'
     import { watch } from 'vue-demi'
     import useSeo from '@/use/useSeo'
 
@@ -48,16 +47,16 @@
             LayoutDefault,
         },
         setup() {
-            const store = useStore()
             const router = useRouter()
             const { resolveImage } = useImage()
             const { get: getPrice } = useCurrency()
             const { data: user, fetchData: getUser } = useGetUser()
             const {isFinished, fetchData: deleteItem } = useRemoveProduct()
             const { setMetas } = useSeo({})
+            const { fetchData: sendLogout } = useLogout()
 
             const logout = () => {
-                store.dispatch('auth/logout')
+                sendLogout()
             }
 
 

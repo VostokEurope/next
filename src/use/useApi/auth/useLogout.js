@@ -1,8 +1,10 @@
 import axios from '@/clients/axios'
 import { useAxios } from '@/use/useAxios'
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, watch } from 'vue'
+import { useStore } from 'vuex'
 
 export default () => {
+    const store = useStore()
     const state = reactive({
         response: undefined,
         data: undefined,
@@ -12,7 +14,7 @@ export default () => {
     })
 
     const fetchData = () => {
-        const { response, data, error, isLoading, isFinished } = useAxios('/api/v2/app/logout', { method: 'post' }, axios)
+        const { response, data, error, isLoading, isFinished } = useAxios('/auth/logout', { method: 'post' }, axios)
 
         state.response = response
         state.data = data
@@ -20,6 +22,11 @@ export default () => {
         state.isLoading = isLoading
         state.isFinished = isFinished
     }
+
+    watch(() => state.isFinished, () => {
+        store.dispatch('auth/logout')
+    })
+
 
     return {
         ...toRefs(state),

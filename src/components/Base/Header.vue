@@ -72,7 +72,7 @@
     import { useStore } from 'vuex'
     import { useRouter } from 'vue-router'
     import { ref, watch } from 'vue'
-    import { useGetUser, useRemoveProduct } from '@/use/useApi'
+    import { useGetUser, useLogout, useRemoveProduct } from '@/use/useApi'
     import useImage from '@/use/useImage'
     import useCurrency from '@/use/useCurrency'
     export default {
@@ -91,7 +91,6 @@
             },
         },
         setup() {
-            const store = useStore()
             const router = useRouter()
             const search = ref('')
             const mobileMenu = ref(false)
@@ -99,10 +98,10 @@
             const { get: getPrice } = useCurrency()
             const { data: user, fetchData: getUser } = useGetUser()
             const {isFinished, fetchData: deleteItem } = useRemoveProduct()
+            const { fetchData: sendLogout, isFinished: isLoggedOut } = useLogout()
 
             const logout = () => {
-                store.dispatch('auth/logout')
-                router.go()
+                sendLogout()
             }
 
             const sendSearch = () => {
@@ -120,6 +119,10 @@
             getUser()
 
             watch(isFinished, () => {
+                router.go()
+            })
+
+            watch(isLoggedOut, () => {
                 router.go()
             })
 

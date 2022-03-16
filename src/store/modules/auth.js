@@ -47,7 +47,6 @@ const actions = {
     login ({ commit }, payload) {
         commit('SET_TOKENS', payload)
     },
-
     logout ({ commit }) {
         commit('CLEAR_TOKENS')
     },
