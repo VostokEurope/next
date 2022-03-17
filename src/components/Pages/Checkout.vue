@@ -1,6 +1,6 @@
 <template>
     <LayoutDefault clear>
-        <div v-if="products.length && !oldAccount" class="page-checkout">
+        <div v-if="products.length && !oldAccount && !newAccount" class="page-checkout">
             <el-form
                 ref="checkoutForm"
                 :model="formCheckout"
@@ -181,6 +181,13 @@
                 @logged="onLogged"
             />
         </div>
+        <div v-if="newAccount" class="page-checkout__login">
+            <RegisterForm
+                not-toggle
+                :default-data="formCheckout"
+                @registered="onLogged"
+            />
+        </div>
     </LayoutDefault>
 </template>
 
@@ -190,6 +197,8 @@
     import CardResume from '@/components/Card/Resume.vue'
     import CardShop from '@/components/Card/Shop.vue'
     import LoginForm from '@/components/Form/Login.vue'
+    import RegisterForm from '@/components/Form/Register.vue'
+
     import useImage from '@/use/useImage'
     import useCurrency from '@/use/useCurrency'
     import useSeo from '@/use/useSeo'
@@ -208,7 +217,8 @@
             LayoutScrollable,
             CardResume,
             CardShop,
-            LoginForm
+            LoginForm,
+            RegisterForm
         },
         setup() {
             useSeo()
@@ -216,6 +226,8 @@
             const router = useRouter()
             const checkoutForm = ref()
             const oldAccount = ref(false)
+            const newAccount = ref(false)
+
 
             const { resolveImage } = useImage()
             const { get: getPrice } = useCurrency()
@@ -367,6 +379,7 @@
             getUser()
 
             watch(purchase, () => {
+                console.log('purchase')
                 store.dispatch('auth/setPurchase')
                 router.push({
                     name: 'thanks',
@@ -374,9 +387,15 @@
             })
 
             watch(errorPurchase, () => {
-                const code = errorPurchase?.value?.response.status
+                const errorData = errorPurchase?.value?.response
+                const code = errorData?.status
+                const exists = errorData?.data?.exist
+                console.log(errorData)
                 if (code === 422) {
-                    oldAccount.value = true
+                    oldAccount.value = exists
+                }
+                if (code === 422) {
+                    newAccount.value = !exists
                 }
 
             })
@@ -398,6 +417,7 @@
                 checkoutForm,
                 isBuying,
                 oldAccount,
+                newAccount,
                 onLogged
             }
         }

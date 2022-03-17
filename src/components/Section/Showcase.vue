@@ -21,8 +21,8 @@
                     :item="item"
                 />
             </div>
-            <div v-if="more" :to="more" class="showcase__more">
-                ...{{ $t('commons.showall') }}
+            <div v-if="more" class="showcase__more text" @click="$router.push(more)">
+                {{ $t('commons.showall') }}
             </div>
         </div>
         <PlaceholderSection v-else />
@@ -53,7 +53,7 @@
                 default: ''
             },
             more: {
-                type: String,
+                type: [String, Object],
                 default: ''
             },
             items: {
@@ -92,6 +92,7 @@
   .showcase {
     display: grid;
     padding-bottom: em(48px);
+    grid-gap: em(8px);
 
     &__heading {
       display: grid;
@@ -103,10 +104,13 @@
     }
 
     &__more {
-      text-decoration: underline;
       cursor: pointer;
       font-size: em(16px);
-      padding: em(8px) 0;
+      padding: em(8px) em(16px);
+      margin: 0 auto;
+      background-color: var(--color-primary);
+      border-radius: 5px;
+      color: var(--color-white);
     }
 
     &__description {

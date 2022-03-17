@@ -37,6 +37,12 @@
                     <SectionShowcase
                         v-if="collection?.watches?.length"
                         :key="collection.id"
+                        :more="{
+                            name: 'collection',
+                            params: {
+                                id: collection.slug
+                            }
+                        }"
                         :loading="isLoading"
                         :anchor="`collection-${collection?.id}`"
                         :title="collection.name"
