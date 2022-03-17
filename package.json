@@ -4,6 +4,7 @@
     "businessName": "vostok",
     "private": true,
     "scripts": {
+        "prod": "vite --port 8000 --mode production",
         "dev": "vite --host",
         "build": "vite build",
         "serve": "vite preview",
